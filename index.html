@@ -4,8 +4,19 @@
 <br>
 <pre><code class="language-clike language-c"> // program to show octal escape sequence
 #include &lt;stdio.h&gt;
+
+char to_lowercase(char letter) 
+{
+	if (('A' <= letter) && (letter <= 'Z'))
+	  letter = letter - 'A' + 'a';
+	return letter;
+}
+
 int main()
 {
+
+	char c = 'A';
+	printf("As a lower case character: '%c'\n", to_lowercase(c));
 
         int a = 025;
         int b = 063;
