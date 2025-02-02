@@ -5,8 +5,10 @@
 <pre><code class="language-clike language-c"> // program to show octal escape sequence
 #include &lt;stdio.h&gt;
 
+// converts an uppercase character to lowercase
 char to_lowercase(char letter) 
 {
+	// 'A' is 65, 'Z' is 90
 	if (('A' <= letter) && (letter <= 'Z'))
 	  letter = letter - 'A' + 'a';
 	return letter;
