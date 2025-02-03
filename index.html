@@ -1,0 +1,81 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+<!--nothing yet -->
+<br>
+<pre><code class="language-clike language-c"> // program to show octal escape sequence
+#include &lt;stdio.h&gt;
+
+// converts an uppercase character to lowercase
+char to_lowercase(char letter) 
+{
+	// 'A' is 65, 'Z' is 90
+	if (('A' <= letter) && (letter <= 'Z'))
+	  letter = letter - 'A' + 'a';
+	return letter;
+}
+
+int main()
+{
+        /*
+        INT_MAX: 2147483647
+        INT_MIN: -2147483648
+        absu(INT_MIN): 2147483648
+
+	-INT_MIN == INT_MIN
+	*/
+
+        char c = 'A';
+        printf("As a lower case character: '%c'\n", to_lowercase(c));
+
+        int a = 025;
+        int b = 063;
+        int c = 0b111;
+        int d = 0x111;
+        //int e = 08; // invalid digit "8" in octal constant
+        //int e = 0738; // invalid digit "8" in octal constant
+        printf("Decimal of 25(Octal) is %d , Octal of 25(Octal) is %o\n", a, a);
+        printf("Decimal of 63(Octal) is %d \n", b);
+        printf("Decimal of 111(binary) is %d \n", c);
+        printf("Decimal of 111(hex) is %d \n", d);
+
+
+        char str[] = "31\01267\012";
+        printf("%s", str);
+
+        char str1[] = "31\12367";
+        printf("%s", str1);
+        printf("\n");
+        char str2[] = "11\77967";
+        printf("%s", str2);
+
+        return 0;
+}
+
+/*
+ * In C octal escape sequence is represented by \ followed by three octal digits. Note that one or two octal digits are also allowed. An octal sequence ends either ends after three octal digits following \ or when a digit after \ is not an octal digit.
+ *
+ *
+ *If we look at the output then after 31 a newline character is printed and then 67 is printed. This is because \012 is interpreted as \n or new line character.Actually, \012 represents octal escape sequence for \n or newline. Octal value of 12 in decimal is 10 and in ASCII it represents newline.
+ *
+ */
+
+
+
+/*
+ *In str \123 is interpreted as octal escape sequence and value of octal 123 is 83 and character corresponding to it in my machine is ‘S’ as my machine uses ASCII. It can be different if character set used is not ASCII.
+In str2 \77 is interpreted as an octal escape sequence and not \779. So, the value of 77 is 63 in decimal and in ASCII it is ‘?’.
+ */ </code></pre>
+<!--<img src="Question3_1.png" alt="First Screen">
+<br><br>
+&nbsp; &nbsp; <img src="Question3_2.png" alt="Second Screen">
+<br><br>
+&nbsp; &nbsp; <img src="Question3_02.png" alt="Third Screen">
+<br><br>
+&nbsp; &nbsp; <img src="Question3_4.png" alt="Fourth Screen">
+<br><br>
+&nbsp; &nbsp; <img src="Question3_6.png" alt="Fifth Screen">
+<br><br>
+&nbsp; &nbsp; <img src="Question3_8.png" alt="Sixth Screen">
+
+-->
+
