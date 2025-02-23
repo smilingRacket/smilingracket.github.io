@@ -84,7 +84,6 @@ In str2 \77 is interpreted as an octal escape sequence and not \779. So, the val
 Question:
 <br>
 Given the following code in C:
-
 <pre><code class="language-clike language-c">
 int a = 5;
 int b = a++;
@@ -102,7 +101,7 @@ c) a = 6, b = 6
 d) a = 5, b = 6  
 <br>
 </div>
-
+<p>
 <div id="main-content" class="wiki-content">
 
         <p>The logical AND and logical OR operators (<code>&amp;&amp;</code> and <code>||</code>, respectively) exhibit "short-circuit" operation. That is, the second operand is not evaluated if the result can be deduced solely by evaluating the first operand.</p><p>Programmers should exercise caution if the second operand contains side effects because it may not be apparent whether the side effects actually occur.</p><p>In the following code, the value of <code>i</code> is incremented only when <code>i &gt;= 0</code>:</p><div class="code panel pdl conf-macro output-block" style="border-width: 1px;" data-hasbody="true" data-macro-name="code"><div class="codeContent panelContent pdl">
@@ -113,4 +112,5 @@ d) a = 5, b = 6
 <div><div id="highlighter_613" class="syntaxhighlighter sh-confluence nogutter  c"><div class="toolbar"><span><a href="#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container" title="Hint: double-click to select code"><div class="line number1 index0 alt2" data-bidi-marker="true"><code class="c color1 bold">char</code> <code class="c plain">*p = </code><code class="c comments">/* Initialize; may or may not be NULL */</code></div><div class="line number2 index1 alt1" data-bidi-marker="true"><code class="c color1 bold">char</code> <code class="c plain">*q = NULL;</code></div><div class="line number3 index2 alt2" data-bidi-marker="true"><code class="c keyword bold">if</code> <code class="c plain">(p == NULL) {</code></div><div class="line number4 index3 alt1" data-bidi-marker="true"><code class="c spaces">&nbsp;&nbsp;</code><code class="c plain">q = (</code><code class="c color1 bold">char</code> <code class="c plain">*) </code><code class="c functions bold">malloc</code><code class="c plain">(BUF_SIZE);</code></div><div class="line number5 index4 alt2" data-bidi-marker="true"><code class="c spaces">&nbsp;&nbsp;</code><code class="c plain">p = q;</code></div><div class="line number6 index5 alt1" data-bidi-marker="true"><code class="c plain">}</code></div><div class="line number7 index6 alt2" data-bidi-marker="true"><code class="c keyword bold">if</code> <code class="c plain">(p == NULL) {</code></div><div class="line number8 index7 alt1" data-bidi-marker="true"><code class="c spaces">&nbsp;&nbsp;</code><code class="c comments">/* Handle malloc() error */</code></div><div class="line number9 index8 alt2" data-bidi-marker="true"><code class="c spaces">&nbsp;&nbsp;</code><code class="c keyword bold">return</code><code class="c plain">;</code></div><div class="line number10 index9 alt1" data-bidi-marker="true"><code class="c plain">}</code></div><div class="line number11 index10 alt2" data-bidi-marker="true">&nbsp;</div><div class="line number12 index11 alt1" data-bidi-marker="true"><code class="c comments">/* Perform some computation based on p */</code></div><div class="line number13 index12 alt2" data-bidi-marker="true"><code class="c functions bold">free</code><code class="c plain">(q);</code></div><div class="line number14 index13 alt1" data-bidi-marker="true"><code class="c plain">q = NULL;</code></div></div></td></tr></tbody></table></div></div>
 </div></div>
 
+</p>
 
