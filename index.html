@@ -3,6 +3,36 @@
 <!--nothing yet -->
 
 <div>
+<pre><code class="language-clike language-c">
+#include <stdio.h>
+
+// arr + 1: Advances by the size of one element (e.g., 4 bytes for an int on many systems).
+// &arr + 1: Advances by the size of the whole array (e.g., 20 bytes for an array of 5 ints).
+
+int main() {
+    int arr[5] = {10, 20, 30, 40, 50};
+
+    // Pointer to the first element
+    int* ptr1 = arr + 1;
+    // Pointer to one past the entire array
+    int (*ptr2)[5] = &arr + 1;
+
+    printf("Base address of arr: %p\n", (void*)arr);
+    printf("arr + 1: %p (Value: %d)\n", (void*)ptr1, *ptr1);
+    printf("&arr + 1: %p\n", (void*)ptr2);
+
+    // Difference in bytes
+    printf("Bytes between arr and arr + 1: %ld\n", (char*)ptr1 - (char*)arr);
+    printf("Bytes between arr and &arr + 1: %ld\n", (char*)ptr2 - (char*)arr);
+
+    return 0;
+}
+</code></pre>
+<br>
+<br>
+</div>
+
+<div>
 Question:
 <br>
 Given the following code in C:
