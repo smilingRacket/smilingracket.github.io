@@ -66,7 +66,13 @@ What are the values of a and b after execution?
 </div>
 <hr>
 <div>
-Consider the expression if (x != 0 && y / x > 10). What happens if x is equal to 0?
+Consider the code as below
+<pre><code class="language-clike language-c">
+	int x = 0;
+	if (x != 0 && y / x > 10) {
+	    printf(".....\n");
+	}
+</code></pre>
 <br>
 <br>
 &nbsp;a) The expression y / x > 10 is evaluated and a division-by-zero error occurs.
