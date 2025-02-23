@@ -51,6 +51,32 @@ What are the values of a and b after execution?
 </div>
 
 <hr>
+
+<div>
+	What is the output of the following code snippet, and explain why?
+	<br>
+<pre><code class="language-clike language-c">
+#include <stdio.h>
+
+int f1() {
+    printf("f1 called\n");
+    return 0;
+}
+
+int f2() {
+    printf("f2 called\n");
+    return 1;
+}
+
+int main() {
+    int result = f1() && f2();
+    printf("result: %d\n", result);
+    return 0;
+}
+</code></pre>
+</div>
+<hr>
+
 <div>
     What will be the output of the following code? Explain why.
     <br>
