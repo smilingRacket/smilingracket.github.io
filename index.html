@@ -15,7 +15,7 @@
 // arr + 1: Advances by the size of one element (e.g., 4 bytes for an int on many systems).
 // &arr + 1: Advances by the size of the whole array (e.g., 20 bytes for an array of 5 ints).
 
-// arr: When an array name like arr is used in most expressions (except as an operand of sizeof or the unary & operator), it "decays" to a pointer to its first element.
+// arr: When an array name like 'arr' is used in most expressions (except as an operand of sizeof or the unary & operator), it "decays" to a pointer to its first element.
 // &arr: The & operator applied to the array name gives the address of the entire array
 
 int main() {
@@ -64,6 +64,37 @@ What are the values of a and b after execution?
 <br>
 <br>
 </div>
+<hr>
+<div>
+    What will be the output of the following code? Explain why.
+    <br>
+<pre><code class="language-clike language-c">
+#include <stdio.h>
+
+void gunc() {
+    int g = 10;
+    printf("%d\n", g);
+    g++;
+}
+
+
+void func() {
+    static int x = 10;
+    printf("%d\n", x);
+    x++;
+}
+
+int main() {
+    func();
+    func();
+
+    gunc();
+    gunc();
+    return 0;
+}
+</code></pre>
+</div>
+
 <hr>
 <div>
     What will be the output of the following code? Explain why.
