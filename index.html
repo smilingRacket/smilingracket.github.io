@@ -28,7 +28,7 @@ void updateDataWith_ConstantPointer(const int* a) {
 
 
 <div>
-    what would happen with the input pointer after this function below being called?
+    what is the output here?
     <br>
 <pre><code class="language-clike language-c">
 #include &lt;stdio.h&gt;
@@ -39,9 +39,6 @@ void updateDataWith_ConstantPointer(const int** a) {
     *z = -7;
     *a = z;  // Updates the caller's pointer
 }
-
-const int* ptr = &x;
-updateDataWith_ConstantPointer(&ptr);
 
 int main() {
     int x = 5;
