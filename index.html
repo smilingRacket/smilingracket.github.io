@@ -49,6 +49,7 @@ int main() {
     updateDataWith_ConstantPointer(&ptr);
     printf("After: ptr points to %p, value = %d\n", (void*)ptr, *ptr);
     free(ptr);
+    ptr = NULL;
     return 0;
 }
 </code></pre>
