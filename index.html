@@ -14,6 +14,49 @@ void updateDataWith_ConstantPointer(const int* a){
 <hr>
 
 <div>
+    what would happen with the input pointer after this function below being called?
+    <br>
+<pre><code class="language-clike language-c">
+void updateDataWith_ConstantPointer(const int* a) {
+    int *z = malloc(sizeof(int));
+    *z = -7;
+    a = z;
+}
+</code></pre>
+</div>
+<hr>
+
+
+<div>
+    what would happen with the input pointer after this function below being called?
+    <br>
+<pre><code class="language-clike language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void updateDataWith_ConstantPointer(const int** a) {
+    int *z = malloc(sizeof(int));
+    *z = -7;
+    *a = z;  // Updates the caller's pointer
+}
+
+const int* ptr = &x;
+updateDataWith_ConstantPointer(&ptr);
+
+int main() {
+    int x = 5;
+    const int* ptr = &x;
+    printf("Before: ptr points to %p, value = %d\n", (void*)ptr, *ptr);
+    const int* ptr = &x;
+    updateDataWith_ConstantPointer(&ptr);
+    printf("After: ptr points to %p, value = %d\n", (void*)ptr, *ptr);
+    return 0;
+}
+</code></pre>
+</div>
+<hr>
+
+<div>
 	    For an array int arr[5], if arr starts at address 1000 and sizeof(int) is 4:
 <ul>
   <li>arr + 1 = 1000 + 4 = 1004 (address of arr[1]).  </li>
