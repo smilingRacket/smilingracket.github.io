@@ -38,6 +38,7 @@ void updateDataWith_ConstantPointer(const int** a) {
     int *z = malloc(sizeof(int));
     *z = -7;
     *a = z;  // Updates the caller's pointer
+    // the caller’s pointer to point to the new heap memory
 }
 
 int main() {
@@ -47,6 +48,7 @@ int main() {
     const int* ptr = &x;
     updateDataWith_ConstantPointer(&ptr);
     printf("After: ptr points to %p, value = %d\n", (void*)ptr, *ptr);
+    free(ptr);
     return 0;
 }
 </code></pre>
