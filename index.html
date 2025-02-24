@@ -332,3 +332,19 @@ In str2 \77 is interpreted as an octal escape sequence and not \779. So, the val
 
 </p>
 
+<div>
+	where struct  stored in C programming? in Stack or Heap ? 
+	<br>
+	<br>
+	it depends on the context:
+
+	<br>
+	<br>
+    Data segment: Global or static struct variables.
+	<br>
+    Text segment: Rarely applies to struct variables directly. : part of the program’s code (like a constant or literal), it’s not really "stored" as a variable but resides in the text segment
+	<br>
+    Stack: Local struct variables with automatic storage. -- The stack is used for automatic variables that exist only during the function’s execution
+	<br>
+    Heap: Dynamically allocated struct variables.  -- dynamically allocated using malloc() or calloc() (e.g., struct MyStruct *s = malloc(sizeof(struct MyStruct));), it’s stored on the heap. The heap is for memory allocated at runtime that persists until explicitly freed.
+</div>
