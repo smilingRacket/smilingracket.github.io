@@ -1,6 +1,17 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
 <!--nothing yet -->
+<div>
+    what would happen with the input pointer after this function below being called?
+    <br>
+<pre><code class="language-clike language-c">
+void updateDataWith_ConstantPointer(const int* a){
+      int y = 7;
+      a = &y;
+}
+</code></pre>
+</div>
+<hr>
 
 <div>
 	    For an array int arr[5], if arr starts at address 1000 and sizeof(int) is 4:
@@ -69,7 +80,7 @@ What are the values of a and b after execution?
     What will be the output of the following code? Explain why.
     <br>
 <pre><code class="language-clike language-c">
-#include <stdio.h>
+#include &lt;stdio.h&gt;
 
 void gunc() {
     int g = 10;
@@ -339,12 +350,14 @@ In str2 \77 is interpreted as an octal escape sequence and not \779. So, the val
 	it depends on the context:
 
 	<br>
-	<br>
-    Data segment: Global or static struct variables.
-	<br>
-    Text segment: Rarely applies to struct variables directly. : part of the program’s code (like a constant or literal), it’s not really "stored" as a variable but resides in the text segment
-	<br>
-    Stack: Local struct variables with automatic storage. -- The stack is used for automatic variables that exist only during the function’s execution
-	<br>
-    Heap: Dynamically allocated struct variables.  -- dynamically allocated using malloc() or calloc() (e.g., struct MyStruct *s = malloc(sizeof(struct MyStruct));), it’s stored on the heap. The heap is for memory allocated at runtime that persists until explicitly freed.
+	<ul>
+   <li> Data segment: Global or static struct variables.</li>
+
+   <li> Text segment: Rarely applies to struct variables directly. : part of the program’s code (like a constant or literal), it’s not really "stored" as a variable but resides in the text segment</li>
+
+   <li> Stack: Local struct variables with automatic storage. -- The stack is used for automatic variables that exist only during the function’s execution</li>
+
+   <li> Heap: Dynamically allocated struct variables.  -- dynamically allocated using malloc() or calloc() (e.g., struct MyStruct *s = malloc(sizeof(struct MyStruct));), it’s stored on the heap. The heap is for memory allocated at runtime that persists until explicitly freed.</li>
+
+</ul>
 </div>
