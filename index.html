@@ -465,3 +465,26 @@ In C, a 2D array int arr[3][4] is stored in memory as:
 <li>D) A disjoint set of 12 integers scattered in memory</li>
 </ul>
 </div>
+<hr>
+<div>
+
+True or False :	the code provided below will not result in a dangling pointer.
+    <br>
+<pre><code class="language-clike language-c">
+	#include &lt;stdio.h&gt;
+
+	int *get_pointer(void) {
+	    int x = 10;         // Local variable on the stack
+	    		        // 'x' is automatically destroyed when the function returns.  The memory it occupied on the stack is then available to be used for other purposes.
+
+	    return &x;          // Return its address (dangerous!)
+	}
+
+	int main(void) {
+	    int *ptr = get_pointer();    // ptr points to x’s address
+	    printf("Value: %d\n", *ptr); // Undefined behavior: x is out of scope
+	    return 0;
+	}
+</code></pre>
+</div>
+
