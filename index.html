@@ -487,4 +487,60 @@ True or False :	the code provided below will not result in a dangling pointer.
 	}
 </code></pre>
 </div>
+<hr>
 
+True or False :	the code provided below will not result in a dangling pointer.
+    <br>
+<pre><code class="language-clike language-c">
+	#include &lt;stdio.h&gt;
+	#include &lt;stdlib.h&lt; // Added for malloc/free 
+
+	int *get_pointer(void) {
+	    int *ptr;
+	    // Allocate memory dynamically
+	    ptr = (int *)malloc(sizeof(int));
+	    int x = 10; // Local variable on the stack
+	    
+	    ptr = &x;   // Reassign ptr to point to x --This is the crucial mistake. The address of the local variable x is assigned to ptr. The memory allocated by malloc is now lost (memory leak). The value of the pointer allocated by malloc is overwritten by the address of x. You no longer have a pointer to the malloc'd memory.
+
+	    return ptr; // Return its address (dangerous!)
+	}
+
+	int main(void) {
+	    int *ptr = get_pointer(); // The returned address (the address of x) is assigned to ptr
+	    printf("Value: %d\n", *ptr); 
+	    free(ptr);                // Free the pointer -- Attempting to free stack memory leads to undefined behavior (likely a crash).
+
+	    ptr = NULL;               // Set to NULL
+	    printf("Value: %d\n", *ptr); // Attempt to dereference NULL
+	    return 0;
+	}
+</code></pre>
+</div>
+<hr>
+
+True or False :	the code provided below will not result in a dangling pointer.
+    <br>
+<pre><code class="language-clike language-c">
+	#include <stdio.h>
+	#include <stdlib.h>
+
+	int *get_pointer(void) {
+	    int *ptr = malloc(sizeof(int)); // Allocate memory
+	    if (ptr) {
+		*ptr = 10;                  // Store value in heap memory
+	    }
+	    return ptr;                     // Return heap memory pointer
+	}
+
+	int main(void) {
+	    int *ptr = get_pointer();
+	    if (ptr) {
+		printf("Value: %d\n", *ptr); // Prints: Value: 10
+		free(ptr);                   // Free heap memory
+		ptr = NULL;                  // Safe nulling
+	    }
+	    return 0;
+	}
+</code></pre>
+</div>
