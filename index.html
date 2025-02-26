@@ -16,6 +16,20 @@
 </div>
 <hr>
 
+<div>
+    what is the output here
+    <br>
+<pre><code class="language-clike language-c">
+#include <stdio.h>
+#define x 5+2
+int main() {
+    printf("%d\n", x * x * x);
+    return 0;
+}
+</code></pre>
+</div>
+<hr>
+
 
 <div>
     Anything wrong with the code below? ( compile error, or runtime error )
@@ -379,7 +393,7 @@ printf("%d\n", *(ptr - 2));
 // converts an uppercase character to lowercase
 char to_lowercase(char letter) 
 {
-	// 'A' is 65, 'Z' is 90
+	// 'A' is 65, 'Z' is 90, 'a' is 95
 	if (('A' <= letter) && (letter <= 'Z'))
 	  letter = letter - 'A' + 'a';
 	return letter;
