@@ -544,8 +544,8 @@ True or False :	the code provided below will not result in a dangling pointer.
 True or False :	the code provided below will not result in a dangling pointer.
     <br>
 <pre><code class="language-clike language-c">
-	#include <stdio.h>
-	#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 
 	int *get_pointer(void) {
 	    int *ptr = malloc(sizeof(int)); // Allocate memory
@@ -632,8 +632,8 @@ Give the output of the following C program, Explain your answer.
     <br>
 <pre><code class="language-clike language-c">
 
-#include <stdio.h>
-#include <limits.h>
+#include &lt;stdio.h&gt;
+#include &lt;limits.h&gt;
 void f(int i) {
     ++i;
     if (i > INT_MAX) {
@@ -649,3 +649,27 @@ int main(void) {
 }
 </code></pre>
 </div>
+
+
+<hr>
+
+<div>
+in the following C code , the  assignment operator appears only once. true or false?
+bool nisfive = ( n == 5); 
+    <br>
+<pre><code class="language-clike language-c">
+
+
+#include &lt;stdio.h&gt;
+#include &lt;stdbool.h&gt;
+
+int main() {
+    int n = 5;              // For context, assume n is defined
+    bool nisfive = (n == 5); // One assignment operator
+    printf("%d\n", nisfive); // Prints 1 (true)
+    return 0;
+}
+</code></pre>
+</div>
+
+
