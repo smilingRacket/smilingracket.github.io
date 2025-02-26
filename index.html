@@ -623,3 +623,29 @@ Together, they form a contract, improving code clarity, maintainability, and deb
 </ul>
 </div>
 
+
+
+<hr>
+
+<div>
+Give the output of the following C program, Explain your answer.	
+    <br>
+<pre><code class="language-clike language-c">
+
+#include <stdio.h>
+#include <limits.h>
+void f(int i) {
+    ++i;
+    if (i > INT_MAX) {
+        printf("OVERFLOW\n");
+    } else {
+        printf("NO OVERFLOW\n");
+    }
+}
+int main(void) {
+    f(INT_MAX);
+    printf("DONE!\n");
+    return 0;
+}
+</code></pre>
+</div>
