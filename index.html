@@ -776,3 +776,52 @@ main:
 </code></pre>
 </div>
 
+<hr>
+<div>
+
+please write a function pyramid(int n) to print the format as below  with n lines , for pyramid(7) would print as below(assume n is odd  number in the range of [3-99] inclusive, and use the placeholder "%3d" to printf each integer, for example  :     printf("%3d", x);  
+<pre><code>
+1
+2  3
+3  4  5
+4  5  6  7
+3  4  5
+2  3
+1
+</code></pre>
+<br>The code to solve the problem with <i>pyramid</i> function<br>
+<pre><code class="language-clike language-c">
+#include &lt;stdio.h&gt;
+
+void pyramid(int n) {
+    int middle = (n + 1) / 2;
+
+    for (int i = 1; i <= n; i++) {
+        int count, start;
+        if (i <= middle) {
+            count = i;
+            start = i;
+        } else {
+            count = 2 * middle - i;
+            start = 2 * middle - i;
+        }
+
+        // Print numbers for current line
+        for (int j = 0; j < count; j++) {
+                if( j == start )
+                        printf("%d", start);
+                else
+                        printf("%3d", start + j);
+
+        }
+        printf("\n");
+    }
+}
+
+// Example usage
+int main() {
+    //pyramid(7);
+    pyramid(9);
+    return 0;
+</code></pre>
+
