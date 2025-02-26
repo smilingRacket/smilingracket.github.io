@@ -737,6 +737,14 @@ the output of the program below:
 
 void exchange(int *a, int *b) ;
 
+int main() {
+    int a = 5, b = 10;
+    printf("in main: ");
+    printf("a = %d, b = %d\n", a, b);
+    exchange(&a, &b);
+    printf("a = %d, b = %d\n", a, b);
+    return 0;
+}
 
 void exchange(int *pa, int *pb) {
     int temp;
@@ -747,14 +755,7 @@ void exchange(int *pa, int *pb) {
     printf("a = %d, b = %d\n", *pa, *pb);
 }
 
-int main() {
-    int a = 5, b = 10;
-    printf("in main: ");
-    printf("a = %d, b = %d\n", a, b);
-    exchange(&a, &b);
-    printf("a = %d, b = %d\n", a, b);
-    return 0;
-}
+
 </code></pre>
 draw the call stack immediately after "In exchange: " is printed
 </div>
