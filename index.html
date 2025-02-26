@@ -758,5 +758,19 @@ void exchange(int *pa, int *pb) {
 
 </code></pre>
 draw the call stack immediately after "In exchange: " is printed
+<br>
+Call Stack Drawing (Following the Format):
+<pre><code>
+exchange:
+    pa: 0x1000 -> [value: 10]  (points to 'a' in main, now 10)
+    pb: 0x1004 -> [value: 5]   (points to 'b' in main, now 5)
+    temp: 5
+    return addr: main: 13
+
+main:
+    a: 10
+    b: 5
+    return addr: (none, end of program)
+</code></pre>
 </div>
 
