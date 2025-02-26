@@ -713,13 +713,14 @@ int main(void) {
     struct Circle c2 = {0, 10, 10};
     struct Circle c3 = {0, 10, 20};
     struct Point p1 = {2, 2};
-    struct Point p2 = {1, 2}; // Fixed initialization
+    //struct Point p2 = {1, 2}; // Fixed initialization
+    struct Point p2 = {12, 23}; // Fixed initialization
 
     printf("%d\n", point_in_circle(&p1, &c1));
     printf("%d\n", compare_circles(&c1, &c2));
     printf("%d\n", compare_points(&p1, &p2));
 
-    update_f(&c3, 20);
+    update_f(&c2, 20);
     printf("%d\n", compare_circles(&c2, &c3));
 
     return 0;
