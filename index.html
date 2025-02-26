@@ -668,7 +668,7 @@ int main() {
 </code></pre>
 </div>
 <hr>
-
+<div>
 Winter 2014 midterm Exam , Question 3 to correct mistakes in the code . the code below is corrected version
     <br>
 
@@ -727,3 +727,35 @@ int main(void) {
 }
 </code></pre>
 </div>
+
+<hr>
+<div>
+
+the output of the program below:
+<pre><code class="language-clike language-c">
+#include &lt;stdio.h&gt;
+
+void exchange(int *a, int *b) ;
+
+
+void exchange(int *pa, int *pb) {
+    int temp;
+    temp = *pa;
+    *pa = *pb;
+    *pb = temp;
+    printf("in exchange: ");
+    printf("a = %d, b = %d\n", *pa, *pb);
+}
+
+int main() {
+    int a = 5, b = 10;
+    printf("in main: ");
+    printf("a = %d, b = %d\n", a, b);
+    exchange(&a, &b);
+    printf("a = %d, b = %d\n", a, b);
+    return 0;
+}
+</code></pre>
+draw the call stack immediately after "In exchange: " is printed
+</div>
+
