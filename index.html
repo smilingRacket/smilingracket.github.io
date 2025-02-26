@@ -602,4 +602,24 @@ True or False :	the code provided below will not result in a dangling pointer.
 <hr>
 <div>
 
+<hr>
+
+<div>
+	brief explanation the purpose of 'requires' and 'effects' function documentation in C.
+    <br>
+<pre><code class="language-clike language-c">
+/**
+ * Requires: ptr != NULL and n > 0
+ * Effects: Allocates an array of n integers and returns a pointer to it
+ */
+int *createArray(int *ptr, int n) {
+    return malloc(n * sizeof(int));
+}
+</code></pre>
+Together, they form a contract, improving code clarity, maintainability, and debugging by explicitly stating expectations and behavior in the absence of formal language support for contracts in C.
+	<ul>
+		<li>A) <b>Requires</b>: What the caller must guarantee (inputs/conditions).</li>
+		<li>B) <b>Effects</b>: What the function promises to do (outputs/side effects).</li>
+</ul>
+</div>
 
