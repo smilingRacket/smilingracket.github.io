@@ -2,6 +2,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
 <!--nothing yet -->
 <div>
+    Anything wrong with the code below? ( compile error, or runtime error )
+    <br>
+<pre><code class="language-clike language-c">
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *p = malloc(sizeof(int));  // No cast
+    if (p) {
+        *p = 42;                   // Dereference as int*
+        printf("%d\n", *p);        // Prints 42
+        free(p);                   // Clean up
+	p = NULL;
+    }
+    return 0;
+}
+</code></pre>
+</div>
+<hr>
+
+<div>
     what is the output here?
     <br>
 <pre><code class="language-clike language-c">
@@ -560,6 +581,21 @@ True or False :	the code provided below will not result in a dangling pointer.
 <li>B) Compile-time error</li>
 <li>C) Runtime error </li>
 <li>D) Garbage value </li>
+</ul>
+</div>
+<hr>
+<div>
+
+<hr>
+
+<div>
+	Which of these is a valid way to access an int value through a void pointer?
+    <br>
+	<ul>
+<li>A) *vp (where vp is void*) </li>
+<li>B) *(int*)vp </li>
+<li>C) vp->value</li>
+<li>D) (int)vp</li>
 </ul>
 </div>
 <hr>
