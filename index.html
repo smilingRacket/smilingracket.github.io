@@ -5,6 +5,40 @@
     what is the output here
     <br>
 <pre><code class="language-clike language-c">
+#include &lt;stdio.h&gt;
+
+void f(int *p, int* q) {
+    p = q;
+    *p = 2;
+}
+
+int i = 0, j = 1;
+
+int main() {
+    f(&i, &j);
+    printf("%d %d\n", i, j);
+}
+</code></pre>
+</div>
+<hr>
+<div>
+    what is the output here
+    <br>
+<pre><code class="language-clike language-c">
+#include <stdio.h>
+int main() {
+    char x = 120; // assume: char is signed char
+    while (++x > 10) {
+        printf("%d\t", x);
+    }
+}
+</code></pre>
+</div>
+<hr>
+<div>
+    what is the output here
+    <br>
+<pre><code class="language-clike language-c">
         int b =1000;
         printf("%d",printf("\n%d",b));
         printf("\n");
@@ -30,10 +64,86 @@
     <br>
 <pre><code class="language-clike language-c">
         int i = 1;
-
         for(printf("Hi %d\n",i); i <= 3; i++) {
            printf("Hello buddy %d\n", i);
         }
+
+        int j = 1;
+        for(printf("Hi %d\n",j); j <= 3; printf("Hello \n")) {
+           j++;
+        }
+
+        int k = 1;
+        for(printf("Hi %d\n",k); k < printf("OK\n",k); printf("increment \n")) { // What if the increment statement not here ?? What if the condition check statement not here ???
+           printf("for block Body %d\n", k);
+           k++;
+        }
+</code></pre>
+</div>
+<hr>
+<div>
+    what would happen with the code below
+    <br>
+<pre><code class="language-clike language-c">
+#include &lt;stdio.h&gt;
+int main() {
+    int k = 1;
+    for (; k < 6; k++) ;
+    {
+        printf("hello  %d\n", k);
+    }
+
+
+    do
+    {
+        printf("do it here  %d\n", k);
+    }
+    while( -1 > k );  
+
+
+    int _ = 1;
+    int __ = 2;
+    int ___ = _ + __;
+    printf("%d hello  %d\n", __,  ___);
+
+    // WHAT HAPPEN WITH BELOW CODE ??? 
+    // printf("%d hello  %d\n", ++(__ - 1),  --(___ + 2));
+
+    // WHAT is the value of e ?
+    int e = __ == ___  - 1;	   
+
+    // WHAT is the value of d ?
+    int d = 2;   
+    d *= 25 + 33;   
+
+    // WHAT is the value of f ?
+    ___ = 11;
+    int f = !___ > 5;
+
+    // WHAT is the value of g ?
+    ___ = 11;
+    int g = ___  + 010 + 0x20;
+
+    return 0;
+}
+</code></pre>
+</div>
+
+<hr>
+<div>
+    what is the output here
+    <br>
+<pre><code class="language-clike language-c">
+#include &lt;stdio.h&gt;
+int main() {
+    float a = 1.1;
+    double b = 1.1;
+    if (a == b)
+        printf("a equal to b\n");
+    else
+        printf("not equal \n");
+    return 0;
+}
 </code></pre>
 </div>
 
