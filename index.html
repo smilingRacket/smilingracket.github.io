@@ -1052,20 +1052,20 @@ void pyramid(int n) {
     }    
     int middle = (n + 1) / 2; // Middle row index (1-based)
 
-    for (int i = 1; i <= n; i++) {
-        int count, start;
-        if (i <= middle) { 
+    for (int row = 1; row <= n; row++) {
+        int digit_count_for_the_row, start;
+        if (row <= middle) { 
             // Upper half (including middle)
-            start = i; // Start with row number
-            count = i; // how many to print fo the line
+            start = row; // Start with row number
+            digit_count_for_the_row = row; // how many to print for the line -- Upper half 
         } else { 
             // Lower half
-            start = 2 * middle - i; // Start with decreasing number
-            count = 2 * middle - i; 
+            start = 2 * middle - row; // Start with decreasing number
+            digit_count_for_the_row = 2 * middle - row; // how many to print for the line -- Lower half
         }
 
         // Print numbers for current line
-        for (int j = 0; j < count; j++) {
+        for (int j = 0; j < digit_count_for_the_row; j++) {
                 if( j == start )
                         printf("%d", start);
                 else
