@@ -1076,3 +1076,82 @@ int main() {
     return 0;
 </code></pre>
 
+<hr>
+<div>
+
+
+<pre><code>1
+22
+333
+4444
+55555
+4444
+333
+22
+1 </code></pre>
+please write a function  in C named <i>staircase</i> taking a positive integer n , and the function would print the numbers as above if  n =5.  and it would print as below if n = 2  :
+<pre><code>1
+22
+1 </code></pre>
+
+
+<pre><code>
+1
+2  3
+3  4  5
+4  5  6  7
+3  4  5
+2  3
+1
+</code></pre>
+<br>The code to solve the problem with <i>staircase</i> function<br>
+<pre><code class="language-clike language-c">
+#include &lt;stdio.h&gt;
+
+void printPattern(int n) {
+    // Input validation (assuming positive integer as per problem)
+    if (n <= 0) {
+        printf("Invalid input: n must be positive\n");
+        return;
+    }
+
+    // Total rows: 2 * n - 1
+    int total_rows = 2 * n - 1;
+
+    for (int row = 1; row <= total_rows; row++) {
+        int current_number;
+        int digits;
+
+        // Determine the number to print and number of digits
+        if (row <= n) {
+            // Upper half (including middle)
+            current_number = row;
+            digits = row;  // Number of digits equals row number
+        } else {
+            // Lower half
+            current_number = 2 * n - row;  // Decreasing numbers
+            digits = 2 * n - row;         // Decreasing digits
+        }
+
+        // Print the number 'digits' times
+        for (int i = 0; i < digits; i++) {
+            printf("%d", current_number);
+        }
+        printf("\n");  // Newline after each row
+    }
+}
+
+int main() {
+    // Test cases
+    printf("For n = 5:\n");
+    printPattern(5);
+    printf("\nFor n = 2:\n");
+    printPattern(2);
+    return 0;
+}
+</code></pre>
+
+<hr>
+<div>
+
+
