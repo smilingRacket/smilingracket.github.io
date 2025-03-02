@@ -1058,10 +1058,13 @@ void pyramid(int n) {
         printf("Invalid input: n must be an odd number between 3 and 99\n");
         return;
     }    
+
     int middle_row_index = (n + 1) / 2; // Middle row index (1-based)
 
     // total_rows is 'n'
-    for (int row = 1; row <= n; row++) {
+    int total_rows = 2 * n - 1;
+
+    for (int row = 1; row <= total_rows; row++) {
         int digit_count_for_the_row, start;
         if (row <= middle_row_index) { 
             // Upper half (including middle)
