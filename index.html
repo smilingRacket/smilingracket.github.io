@@ -1097,7 +1097,7 @@ please write a function  in C named <i>staircase</i> taking a positive integer n
 <pre><code class="language-clike language-c">
 #include &lt;stdio.h&gt;
 
-void printPattern(int n) {
+void staircase(int n) {
     // Input validation (assuming positive integer as per problem)
     if (n <= 0) {
         printf("Invalid input: n must be positive\n");
@@ -1133,9 +1133,9 @@ void printPattern(int n) {
 int main() {
     // Test cases
     printf("For n = 5:\n");
-    printPattern(5);
+    staircase(5);
     printf("\nFor n = 2:\n");
-    printPattern(2);
+    staircase(2);
     return 0;
 }
 </code></pre>
