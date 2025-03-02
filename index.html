@@ -10,6 +10,22 @@ static int add_one(int x) {
 </code></pre>
 </div>
 <hr>
+
+<div>
+	in C, if an array passed to a function, can I get the array length inside the function being called by using <i>sizeof(arr) / sizeof(arr[0])</i>?
+<br><br>
+No, you cannot use <i>sizeof(arr) / sizeof(arr[0])</i> to get the length of an array inside a function if the array is passed as a parameter in C.
+
+When you pass an array to a function, it decays to a pointer, which means that inside the function, <br><i>arr</i> is treated as a pointer to the first element of the array.<br> This causes <i>sizeof(arr)</i> to return the size of the pointer (typically 4 or 8 bytes on most systems), not the size of the original array.
+<br><br>
+Why this happens:
+<ul>
+<li>When you pass an array (e.g., int arr[10]) to a function, it's converted into a pointer to the first element of the array.</li>
+<li>As a result, the sizeof(arr) inside the function doesn't give the size of the array but rather the size of the pointer to the first element.</li>
+</ul>
+</div>
+<hr>
+
 <div>
     what is the output here
     <br>
