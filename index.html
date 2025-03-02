@@ -1045,16 +1045,23 @@ please write a function pyramid(int n) to print the format as below  with n line
 #include &lt;stdio.h&gt;
 
 void pyramid(int n) {
-    int middle = (n + 1) / 2;
+    // Input validation (assuming handled by caller, per problem constraints)
+    if (n < 3 || n > 99 || n % 2 == 0) {
+        printf("Invalid input: n must be an odd number between 3 and 99\n");
+        return;
+    }    
+    int middle = (n + 1) / 2; // Middle row index (1-based)
 
     for (int i = 1; i <= n; i++) {
         int count, start;
-        if (i <= middle) {
-            count = i;
-            start = i;
-        } else {
-            count = 2 * middle - i;
-            start = 2 * middle - i;
+        if (i <= middle) { 
+            // Upper half (including middle)
+            start = i; // Start with row number
+            count = i; // how many to print fo the line
+        } else { 
+            // Lower half
+            start = 2 * middle - i; // Start with decreasing number
+            count = 2 * middle - i; 
         }
 
         // Print numbers for current line
