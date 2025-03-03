@@ -37,9 +37,31 @@ You may use array index notation (i.e., you may use square brackets ([]), howeve
 
 void selection_sort_descending(int a[], int len) {
 <pre><code class="language-clike language-c">
-static int add_one(int x) {
-    return x + 1;
-}	
+int *find_min(int *a, int len) {
+    int *min_ptr = a;
+    for (int *ptr = a + 1; ptr < a + len; ptr++) {
+        if (*ptr < *min_ptr) {
+            min_ptr = ptr;
+        }
+    }
+    return min_ptr;
+}
+
+void selection_sort_descending(int a[], int len) {
+    // Iterate over the array, sorting from the back to the front
+    for (int i = len - 1; i > 0; i--) {
+        // Find the smallest element in the unsorted region (from a[0] to a[i])
+        int *min_ptr = find_min(a, i + 1);
+
+        // Swap the smallest element with the element at index i
+        if (min_ptr != &a[i]) {
+            // Swap the values
+            int temp = *min_ptr;
+            *min_ptr = a[i];
+            a[i] = temp;
+        }
+    }
+}
 </code></pre>
 </div>
 <hr>
