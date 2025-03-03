@@ -1235,6 +1235,7 @@ int main() {
     return 0;
 }
 </code></pre>
+</div>
 
 <hr>
 <div>
@@ -1302,8 +1303,74 @@ int main() {
     return 0;
 }
 </code></pre>
+</div>
 
 <hr>
 <div>
+This is C programming . On the following page, write the function zigzag(width, height, z). zigzag returns
+no value and draws a rectangular shape that contains a “zig-zag” pattern. The pattern starts in the
+upper-left of the shape, and moves right (or left) until it encounters the edge of the shape and then reverses
+direction. It continues to “zig-zag” until the height is reached. The width must be at least two, and the
+height must be greater than or equal to the width. The third parameter z is the char the “zig-zag”
+pattern is drawn in. The rest of the shape is drawn with a period '.' character. See the following
+examples for more details.
+OUTPUT FOR zigzag(3, 7, 'z') and zigzag(4, 17, '#'):
+z..
+.z.
+..z
+.z.
+z..
+.z.
+..z
+#...
+.#..
+..#.
+...#
+..#.
+.#..
+#...
+.#..
+..#.
+...#
+..#.
+.#..
+#...
+.#..
+..#.
+...#
+..#.
 
+
+<pre><code class="language-clike language-c">
+void zigzag(int width, int height, char z) {
+    // Input validation (optional, but good practice)
+    if (width < 2 || height < width) {
+        return;  // Silently exit if constraints aren’t met
+    }
+
+    // Array to store zig-zag position for each row
+    int pos = 0;         // Starting position (column index)
+    int direction = 1;   // 1 = right, -1 = left
+
+    // Iterate over each row
+    for (int row = 0; row < height; row++) {
+        // Print each column in the current row
+        for (int col = 0; col < width; col++) {
+            if (col == pos) {
+                printf("%c", z);  // Print zig-zag character at position
+            } else {
+                printf(".");      // Print period elsewhere
+            }
+        }
+        printf("\n");  // Newline after each row
+
+        // Update position for next row
+        if (pos + direction >= width || pos + direction < 0) {
+            direction = -direction;  // Reverse direction at edge
+        }
+        pos += direction;  // Move position in current direction
+    }
+}
+</code></pre>
+</div>
 
