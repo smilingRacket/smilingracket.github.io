@@ -1663,4 +1663,120 @@ int main(void) {
 }
 </code></pre>
 </div>
+<hr>
+<div>
+in C, Implement count_ones(n), which returns the total
+number of digit 1 appearing in all non-negative integers
+less than or equal to n. You must use recursion.
+Try both the easy and hard implementation!
+
+<br>
+<br>
+The easier one:
+<pre><code class="language-clike language-c">
+// Helper function to count 1's in a single number
+static int count_ones_in_number(int n) {
+    if (n == 0) return 0;
+    return (n % 10 == 1 ? 1 : 0) + count_ones_in_number(n / 10);
+}
+
+// Easy recursive implementation
+int count_ones(int n) {
+    assert(n >= 0);
+    if (n <= 0) return 0;  // Base case
+    return count_ones(n - 1) + count_ones_in_number(n);
+}
+
+</code></pre>
+<br>
+<br>
+The harder but more efficient one:
+<pre><code class="language-clike language-c">
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+#include <string.h>
+
+// Helper function to calculate power of 10
+static int pow10(int exp) {
+    if (exp == 0) return 1;
+    return 10 * pow10(exp - 1);
+}
+
+// Main recursive function for counting ones
+static int count_ones_recursive(int n, int digits) {
+    if (n < 0) return 0;
+    if (n < 10) return (n >= 1 ? 1 : 0);
+
+    int power = digits - 1;
+    int base = pow10(power);
+    int first_digit = n / base;
+    int remainder = n % base;
+
+    // Count 1's in the current digit position
+    int ones_in_position = 0;
+    if (first_digit > 1) {
+        ones_in_position = base;  // Full set of 1's for this position
+    } else if (first_digit == 1) {
+        ones_in_position = remainder + 1;  // Partial count up to remainder
+    }
+
+    // Recursively count 1's in lower digits
+    return ones_in_position + first_digit * count_ones_recursive(base - 1, power) +
+           count_ones_recursive(remainder, power);
+}
+
+// Wrapper function to calculate digits and start recursion
+int count_ones(int n) {
+    assert(n >= 0);
+    if (n < 10) return (n >= 1 ? 1 : 0);
+
+    // Calculate number of digits
+    int temp = n;
+    int digits = 0;
+    while (temp > 0) {
+        digits++;
+        temp /= 10;
+    }
+
+    return count_ones_recursive(n, digits);
+}
+
+int main(void) {
+    assert(count_ones(0) == 0);
+    assert(count_ones(1) == 1);
+    assert(count_ones(10) == 2);
+    assert(count_ones(11) == 4);
+    assert(count_ones(19) == 12);
+    assert(count_ones(20) == 12);
+    assert(count_ones(99) == 20);
+    assert(count_ones(100) == 21);
+    assert(count_ones(101) == 23);
+    assert(count_ones(111) == 36);
+    assert(count_ones(856) == 276);
+    assert(count_ones(1111) == 448);
+    assert(count_ones(495827365) == 497521277);
+}
+</code></pre>
+How The Hard Version Works:
+
+<ul>
+	<li>Digit Counting: Wrapper calculates number of digits in n.</il>
+
+		<li><ul>
+Recursive Logic:
+<li>Breaks number into first digit and remainder</li>
+
+
+<li><ul>For each digit position:
+<li>Counts 1's when that position is 1</li>
+
+<li>Counts 1's in lower positions recursively</li>
+
+<li>Accounts for all combinations</li></ul></li>
+			</ul></li>
+</ul>
+
+
+</div>
 
