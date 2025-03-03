@@ -1462,7 +1462,30 @@ void zigzag(int width, int height, char z) {
 </div>
 <hr>
 <div>
-	What is <i>static</i> function in C?
+	Joe compiled a list of all possible bad spacing
+errors, denoted in the badspaces string array.
+He detects a line as having bad spacing if one of these errors appears
+anywhere in the line.
+Additionally, if an errors happens after a //, it is ignored.
+<br><br>
+Implement space_check(str), which returns true if
+there’s no bad spacing issues.
+
+	<br><br>
+	<br><br>
+	Joe wants to detect for any lines consisting of
+declaring uninitialized variables. He detects
+these as follows:<ul>
+	<li>1) After any initial whitespace, the line starts
+with "int", "char", "bool", or "struct". This is
+given by the types array.</li>
+<li>2) The line ends with a semicolon</li>
+<li>3) The line does not have an equal sign.</li>
+</ul>
+Implement initialized(str), which returns false if
+the string consists of declaring an uninitialized
+variable, based on the method given in the
+previous slide.
 <pre><code class="language-clike language-c">
 #include <stdio.h>
 #include <assert.h>
