@@ -2,6 +2,75 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
 <!--nothing yet -->
 <div>
+	Complete the following function <i>find_min</i> in C.
+If multiple elements have the smallest value, it does not matter which one is selected.
+For this question only, you <b>MUST use pointer notation </b>(i.e., you may not use square brackets ([])
+and you may not define any <i>int</i> variables.
+<br>
+<br>
+<i>// find_min(a, len) returns a pointer to the element of a
+<br>
+// that has the smallest value
+<br>
+int *find_min(int *a, int len) {</i>
+<pre><code class="language-clike language-c">
+int *find_min(int *a, int len) {
+    // Pointer to track the element with the smallest value
+    int *min_ptr = a;
+
+    // Iterate through the array using pointer arithmetic
+    for (int *ptr = a + 1; ptr < a + len; ptr++) {
+        if (*ptr < *min_ptr) {
+            min_ptr = ptr;  // Update the pointer to the new minimum
+        }
+    }
+
+    return min_ptr;  // Return the pointer to the smallest element
+}
+</code></pre>
+</div>
+<hr>
+<div>
+	Complete the function <i>selection_sort_descending</i>(a, len) that sorts the
+	elements of the array a in <b>descending</b> order (from largest to smallest).
+Your function must use the following approach: In each iteration (i.e., you must use iteration), select
+(find) the smallest element remaining in the unsorted region of the array. Then, move (“swap”) the
+smallest element so that it is at the end of the unsorted region, and now part of the sorted region.
+You may use array index notation (i.e., you may use square brackets ([]), however you must use the
+<i>find_min</i> function from the previous page to <i>select</i> the smallest element.
+<br>
+<br>
+<i>void selection_sort_descending(int a[], int len) {</i>
+<pre><code class="language-clike language-c">
+int *find_min(int *a, int len) {
+    int *min_ptr = a;
+    for (int *ptr = a + 1; ptr < a + len; ptr++) {
+        if (*ptr < *min_ptr) {
+            min_ptr = ptr;
+        }
+    }
+    return min_ptr;
+}
+
+void selection_sort_descending(int a[], int len) {
+    // Iterate over the array, sorting from the back to the front
+    for (int i = len - 1; i > 0; i--) {
+        // Find the smallest element in the unsorted region (from a[0] to a[i])
+        int *min_ptr = find_min(a, i + 1);
+
+        // Swap the smallest element with the element at index i
+        if (min_ptr != &a[i]) {
+            // Swap the values
+            int temp = *min_ptr;
+            *min_ptr = a[i];
+            a[i] = temp;
+        }
+    }
+}
+</code></pre>
+</div>
+<hr>
+<div>
 	What is <i>static</i> function in C?
 <pre><code class="language-clike language-c">
 static int add_one(int x) {
@@ -1388,6 +1457,200 @@ void zigzag(int width, int height, char z) {
             pos--;  // Move position in 'left' direction
         }
     }
+}
+</code></pre>
+</div>
+<hr>
+<div>
+	Joe compiled a list of all possible bad spacing
+errors, denoted in the badspaces string array.
+He detects a line as having bad spacing if one of these errors appears
+anywhere in the line.
+Additionally, if an errors happens after a //, it is ignored.
+<br><br>
+Implement <i>space_check</i>(str), which returns true if
+there’s no bad spacing issues.
+
+	<br><br>
+	<br><br>
+	Joe wants to detect for any lines consisting of
+declaring uninitialized variables. He detects
+these as follows:<ul>
+	<li>1) After any initial whitespace, the line starts
+with "int", "char", "bool", or "struct". This is
+given by the types array.</li>
+<li>2) The line ends with a semicolon</li>
+<li>3) The line does not have an equal sign.</li>
+</ul>
+Implement <i>initialized</i>(str), which returns false if
+the string consists of declaring an uninitialized
+variable, based on the method given in the
+previous slide.
+<pre><code class="language-clike language-c">
+#include &lt;string.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;assert.h&gt;
+
+const int MAX_LEN = 80;
+const char *badspaces[6] = {"if(", "for(", "while(", "){", "else{", "}else"};
+const int BADSPACES_LEN = 6;
+const char *types[4] = {"int", "char", "bool", "struct"};
+const int TYPES_LEN = 4;
+
+// char_limit(str): Returns true if str is <= the character limit MAX_LEN
+// requires: str is a valid string
+bool char_limit(const char *str) {
+    assert(str);
+    return strlen(str) <= MAX_LEN;
+}
+
+// str_contains(str, fragment) returns true if str contains the sequence
+//   given by fragment, and false otherwise.
+// requires: str is a valid string
+//           fragment is a valid string
+bool str_contains(const char *str, const char *fragment) {
+	assert(str && fragment);
+	int length = strlen(str);
+	for (int i = 0; i < length; i++ ) {
+		const char *temp = str;
+		// replace magic number with strlen(fragment) + 1
+		char new_str[10];
+
+		// too small
+		if (strlen(temp) < strlen(fragment)) {
+			return false;
+		}
+		// too big
+		if (strlen(temp) > strlen(fragment)) {
+			for (int i = 0; i < strlen(fragment); i++) {
+				new_str[i] = *temp;
+				temp++;
+			}
+			new_str[strlen(fragment)] = '\0';
+			temp = new_str;
+		}
+		// only same size left to compare
+		if (0 == strcmp(temp, fragment)) {
+			return true;
+		}
+		str++;
+	}
+	return false;
+}
+
+// starts_with(a, b): Returns true if a starts with b
+// examples: "bod" starts with "bo", but "bo" does not start with "bod"
+// requires: str a, b are valid strings
+bool starts_with(const char *a, const char *b) {
+    assert(a && b);  // Check for null pointers
+
+    size_t len_b = strlen(b);
+    if (strlen(a) < len_b) {
+        return false;
+    }
+
+    // Compare the first len_b characters directly
+    return strncmp(a, b, len_b) == 0;
+}
+// space_check(str): Returns false if there's an instance of any bad spacing errors denoted in badspaces
+//   The space checker ignores any bad spaces after a single-line comment "//"
+// requires: str is a valid string
+bool space_check(const char *str) {
+    assert(str);
+    bool ans = true;
+    for (int i = 0; i < strlen(str); i++) {
+
+	// Skip leading whitespace
+	while (*str == ' ' || *str == '\t') {
+            i++; 
+        }
+        // Check for start of a comment (//)
+        if (starts_with(str + i, "//")) {
+            // Skip the rest of the line (including any bad spacing after //)
+            break;
+        }
+
+        // Check for any bad spacing pattern in the current position
+        for (int j = 0; j < BADSPACES_LEN; j++) {
+            // Use str_contains to check if the badspacing pattern starts at position i
+            if (str_contains(str + i, badspaces[j])) {
+                ans = false;  // Found a bad spacing issue
+                break;        // No need to check further badspaces for this position
+            }
+        }
+        if (!ans) break;  // Exit loop if bad spacing found
+    }
+    return ans;
+}
+
+// initialized(str): Returns false if str meets this criteria:
+//  1) After any initial whitespace, it starts with one of the types given by the types array
+//  2) Ends with ;
+//  3) Does not contain =
+// examples: "     int a;" -> false
+//           "     int a; " -> true
+//           "int** a;" -> false
+//           "int a = 5;" -> true
+// requires: str is a valid string
+bool initialized(const char *str) {
+    assert(str);
+
+    // Skip leading whitespace
+    while (*str == ' ' || *str == '\t') {
+        str++;
+    }
+
+    // Check if the string starts with one of the types
+    bool starts_with_type = false;
+    for (int i = 0; i < TYPES_LEN; i++) {
+        if (strncmp(str, types[i], strlen(types[i])) == 0) {
+            starts_with_type = true;
+            break;
+        }
+    }
+    if (!starts_with_type) {
+        return true; // Not an uninitialized variable declaration
+    }
+
+    // Check if the string ends with a semicolon
+    int len = strlen(str);
+    if (len == 0 || str[len - 1] != ';') {
+        return true; // Not an uninitialized variable declaration
+    }
+
+    // Check if the string contains an equal sign
+    if (strchr(str, '=') != NULL) {
+        return true; // Not an uninitialized variable declaration
+    }
+
+    // If all conditions are met, return false (uninitialized variable declaration)
+    return false;
+}
+
+
+int main(void) {
+    // Testing harness you don't have to worry about
+    char str[1000];
+    int line = 1;
+    while (fgets(str, sizeof(str), stdin) != NULL) {
+        int len = strlen(str);
+        if (len > 0 && str[len - 1] == '\n') {
+            str[len - 1] = '\0'; // Remove newline
+        }
+        if (!char_limit(str)) {
+            printf("Exceeded character limit on line %d\n", line);
+        }
+        if (!space_check(str)) {
+            printf("Missing whitespace on line %d\n", line);
+        }
+        if (!initialized(str)) {
+            printf("Uninitialized variable on line %d\n", line);
+        }
+        ++line;
+    }
+    printf("\nEnd of input.\n");
+    return 0;
 }
 </code></pre>
 </div>
