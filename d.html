@@ -1468,7 +1468,7 @@ He detects a line as having bad spacing if one of these errors appears
 anywhere in the line.
 Additionally, if an errors happens after a //, it is ignored.
 <br><br>
-Implement space_check(str), which returns true if
+Implement <i>space_check</i>(str), which returns true if
 there’s no bad spacing issues.
 
 	<br><br>
@@ -1482,15 +1482,15 @@ given by the types array.</li>
 <li>2) The line ends with a semicolon</li>
 <li>3) The line does not have an equal sign.</li>
 </ul>
-Implement initialized(str), which returns false if
+Implement <i>initialized</i>(str), which returns false if
 the string consists of declaring an uninitialized
 variable, based on the method given in the
 previous slide.
 <pre><code class="language-clike language-c">
-#include <stdio.h>
-#include <assert.h>
-#include <stdbool.h>
-#include <string.h>
+#include &lt;string.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;assert.h&gt;
 
 const int MAX_LEN = 80;
 const char *badspaces[6] = {"if(", "for(", "while(", "){", "else{", "}else"};
