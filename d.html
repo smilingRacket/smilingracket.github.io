@@ -1217,11 +1217,11 @@ void pyramid(int n) {
         }
 
         // Print each column in the current row : Print numbers for current line
-        for (int j = 0; j < digit_count_for_the_row; j++) {
-                if( j == start )
+        for (int col = 0; col < digit_count_for_the_row; col++) {
+                if( col == start )
                         printf("%d", start);
                 else
-                        printf("%3d", start + j);
+                        printf("%3d", start + col);
 
         }
         printf("\n");
@@ -1287,7 +1287,7 @@ void staircase(int n) {
         }
 
         // Print each column in the current row : Print the number 'digits' times
-        for (int i = 0; i < digits; i++) {
+        for (int col = 0; col < digits; col++) {
             printf("%d", current_number);
         }
         printf("\n");  // Newline after each row
@@ -1351,13 +1351,20 @@ void zigzag(int width, int height, char z) {
     }
 
     // Array to store zig-zag position for each row
+
+    // Starts at position 0 moving right (direction = 1)
+
+    // keeps track of where the 'z' (or specified character) goes in each row
     int pos = 0;         // Starting position (column index)
+
+    // 1 means moving right, -1 means moving left
     int direction = 1;   // 1 = right, -1 = left
 
     // Iterate over each row
     for (int row = 0; row < height; row++) {
+	int limit_for_current_line = width;   
         // Print each column in the current row
-        for (int col = 0; col < width; col++) {
+        for (int col = 0; col < limit_for_current_line; col++) {
             if (col == pos) {
                 printf("%c", z);  // Print zig-zag character at position
             } else {
@@ -1367,10 +1374,17 @@ void zigzag(int width, int height, char z) {
         printf("\n");  // Newline after each row
 
         // Update position for next row
-        if (pos + direction >= width || pos + direction < 0) {
+        if (pos + direction >= limit_for_current_line || pos + direction < 0) {
             direction = -direction;  // Reverse direction at edge
         }
-        pos += direction;  // Move position in current direction
+
+        // pos += direction;  // Move position in current direction
+        if (direction == 1) {
+            pos++;  // Move position in current direction
+        }
+        else {
+            pos--;  // Move position in current direction
+        }
     }
 }
 </code></pre>
