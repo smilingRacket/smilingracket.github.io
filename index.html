@@ -1775,4 +1775,26 @@ How The Hard Version Works -- Efficiency: O(log n) recursive calls (based on num
 
 
 </div>
+<hr>
+<div>
+in C, Implement count_sixes(n), which returns the total
+number of digit 6 appearing in all non-negative integers
+less than or equal to n. You must use recursion.
+Try both the easy and hard implementation!
+<pre><code class="language-clike language-c">
+// EASY IMPLEMENTATION
+// Helper function to count sixes in a single number
+int count_in_single(int num) {
+    if (num == 0) return 0;  // Base case: no digits left
+    int digit = num % 10;
+    return (digit == 6) + count_in_single(num / 10);  // Add 1 if digit is 6, recurse
+}
 
+// Main recursive function for easy implementation
+int count_sixes_easy(int n) {
+    if (n <= 0) return 0;  // Base case: negative numbers : out scope, also no six
+    if (n == 0) return 0; // Base case: zero has no sixes
+    return count_in_single(n) + count_sixes_easy(n - 1);  // Count in n + recurse
+}
+</code></pre>
+</div>
