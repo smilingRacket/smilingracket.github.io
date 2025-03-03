@@ -114,6 +114,28 @@ int main() {
 <hr>
 
 <div>
+explain the code in C :  
+<pre><code class="language-clike language-c">
+char *source = "XXXXabcYYYY";
+char *dest = strstr(source, "abc");
+int pos;
+
+// In C, when you subtract two pointers (of the same type) that point within the same array/string, the result is the number of elements (characters, in this case) between them.
+pos = dest - source; // This performs pointer subtraction
+</code></pre>
+Visual Representation:
+<pre><code>
+String:    "XXXXabcYYYY"
+Indexes:    0123456789...
+source:     ^ (points to 'X' at index 0)
+dest:         ^ (points to 'a' at index 4)
+pos:        4 (dest - source)
+</code></pre>
+</div>
+<hr>
+
+
+<div>
 	in C, if an array passed to a function, can I get the array length inside the function being called by using <i>sizeof(arr) / sizeof(arr[0])</i>?
 <br><br>
 No, you cannot use <i>sizeof(arr) / sizeof(arr[0])</i> to get the length of an array inside a function if the array is passed as a parameter in C.
