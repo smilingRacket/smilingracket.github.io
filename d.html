@@ -1216,7 +1216,7 @@ void pyramid(int n) {
             digit_count_for_the_row = 2 * middle_row_index - row; // how many to print for the line -- Lower half
         }
 
-        // Print numbers for current line
+        // Print each column in the current row : Print numbers for current line
         for (int j = 0; j < digit_count_for_the_row; j++) {
                 if( j == start )
                         printf("%d", start);
@@ -1286,7 +1286,7 @@ void staircase(int n) {
             digits = 2 * middle_row_index - row;         // Decreasing digits
         }
 
-        // Print the number 'digits' times
+        // Print each column in the current row : Print the number 'digits' times
         for (int i = 0; i < digits; i++) {
             printf("%d", current_number);
         }
