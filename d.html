@@ -1692,10 +1692,10 @@ int count_ones(int n) {
 <br>
 The harder but more efficient one:
 <pre><code class="language-clike language-c">
-#include <stdio.h>
-#include <assert.h>
-#include <stdbool.h>
-#include <string.h>
+#include &lt;string.h&gt;
+#include &lt;stdbool.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;assert.h&gt;
 
 // Helper function to calculate power of 10
 static int pow10(int exp) {
@@ -1759,7 +1759,6 @@ int main(void) {
 }
 </code></pre>
 How The Hard Version Works:
-
 <ul>
 	<li>Digit Counting: Wrapper calculates number of digits in n.</il>
 
