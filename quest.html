@@ -8,15 +8,55 @@
     <title>PATIENT HEALTH QUESTIONNAIR</title>
 
     <!-- bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+	  $(document).ready(function(){
+	  // Function to toggle sections
+	  function toggleSections() {
+	    // Drug section
+	    if ($('#drug-answer-6').is(':checked')) {
+	      $('#hide-drug-no').removeClass('d-none');
+	    } else {
+	      $('#hide-drug-no').addClass('d-none');
+	    }
+
+	    // Smoke section
+	    if ($('#smoke-answer-6').is(':checked')) {
+	      $('#hide-smoke-no').removeClass('d-none');
+	    } else {
+	      $('#hide-smoke-no').addClass('d-none');
+	    }
+
+	    // Alcohol section
+	    if ($('#alcohol-answer-6').is(':checked')) {
+	      $('#hide-drink-no').removeClass('d-none');
+	    } else {
+	      $('#hide-drink-no').addClass('d-none');
+	    }
+	  }
+
+	  // Set up event handlers
+	  $('input[name="drug-answer-2"]').change(toggleSections);
+	  $('input[name="smoke-answer-2"]').change(toggleSections);
+	  $('input[name="alcohol-answer-2"]').change(toggleSections);
+
+	  // Initialize on page load
+	  toggleSections();
+	});
+</script>
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
     <!-- font awesome 5 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"
         integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
         </script>
+
 
 
 </head>
@@ -29,32 +69,32 @@
         </header>
         <main>
             <ul class="nav nav-tabs nav-justified">
-                <li class="nav-item  "><a href="#step-1" id="step-1-tab" data-bs-toggle="tab" class="nav-link h3 active">QUESTIONNAIR<small
+                <li class="nav-item  "><a href="#goNext-1" id="goNext-1-tab" data-bs-toggle="tab" class="nav-link h3 active">QUESTIONNAIR<small
                             class="d-none d-md-block lead">patient info</small></a></li>
-                <li class="nav-item  "><a href="#step-2" id="step-2-tab" data-bs-toggle="tab" class="nav-link h3 ">QUESTIONNAIR <small
+                <li class="nav-item  "><a href="#goNext-2" id="goNext-2-tab" data-bs-toggle="tab" class="nav-link h3 ">QUESTIONNAIR <small
                             class="d-none d-md-block lead">CONTINUED</small></a></li>
-                <li class="nav-item  "><a href="#step-3" id="step-3-tab" data-bs-toggle="tab" class="nav-link h3 ">MORE<small
+                <li class="nav-item  "><a href="#goNext-3" id="goNext-3-tab" data-bs-toggle="tab" class="nav-link h3 ">MORE<small
                             class="d-none d-md-block lead">CONTINUED</small></a></li>
             </ul>
             <div class="tab-content">
-                <div id="step-1" class="tab-pane fade  show active   pt-4 ">
+                <div id="goNext-1" class="tab-pane fade  show active   pt-4 ">
                     <h5 class="text-center my-2">PATIENT DEMOGRAPHICS</h5>
                      <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="age" class="form-label fw-bold">
+                            <label for="lName" class="form-label fw-bold">
                                 LAST NAME:
                             </label>
-                            <input type="tel" class="form-control" placeholder="lastname">
+                            <input type="text" id="lName" class="form-control" placeholder="lastname">
                         </div>
 
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="name" class="form-label fw-bold">FIRST NAME:</label>
-                            <input type="text" id="name" class="form-control" placeholder="Firstname ">
+                            <label for="fName" class="form-label fw-bold">FIRST NAME:</label>
+                            <input type="text" id="fName" class="form-control" placeholder="Firstname ">
                         </div>
 
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="email" class="form-label fw-bold">DATE OF BIRTH:</label>
-                            <input type="email" id="name" class="form-control" placeholder="DD/MM/YYYY">
+                            <label for="dBirth" class="form-label fw-bold">DATE OF BIRTH:</label>
+                            <input type="text" id="dBirth" class="form-control" placeholder="DD/MM/YYYY">
                         </div>
                         <div class="col-md-3 my-3 my-md-auto">
                             <label for="age" class="form-label fw-bold">
@@ -75,9 +115,9 @@
                                     <label for="sex-female" class="form-check-label">F</label>
                                 </div>
                                 <div class="form-check-inline form-check">
-                                    <input type="radio" name="sex" id="sex-female" value="female"
+                                    <input type="radio" name="sex" id="sex-other" value="other"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">OTHER</label>
+                                    <label for="sex-Other" class="form-check-label">OTHER</label>
                                 </div>
                             </div>
                         </div>
@@ -85,46 +125,40 @@
                     </div>
                     <div class="row my-md-3">
                         <div class="col-md-9 my-3 my-md-auto">
-                            <label for="address-1" class="form-label fw-bold">EXTENDED HEALTH COVERAGE:</label>
+                            <label for="extendedCoverage" class="form-label fw-bold">EXTENDED HEALTH COVERAGE:</label>
                             <div>
                                 <div class="form-check-inline form-check">
-                                    <input type="radio" name="sex" id="sex-male" value="male" class="form-check-input">
-                                    <label for="sex-male" class="form-check-label">YES (Example: Canada Life, Green Shield, Manulife, Sunlife, etc.)</label>
+                                    <input type="radio" name="extendedCoverage" id="extendedCoverageY" value="Y" class="form-check-input">
+                                    <label for="extendedCoverageY" class="form-check-label">YES (Example: Canada Life, Green Shield, Manulife, Sunlife, etc.)</label>
                                 </div>
                                 <div class="form-check-inline form-check">
-                                    <input type="radio" name="sex" id="sex-female" value="female"
+                                    <input type="radio" name="extendedCoverage" id="extendedCoverageN" value="N"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">NO</label>
+                                    <label for="extendedCoverageN" class="form-check-label">NO</label>
                                 </div>
                             </div>
 
-<!--                            <input type="text" id="address-1" class="form-control"
-                                placeholder="123 streetname neighborhood">-->
                         </div>
-<!--                        <div class="col-md-3 my-3 my-md-auto">
-                            <label for="address-2" class="form-label fw-bold">Address :</label>
-                            <input type="text" id="address-2" class="form-control" placeholder="B3 3th floor">
-</div> -->
                     </div>
 
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="address-1" class="form-label fw-bold">HAND DOMINANCE:</label>
+                            <label for="handDominance" class="form-label fw-bold">HAND DOMINANCE:</label>
                             <div>
                                 <div class="form-check-inline form-check">
-                                    <input type="radio" name="hand" id="RIGHT" value="male" class="form-check-input">
-                                    <label for="sex-male" class="form-check-label">RIGHT</label>
+                                    <input type="radio" name="hand" id="RIGHT" value="right" class="form-check-input">
+                                    <label for="hand-right" class="form-check-label">RIGHT</label>
                                 </div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="hand" id="LEFT" value="female"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">LEFT</label>
+                                    <label for="hand-left" class="form-check-label">LEFT</label>
                                 </div>
 
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="hand" id="AMBIDEXTROUS" value="female"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">AMBIDEXTROUS</label>
+                                    <label for="hand-both" class="form-check-label">AMBIDEXTROUS</label>
                                 </div>
                             </div>
 
@@ -145,6 +179,18 @@
 
                                     <input type="radio" class="btn-check" value="q6-a3" id="q6-a3" name="q6-a">
                                     <label class="btn btn-outline-secondary" for="q6-a3">(cm)</label>
+<!--					
+                                    <input type="radio" class="btn-check" value="ht-ft" id="ht-ft" name="ht-measure">
+                                    <label class="btn btn-outline-secondary" for="heightFT">(ft)</label>
+
+
+                                    <input type="radio" class="btn-check" value="ht-in" id="ht-in" name="ht-measure">
+                                    <label class="btn btn-outline-secondary" for="ht-in">(in)</label>
+
+
+                                    <input type="radio" class="btn-check" value="ht-cm" id="ht-cm" name="ht-measure">
+                                    <label class="btn btn-outline-secondary" for="ht-cm">(cm)</label>
+-->
                                 </div>
                             </div>
                             <input class="form-control"
@@ -155,14 +201,6 @@
 
 
                         </div>
-<!--
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="height" class="form-label fw-bold">HEIGHT:</label>
-                            <input type="text" id="ft" class="form-control" placeholder="(ft)">
-                            <input type="text" id="in" class="form-control" placeholder="(in)">
-                            <input type="text" id="cm" class="form-control" placeholder="(cm)">
-                        </div>
--->
                         <div class="col-lg-6 ">
                             <label for="weight" class="form-label fw-bold"> WEIGHT: </label>
                             <div class="  mb-2">
@@ -178,20 +216,11 @@
                             <input class="form-control"
                                 placeholder="PUT YOUR WEIGHT HERE BASED ON YOUR CHOICE OF MEASUREMENT">
                         </div>
-<!--
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="weight" class="form-label fw-bold">
-                                WEIGHT:
-                            </label>
-                            <input type="text" id="lbs" class="form-control" placeholder="(lbs)">
-                            <input type="text" id="kg" class="form-control" placeholder="(kg)">
-                        </div>
--->
                     </div>
 
                      <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="name" class="form-label fw-bold">OCCUPATION/JOB TITLE:</label>
+                            <label for="job" class="form-label fw-bold">OCCUPATION/JOB TITLE:</label>
                             <input type="text" id="job" class="form-control" placeholder=" ">
                         </div>
                         <div class="col-md-6 my-3 my-md-auto">
@@ -209,65 +238,59 @@
                     </div>
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="city" class="form-label fw-bold">Details:</label>
+                            <label for="detail" class="form-label fw-bold">Details:</label>
                             <textarea class="form-control" id="aDetail" rows="2"
                                 placeholder=""></textarea>
                         </div>
                     </div>
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="city" class="form-label fw-bold">RESULT OF AN INJURY?</label>
+                            <label for="injuryResult" class="form-label fw-bold">RESULT OF AN INJURY?</label>
                             <div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="injury" id="injuryY" value="yes" class="form-check-input">
-                                    <label for="sex-male" class="form-check-label">YES </label>
+                                    <label for="injuryY" class="form-check-label">YES </label>
                                 </div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="injury" id="injuryN" value="no"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">NO</label>
+                                    <label for="injuryN" class="form-check-label">NO</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="city" class="form-label fw-bold">INJURY OCCURRED AT WORK?</label>
+                            <label for="injuryAtWork" class="form-label fw-bold">INJURY OCCURRED AT WORK?</label>
                             <div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="injuryAtWork" id="injuryAtWorkY" value="yes" class="form-check-input">
-                                    <label for="sex-male" class="form-check-label">YES </label>
+                                    <label for="injuryAtWorkY" class="form-check-label">YES </label>
                                 </div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="injuryAtWork" id="injuryAtWorkN" value="no"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">NO</label>
+                                    <label for="injuryAtWorkN" class="form-check-label">NO</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="city" class="form-label fw-bold">DATE OF INJURY:</label>
-                            <input type="text" id="aDetail" class="form-control" placeholder="DD/MM/YYYY">
+                            <label for="injuryDate" class="form-label fw-bold">DATE OF INJURY:</label>
+                            <input type="text" id="dateInjury" class="form-control" placeholder="DD/MM/YYYY">
                         </div>
                     </div>
 		    
-                    <button type="button" class="btn btn-outline-secondary d-block ms-auto" id="go-to-step-2">Continue
+                    <button type="button" class="btn btn-outline-secondary d-block ms-auto" id="go-to-goNext-2">Continue
                     </button>
 
 
 
                 </div>
 		<!-- Previous Surgeries Section -->
-                <div id="step-2" class="tab-pane fade  pt-4 ">
+                <div id="goNext-2" class="tab-pane fade  pt-4 ">
                     <h5 class="text-center my-2">PREVIOUS SURGERIES</h5>
-
-		<!--		    
-		<div class="card mb-3">
-		    <div class="card-header bg-primary text-white">
-			<h5 class="mb-0">PREVIOUS SURGERIES</h5>
-		    </div> -->
 		    <div class="card-body">
 			<div class="table-responsive">
 			    <table class="table table-bordered">
@@ -302,31 +325,31 @@
 
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
-                            <label for="city" class="form-label fw-bold">Surgery Required Anesthesia (check all that apply):</label>
+                            <label for="surgeryAnesthesia" class="form-label fw-bold">Surgery Required Anesthesia (check all that apply):</label>
                             <div>
                                 <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsY" value="yes" class="form-check-input">
-                                    <label for="sex-male" class="form-check-label">General Anaesthetic </label>
+                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsG" value="general" class="form-check-input">
+                                    <label for="SurgeryAnaesthetics" class="form-check-label">General Anaesthetic </label>
                                 </div>
                                 <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsN" value="no"
+                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsE" value="epidural"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">Epidural</label>
+                                    <label for="Anaesthetics" class="form-check-label">Epidural</label>
                                 </div>
                                 <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsN" value="no"
+                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsS" value="spinal"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">Spinal</label>
+                                    <label for="Anaesthetics" class="form-check-label">Spinal</label>
                                 </div>
                                 <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsN" value="no"
+                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsL" value="local"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">Local</label>
+                                    <label for="Anaesthetics" class="form-check-label">Local</label>
                                 </div>
                                 <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsN" value="no"
+                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsNone" value="none"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">None</label>
+                                    <label for="Anaesthetics" class="form-check-label">None</label>
                                 </div>
 
                             </div>
@@ -335,17 +358,17 @@
 
 
                     <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="city" class="form-label fw-bold">Any Reactions/Problems with Past Anaesthetics? (e.g. Anaphylactic Reaction, Malignant Hyperthermia, Pseudocholinesterase deficiency)</label>
+                        <div class="my-3 my-md-auto">
+                            <label for="pastAnaesthetics" class="form-label fw-bold">Any Reactions/Problems with Past Anaesthetics? (e.g. Anaphylactic Reaction, Malignant Hyperthermia, Pseudocholinesterase deficiency)</label>
                             <div>
                                 <div class="form-check-inline form-check">
-                                    <input type="radio" name="Anaesthetics" id="AnaestheticsY" value="yes" class="form-check-input">
-                                    <label for="sex-male" class="form-check-label">YES </label>
+                                    <input type="radio" name="ReactionAnaestheticsY" id="ReactionAnaestheticsY" value="yes" class="form-check-input">
+                                    <label for="ReactionAnaestheticsY" class="form-check-label">YES </label>
                                 </div>
                                 <div class="form-check-inline form-check">
-                                    <input type="radio" name="Anaesthetics" id="AnaestheticsN" value="no"
+                                    <input type="radio" name="ReacionAnaestheticsN" id="ReacionAnaestheticsN" value="no"
                                         class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">NO</label>
+                                    <label for="ReactionAnaestheticsN" class="form-check-label">NO</label>
                                 </div>
                             </div>
                         </div>
@@ -361,21 +384,19 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="radio" id="answer-6" class="form-check-input " name="answer-2">
-                                <label for="answer-6" class="form-label">Yes</label>
+                                <input type="radio" id="smoke-answer-6" class="form-check-input " name="smoke-answer-2">
+                                <label for="smoke-answer-6" class="form-label">Yes</label>
                             </div>
                             <div class="form-check ">
-                                <input type="radio" id="answer-7" class="form-check-input " name="answer-2">
-                                <label for="answer-7" class="form-label">No</label>
+                                <input type="radio" id="smoke-answer-7" class="form-check-input " name="smoke-answer-2">
+                                <label for="smoke-answer-7" class="form-label">No</label>
                             </div>
-                            <div class="form-check ">
-                                <input type="radio" id="answer-10" class="form-check-input " name="answer-2">
-                                <label for="answer-10" class="form-label">
-                                    <input type="text" class="form-control form-control-sm" size="30">
-                                </label>
-                                <p class="text-muted small mt-1">if yes, how many cigarettes a day?</p>
+			<!-- Smoking section -->
+			<div id="hide-smoke-no" class="d-none">
+			  <p class="text-muted small mt-1">if yes, how many cigarettes a day?</p>
+			  <input type="text" class="form-control form-control-sm" size="30">
+			</div>
 
-                            </div>
                         </div>
                     </div>
                     <div class="row my-3">
@@ -386,21 +407,23 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="radio" id="answer-6" class="form-check-input " name="answer-2">
-                                <label for="answer-6" class="form-label">Yes</label>
+                                <input type="radio" id="alcohol-answer-6" class="form-check-input " name="alcohol-answer-2">
+                                <label for="alcohol-answer-6" class="form-label">Yes</label>
                             </div>
                             <div class="form-check ">
-                                <input type="radio" id="answer-7" class="form-check-input " name="answer-2">
-                                <label for="answer-7" class="form-label">No</label>
+                                <input type="radio" id="alcohol-answer-7" class="form-check-input " name="alcohol-answer-2">
+                                <label for="alcohol-answer-7" class="form-label">No</label>
                             </div>
-                            <div class="form-check ">
-                                <input type="radio" id="answer-10" class="form-check-input " name="answer-2">
-                                <label for="answer-10" class="form-label">
-                                    <input type="text" class="form-control form-control-sm" size="30">
-                                </label>
-                                <p class="text-muted small mt-1">if yes, how many drinks in a week?</p>
 
-                            </div>
+			<!-- Alcohol section -->
+			<div id="hide-drink-no" class="d-none">
+			  <p class="text-muted small mt-1">if yes, how many drinks in a week?</p>
+			  <label for="alcohol-answer-10" class="form-label">
+			    <input type="text" class="form-control form-control-sm" size="30">
+			  </label>
+			</div>
+
+
                         </div>
                     </div>
                     <div class="row my-3">
@@ -411,21 +434,23 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="radio" id="answer-6" class="form-check-input " name="answer-2">
-                                <label for="answer-6" class="form-label">Yes</label>
+                                <input type="radio" id="drug-answer-6" class="form-check-input " name="drug-answer-2">
+                                <label for="drug-answer-6" class="form-label">Yes</label>
                             </div>
                             <div class="form-check ">
-                                <input type="radio" id="answer-7" class="form-check-input " name="answer-2">
-                                <label for="answer-7" class="form-label">No</label>
+                                <input type="radio" id="drug-answer-7" class="form-check-input " name="drug-answer-2">
+                                <label for="drug-answer-7" class="form-label">No</label>
                             </div>
-                            <div class="form-check ">
-                                <input type="radio" id="answer-10" class="form-check-input " name="answer-2">
-                                <label for="answer-10" class="form-label">
-                                    <input type="text" class="form-control form-control-sm" size="30">
-                                </label>
-                                <p class="text-muted small mt-1">if yes, please specify type and frequency?</p>
 
-                            </div>
+
+			<!-- Drugs section -->
+			<div id="hide-drug-no" class="d-none">
+			  <p class="text-muted small mt-1">if yes, please specify type and frequency?</p>
+			  <label for="drug-answer-10" class="form-label">
+			    <input type="text" class="form-control form-control-sm" size="30">
+			  </label>
+			</div>
+
                         </div>
                     </div>
 
@@ -479,50 +504,17 @@
                     <hr>
                     <h5 class="text-center my-2">ALLERGIES</h5>
                     <div class="row my-3">
-                        <div class="col-md-2 my-3 my-md-auto">
-                            <label for="zip" class="form-label fw-bold">Please list all allergies (including latex, medication, food) and type of reaction experienced:</label>
+                        <div class="my-3 my-md-auto">
+                            <label for="allergies" class="form-label fw-bold">Please list all allergies (including latex, medication, food) and type of reaction experienced:</label>
                             <textarea id="allergies" class="form-control" rows="2"
                                 placeholder=""></textarea>
                         </div>
-<!--
-                        <div class="col-lg-6">
-                            <figure class="figure">
-                                <img src="img/1600x900.png" class="figure-img img-fluid rounded" alt="img">
-                                <figcaptiin class="figure-caption">Lorem ipsum dolor sit.</figcaptiin>
-                            </figure>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-check ">
-                                <input type="checkbox" id="answer-11" class="form-check-input " name="answer-3">
-                                <label for="answer-11" class="form-label">Answer-1</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="checkbox" id="answer-12" class="form-check-input " name="answer-4">
-                                <label for="answer-12" class="form-label">Answer-2</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="checkbox" id="answer-13" class="form-check-input " name="answer-5">
-                                <label for="answer-13" class="form-label">Answer-3</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="checkbox" id="answer-14" class="form-check-input " name="answer-6">
-                                <label for="answer-14" class="form-label">Answer-4</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="checkbox" id="answer-15" class="form-check-input " name="answer-7">
-                                <label for="answer-15" class="form-label">
-                                    <input type="text" class="form-control form-control-sm" size="30">
-                                </label>
-                                <p class="text-muted small mt-1">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit. Sed numquam alias dolores?</p>
 
-                            </div>
-			</div>-->
                     </div>
-                    <button type="button" class="btn btn-outline-secondary ms-auto d-block" id="go-to-step-3">Continue
+                    <button type="button" class="btn btn-outline-secondary ms-auto d-block" id="go-to-goNext-3">Continue
                         </button>
                 </div>
-                <div id="step-3" class="tab-pane fade my-3  pt-4 ">
+                <div id="goNext-3" class="tab-pane fade my-3  pt-4 ">
                     <h5 class="text-center my-2">RELEVANT MEDICAL HISTORY</h5>
                     <p class="small">Please check all that apply:</p>
                     <div class="row my-2">
@@ -789,36 +781,34 @@
 
 		<!-- Medications Section -->
 		<div class="card mb-3">
-		    <div class="card-header bg-primary text-white">
+		    <div class="card-header bg-light">
 			<h5 class="mb-0">MEDICATIONS</h5>
+		        <small class="text-muted">(Includes over-the-counter drugs, inhalers and herbal supplements)</small>
 		    </div>
 		    <div class="card-body">
 			    <!--			<p><strong>Drug Name</strong> <em>(Includes over-the-counter drugs, inhalers and herbal supplements)</em></p>-->
 
 			<div class="table-responsive">
-			    <table class="table table-bordered">
+			    <table class="table table-bordered" id="medications-table">
 				<thead class="thead-light">
 				    <tr>
-					<th>Drug Name</th>
-					<th>Dose</th>
+					<th width="60%">Drug Name</th>
+					<th width="30%">Dose</th>
+				        <th width="10%">Actions</th>
 				    </tr>
 				</thead>
 				<tbody>
 				    <tr>
-					<td><input type="text" class="form-control" name="medication1" placeholder="(Includes over-the-counter drugs, inhalers and herbal supplements)"></td>
-					<td><input type="text" class="form-control" name="dose1"></td>
-				    </tr>
-				    <tr>
-					<td><input type="text" class="form-control" name="medication2"></td>
-					<td><input type="text" class="form-control" name="dose2"></td>
-				    </tr>
-				    <tr>
-					<td><input type="text" class="form-control" name="medication3"></td>
-					<td><input type="text" class="form-control" name="dose3"></td>
+					<td><input type="text" class="form-control" name="medication[]" placeholder="(Includes over-the-counter drugs, inhalers and herbal supplements)"></td>
+					<td><input type="text" class="form-control" name="dose[]"></td>
+				        <td><button type="button" class="btn btn-sm btn-danger remove-row">-</button></td>
 				    </tr>
 				</tbody>
 			    </table>
 			</div>
+		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-medication">
+		      <i class="bi bi-plus"></i> Add Medication
+		    </button>
 
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
@@ -844,8 +834,9 @@
 
 		<!-- Specialists Section -->
 		<div class="card mb-3">
-		    <div class="card-header bg-primary text-white">
+		    <div class="card-header bg-light">
 			<h5 class="mb-0">SPECIALISTS</h5>
+		        <small class="text-muted">(Please list all specialists who look after your medical conditions)</small>
 		    </div>
 		    <div class="card-body">
 
@@ -889,23 +880,23 @@
     </div>
 
     <script>
-        var goToStep2Trigger = document.querySelector('#go-to-step-2');
-        goToStep2Trigger.addEventListener('click', function () {
+        var goToNext2Trigger = document.querySelector('#go-to-goNext-2');
+        goToNext2Trigger.addEventListener('click', function () {
             scrollToTop();
             setTimeout(function () {
-                var step2TabElement = document.querySelector('#step-2-tab');
-                var step2Tab = new bootstrap.Tab(step2TabElement);
-                step2Tab.show();
+                var goNext2TabElement = document.querySelector('#goNext-2-tab');
+                var goNext2Tab = new bootstrap.Tab(goNext2TabElement);
+                goNext2Tab.show();
             }, 1000)
         })
 
-        var goToStep3Trigger = document.querySelector('#go-to-step-3');
+        var goToStep3Trigger = document.querySelector('#go-to-goNext-3');
         goToStep3Trigger.addEventListener('click', function () {
             scrollToTop();
             setTimeout(function () {
-                var step3TabElement = document.querySelector('#step-3-tab');
-                var step3Tab = new bootstrap.Tab(step3TabElement);
-                step3Tab.show();
+                var goNext3TabElement = document.querySelector('#goNext-3-tab');
+                var goNext3Tab = new bootstrap.Tab(goNext3TabElement);
+                goNext3Tab.show();
             }, 1000)
         })
 
@@ -921,10 +912,46 @@
             submitButton.disabled = true;
             submitButton.querySelector('.spinner-border').classList.remove('d-none');
             setTimeout(function () {
-                window.location.href = 'results.html';
+                window.location.href = 'index.php';
             }, 2000)
         })
-    </script>
+
+  // Add medication row
+  document.getElementById('add-medication').addEventListener('click', function() {
+    const tbody = document.querySelector('#medications-table tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td><input type="text" class="form-control" name="medication[]"></td>
+      <td><input type="text" class="form-control" name="dose[]"></td>
+      <td><button type="button" class="btn btn-sm btn-danger remove-row">-</button></td>
+    `;
+    tbody.appendChild(newRow);
+  });
+
+  // Add surgery row
+  document.getElementById('add-surgery').addEventListener('click', function() {
+    const tbody = document.querySelector('#surgeries-table tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+      <td><input type="text" class="form-control" name="surgery[]"></td>
+      <td><input type="text" class="form-control" name="reason[]"></td>
+      <td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY"></td>
+      <td><button type="button" class="btn btn-sm btn-danger remove-row">-</button></td>
+    `;
+    tbody.appendChild(newRow);
+  });
+
+  // Remove row (works for both tables)
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-row')) {
+      const row = e.target.closest('tr');
+      if (row) {
+        row.remove();
+      }
+    }
+  });
+</script>
+
 
 </body>
 
