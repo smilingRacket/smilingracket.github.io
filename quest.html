@@ -259,8 +259,46 @@
 
 
                 </div>
+		<!-- Previous Surgeries Section -->
                 <div id="step-2" class="tab-pane fade  pt-4 ">
                     <h5 class="text-center my-2">PREVIOUS SURGERIES</h5>
+
+		<!--		    
+		<div class="card mb-3">
+		    <div class="card-header bg-primary text-white">
+			<h5 class="mb-0">PREVIOUS SURGERIES</h5>
+		    </div> -->
+		    <div class="card-body">
+			<div class="table-responsive">
+			    <table class="table table-bordered">
+				<thead class="thead-light">
+				    <tr>
+					<th>SURGERY</th>
+					<th>REASON</th>
+					<th>DATE (MONTH/YEAR)</th>
+				    </tr>
+				</thead>
+				<tbody>
+				    <tr>
+					<td><input type="text" class="form-control" name="surgery1"></td>
+					<td><input type="text" class="form-control" name="reason1"></td>
+					<td><input type="text" class="form-control" name="surgery_date1" placeholder="MM/YYYY"></td>
+				    </tr>
+				    <tr>
+					<td><input type="text" class="form-control" name="surgery2"></td>
+					<td><input type="text" class="form-control" name="reason2"></td>
+					<td><input type="text" class="form-control" name="surgery_date2" placeholder="MM/YYYY"></td>
+				    </tr>
+				    <tr>
+					<td><input type="text" class="form-control" name="surgery3"></td>
+					<td><input type="text" class="form-control" name="reason3"></td>
+					<td><input type="text" class="form-control" name="surgery_date3" placeholder="MM/YYYY"></td>
+				    </tr>
+				</tbody>
+			    </table>
+			</div>
+		    </div>
+		    <!--</div>-->
 
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
@@ -748,6 +786,94 @@
                         </div>
                         <hr class="mt-4">
                     </div>
+
+		<!-- Medications Section -->
+		<div class="card mb-3">
+		    <div class="card-header bg-primary text-white">
+			<h5 class="mb-0">MEDICATIONS</h5>
+		    </div>
+		    <div class="card-body">
+			    <!--			<p><strong>Drug Name</strong> <em>(Includes over-the-counter drugs, inhalers and herbal supplements)</em></p>-->
+
+			<div class="table-responsive">
+			    <table class="table table-bordered">
+				<thead class="thead-light">
+				    <tr>
+					<th>Drug Name</th>
+					<th>Dose</th>
+				    </tr>
+				</thead>
+				<tbody>
+				    <tr>
+					<td><input type="text" class="form-control" name="medication1" placeholder="(Includes over-the-counter drugs, inhalers and herbal supplements)"></td>
+					<td><input type="text" class="form-control" name="dose1"></td>
+				    </tr>
+				    <tr>
+					<td><input type="text" class="form-control" name="medication2"></td>
+					<td><input type="text" class="form-control" name="dose2"></td>
+				    </tr>
+				    <tr>
+					<td><input type="text" class="form-control" name="medication3"></td>
+					<td><input type="text" class="form-control" name="dose3"></td>
+				    </tr>
+				</tbody>
+			    </table>
+			</div>
+
+                    <div class="row my-md-3">
+                        <div class="col-md-6 my-3 my-md-auto">
+                            <label for="steroid" class="form-label fw-bold">Prednisone/steroid medication in the past 6 months?</label>
+                            <div>
+                                <div class="form-check-inline form-check">
+                                    <input type="radio" name="steroidY" id="steroidY" value="yes" class="form-check-input">
+                                    <label for="steroidY" class="form-check-label">YES </label>
+                                </div>
+                                <div class="form-check-inline form-check">
+                                    <input type="radio" name="steroidN" id="steroidN" value="no"
+                                        class="form-check-input">
+                                    <label for="steroidN" class="form-check-label">NO</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+		    </div>
+		</div>
+
+
+
+		<!-- Specialists Section -->
+		<div class="card mb-3">
+		    <div class="card-header bg-primary text-white">
+			<h5 class="mb-0">SPECIALISTS</h5>
+		    </div>
+		    <div class="card-body">
+
+			<div class="table-responsive">
+			    <table class="table table-bordered">
+				<thead class="thead-light">
+				    <tr>
+					<th>Name</th>
+					<th>Service</th>
+				    </tr>
+				</thead>
+				<tbody>
+				    <tr>
+					<td><input type="text" class="form-control" name="specialist1" placeholder="(Please list all specialists who look after your medical conditions)"></td>
+					<td><input type="text" class="form-control" name="service1"></td>
+				    </tr>
+				    <tr>
+					<td><input type="text" class="form-control" name="spcialist2"></td>
+					<td><input type="text" class="form-control" name="service2"></td>
+				    </tr>
+				    <tr>
+					<td><input type="text" class="form-control" name="spcialist3"></td>
+					<td><input type="text" class="form-control" name="service3"></td>
+				    </tr>
+				</tbody>
+			    </table>
+			</div>
+
 
 
                     <button type="submit" id="submitButton" class="btn btn-secondary my-4  d-block ms-auto">
