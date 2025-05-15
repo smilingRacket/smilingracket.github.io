@@ -12,49 +12,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-
-	  $(document).ready(function(){
-	  // Function to toggle sections
-		  /*
-	  function toggleSections() {
-	    // Drug section
-	    if ($('#drug-answer-6').is(':checked')) {
-	      $('#hide-drug-no').removeClass('d-none');
-	    } else {
-	      $('#hide-drug-no').addClass('d-none');
-	    }
-
-	    // Smoke section
-	    if ($('#smoke-answer-6').is(':checked')) {
-	      $('#hide-smoke-no').removeClass('d-none');
-	    } else {
-	      $('#hide-smoke-no').addClass('d-none');
-	    }
-
-	    // Alcohol section
-	    if ($('#alcohol-answer-6').is(':checked')) {
-	      $('#hide-drink-no').removeClass('d-none');
-	    } else {
-	      $('#hide-drink-no').addClass('d-none');
-	    }
-	  }
-
-	  // Set up event handlers
-	  $('input[name="drug-answer-2"]').change(toggleSections);
-	  $('input[name="smoke-answer-2"]').change(toggleSections);
-	  $('input[name="alcohol-answer-2"]').change(toggleSections);
-*/
-	  // Initialize on page load
+    <script>
+	$(document).ready(function() {
+	  // Initialize sections on page load
 	  toggleSections();
-
+	  
 	  // Set up event handlers for radio buttons
 	  $('input[name="drug-answer-2"]').change(toggleSections);
 	  $('input[name="smoke-answer-2"]').change(toggleSections);
 	  $('input[name="alcohol-answer-2"]').change(toggleSections);
 
-	  // Medications Section
-	  $('#add-medication').click(function() {
+	  // Medications Section - Add button
+	  $('#add-medication').off('click').on('click', function() {
 	    const newRow = `
 	      <tr>
 		<td><input type="text" class="form-control" name="medication[]" required></td>
@@ -65,8 +34,8 @@
 	    $('#medications-table tbody').append(newRow);
 	  });
 
-	  // Specialists Section
-	  $('#add-specialist').click(function() {
+	  // Specialists Section - Add button
+	  $('#add-specialist').off('click').on('click', function() {
 	    const newRow = `
 	      <tr>
 		<td><input type="text" class="form-control" name="specialist[]" required></td>
@@ -77,8 +46,8 @@
 	    $('#specialists-table tbody').append(newRow);
 	  });
 
-	  // Previous Surgeries Section
-	  $('#add-surgery').click(function() {
+	  // Previous Surgeries Section - Add button
+	  $('#add-surgery').off('click').on('click', function() {
 	    const newRow = `
 	      <tr>
 		<td><input type="text" class="form-control" name="surgery[]" required></td>
@@ -113,9 +82,8 @@
 	    // Alcohol section
 	    $('#hide-drink-no').toggleClass('d-none', !$('#alcohol-answer-6').is(':checked'));
 	  }
-	});		  
-//	});
-</script>
+	});	
+   </script>
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
@@ -133,7 +101,7 @@
     <div class="container mt-3 mt-lg-5">
         <header class="mb-4">
             <h1 class="display-3 text-center ">PATIENT HEALTH QUESTIONNAIR</h1>
-            <h2 class=" lead text-center ">Subtitle for Questionnaires name</h2>
+            <h2 class=" lead text-center alert alert-primary">Make sure to hit Submit at the end</h2>
         </header>
         <main>
             <ul class="nav nav-tabs nav-justified">
@@ -237,29 +205,19 @@
                             <label for="height" class="form-label fw-bold">HEIGHT:</label>
                             <div class="  mb-2">
                                 <div class="btn-group btn-group-lg w-100">
-                                    <input type="radio" class="btn-check" value="q6-a1" id="q6-a1" name="q6-a">
-                                    <label class="btn btn-outline-secondary" for="q6-a1">(ft)</label>
 
+				  <!-- FT option -->
+				  <input type="radio" class="btn-check" value="ht-ft" id="ht-ft" name="ht-measure" checked>
+				  <label class="btn btn-outline-secondary" for="ht-ft">(ft)</label>
 
-                                    <input type="radio" class="btn-check" value="q6-a2" id="q6-a2" name="q6-a">
-                                    <label class="btn btn-outline-secondary" for="q6-a2">(in)</label>
+				  <!-- IN option -->
+				  <input type="radio" class="btn-check" value="ht-in" id="ht-in" name="ht-measure">
+				  <label class="btn btn-outline-secondary" for="ht-in">(in)</label>
 
-
-                                    <input type="radio" class="btn-check" value="q6-a3" id="q6-a3" name="q6-a">
-                                    <label class="btn btn-outline-secondary" for="q6-a3">(cm)</label>
-<!--					
-                                    <input type="radio" class="btn-check" value="ht-ft" id="ht-ft" name="ht-measure">
-                                    <label class="btn btn-outline-secondary" for="heightFT">(ft)</label>
-
-
-                                    <input type="radio" class="btn-check" value="ht-in" id="ht-in" name="ht-measure">
-                                    <label class="btn btn-outline-secondary" for="ht-in">(in)</label>
-
-
-                                    <input type="radio" class="btn-check" value="ht-cm" id="ht-cm" name="ht-measure">
-                                    <label class="btn btn-outline-secondary" for="ht-cm">(cm)</label>
--->
-                                </div>
+				  <!-- CM option -->
+				  <input type="radio" class="btn-check" value="ht-cm" id="ht-cm" name="ht-measure">
+				  <label class="btn btn-outline-secondary" for="ht-cm">(cm)</label>
+				</div>					
                             </div>
                             <input class="form-control"
                                 placeholder="PUT YOUR HEIGHT HERE BASED ON YOUR CHOICE OF MEASUREMENT">
@@ -272,14 +230,15 @@
                         <div class="col-lg-6 ">
                             <label for="weight" class="form-label fw-bold"> WEIGHT: </label>
                             <div class="  mb-2">
-                                <div class="btn-group btn-group-lg w-100">
-                                    <input type="radio" class="btn-check" value="q7-a1" id="q7-a1" name="q7-a">
-                                    <label class="btn btn-outline-secondary" for="q7-a1">(lbs)</label>
+				<div class="btn-group btn-group-lg w-100">
+				  <!-- LBS option -->
+				  <input type="radio" class="btn-check" value="wt-lbs" id="wt-lbs" name="wt-measure" checked>
+				  <label class="btn btn-outline-secondary" for="wt-lbs">(lbs)</label>
 
-
-                                    <input type="radio" class="btn-check" value="q7-a2" id="q7-a2" name="q7-a">
-                                    <label class="btn btn-outline-secondary" for="q7-a2">(kg)</label>
-                                </div>
+				  <!-- KG option -->
+				  <input type="radio" class="btn-check" value="wt-kg" id="wt-kg" name="wt-measure">
+				  <label class="btn btn-outline-secondary" for="wt-kg">(kg)</label>
+				</div>
                             </div>
                             <input class="form-control"
                                 placeholder="PUT YOUR WEIGHT HERE BASED ON YOUR CHOICE OF MEASUREMENT">
