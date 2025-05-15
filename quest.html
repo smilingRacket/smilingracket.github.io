@@ -16,6 +16,7 @@
 
 	  $(document).ready(function(){
 	  // Function to toggle sections
+		  /*
 	  function toggleSections() {
 	    // Drug section
 	    if ($('#drug-answer-6').is(':checked')) {
@@ -43,10 +44,77 @@
 	  $('input[name="drug-answer-2"]').change(toggleSections);
 	  $('input[name="smoke-answer-2"]').change(toggleSections);
 	  $('input[name="alcohol-answer-2"]').change(toggleSections);
-
+*/
 	  // Initialize on page load
 	  toggleSections();
-	});
+
+	  // Set up event handlers for radio buttons
+	  $('input[name="drug-answer-2"]').change(toggleSections);
+	  $('input[name="smoke-answer-2"]').change(toggleSections);
+	  $('input[name="alcohol-answer-2"]').change(toggleSections);
+
+	  // Medications Section
+	  $('#add-medication').click(function() {
+	    const newRow = `
+	      <tr>
+		<td><input type="text" class="form-control" name="medication[]" required></td>
+		<td><input type="text" class="form-control" name="dose[]" required></td>
+		<td><button type="button" class="btn btn-sm btn-danger remove-medication">-</button></td>
+	      </tr>
+	    `;
+	    $('#medications-table tbody').append(newRow);
+	  });
+
+	  // Specialists Section
+	  $('#add-specialist').click(function() {
+	    const newRow = `
+	      <tr>
+		<td><input type="text" class="form-control" name="specialist[]" required></td>
+		<td><input type="text" class="form-control" name="service[]" required></td>
+		<td><button type="button" class="btn btn-sm btn-danger remove-specialist">-</button></td>
+	      </tr>
+	    `;
+	    $('#specialists-table tbody').append(newRow);
+	  });
+
+	  // Previous Surgeries Section
+	  $('#add-surgery').click(function() {
+	    const newRow = `
+	      <tr>
+		<td><input type="text" class="form-control" name="surgery[]" required></td>
+		<td><input type="text" class="form-control" name="reason[]" required></td>
+		<td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY" required></td>
+		<td><button type="button" class="btn btn-sm btn-danger remove-surgery">-</button></td>
+	      </tr>
+	    `;
+	    $('#surgeries-table tbody').append(newRow);
+	  });
+
+	  // Handle remove buttons using event delegation
+	  $(document).on('click', '.remove-medication', function() {
+	    $(this).closest('tr').remove();
+	  });
+
+	  $(document).on('click', '.remove-specialist', function() {
+	    $(this).closest('tr').remove();
+	  });
+
+	  $(document).on('click', '.remove-surgery', function() {
+	    $(this).closest('tr').remove();
+	  });
+
+	  function toggleSections() {
+	    // Drug section
+	    $('#hide-drug-no').toggleClass('d-none', !$('#drug-answer-6').is(':checked'));
+	    
+	    // Smoke section
+	    $('#hide-smoke-no').toggleClass('d-none', !$('#smoke-answer-6').is(':checked'));
+	    
+	    // Alcohol section
+	    $('#hide-drink-no').toggleClass('d-none', !$('#alcohol-answer-6').is(':checked'));
+	  }
+	});		  
+//	});
 </script>
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
@@ -289,39 +357,35 @@
 
                 </div>
 		<!-- Previous Surgeries Section -->
-                <div id="goNext-2" class="tab-pane fade  pt-4 ">
-                    <h5 class="text-center my-2">PREVIOUS SURGERIES</h5>
-		    <div class="card-body">
-			<div class="table-responsive">
-			    <table class="table table-bordered">
-				<thead class="thead-light">
-				    <tr>
-					<th>SURGERY</th>
-					<th>REASON</th>
-					<th>DATE (MONTH/YEAR)</th>
-				    </tr>
-				</thead>
-				<tbody>
-				    <tr>
-					<td><input type="text" class="form-control" name="surgery1"></td>
-					<td><input type="text" class="form-control" name="reason1"></td>
-					<td><input type="text" class="form-control" name="surgery_date1" placeholder="MM/YYYY"></td>
-				    </tr>
-				    <tr>
-					<td><input type="text" class="form-control" name="surgery2"></td>
-					<td><input type="text" class="form-control" name="reason2"></td>
-					<td><input type="text" class="form-control" name="surgery_date2" placeholder="MM/YYYY"></td>
-				    </tr>
-				    <tr>
-					<td><input type="text" class="form-control" name="surgery3"></td>
-					<td><input type="text" class="form-control" name="reason3"></td>
-					<td><input type="text" class="form-control" name="surgery_date3" placeholder="MM/YYYY"></td>
-				    </tr>
-				</tbody>
-			    </table>
-			</div>
+		<div id="goNext-2" class="tab-pane fade  pt-4 ">
+		<div class="card mb-3">
+		  <div class="card-header bg-light">
+		    <h5 class="mb-0">PREVIOUS SURGERIES</h5>
+		  </div>
+		  <div class="card-body">
+		    <div class="table-responsive">
+		      <table class="table table-bordered" id="surgeries-table">
+			<thead class="thead-light">
+			  <tr>
+			    <th>SURGERY</th>
+			    <th>REASON</th>
+			    <th>DATE (MONTH/YEAR)</th>
+			    <th>Actions</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+			    <td><input type="text" class="form-control" name="surgery[]" required></td>
+			    <td><input type="text" class="form-control" name="reason[]" required></td>
+			    <td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY" required></td>
+			    <td><button type="button" class="btn btn-sm btn-danger remove-surgery">-</button></td>
+			  </tr>
+			</tbody>
+		      </table>
 		    </div>
-		    <!--</div>-->
+		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-surgery">
+		      <i class="bi bi-plus"></i> Add Surgery
+		    </button>
 
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
@@ -372,6 +436,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    </div>
                     </div>
 
                     <hr>
@@ -780,36 +846,34 @@
                     </div>
 
 		<!-- Medications Section -->
-		<div class="card mb-3">
-		    <div class="card-header bg-light">
-			<h5 class="mb-0">MEDICATIONS</h5>
-		        <small class="text-muted">(Includes over-the-counter drugs, inhalers and herbal supplements)</small>
-		    </div>
-		    <div class="card-body">
-			    <!--			<p><strong>Drug Name</strong> <em>(Includes over-the-counter drugs, inhalers and herbal supplements)</em></p>-->
 
-			<div class="table-responsive">
-			    <table class="table table-bordered" id="medications-table">
-				<thead class="thead-light">
-				    <tr>
-					<th width="60%">Drug Name</th>
-					<th width="30%">Dose</th>
-				        <th width="10%">Actions</th>
-				    </tr>
-				</thead>
-				<tbody>
-				    <tr>
-					<td><input type="text" class="form-control" name="medication[]" placeholder="(Includes over-the-counter drugs, inhalers and herbal supplements)"></td>
-					<td><input type="text" class="form-control" name="dose[]"></td>
-				        <td><button type="button" class="btn btn-sm btn-danger remove-row">-</button></td>
-				    </tr>
-				</tbody>
-			    </table>
-			</div>
+		<div class="card mb-3">
+		  <div class="card-header bg-light">
+		    <h5 class="mb-0">MEDICATIONS</h5>
+		    <small class="text-muted">(Includes over-the-counter drugs, inhalers and herbal supplements)</small>
+		  </div>
+		  <div class="card-body">
+		    <div class="table-responsive">
+		      <table class="table table-bordered" id="medications-table">
+			<thead class="thead-light">
+			  <tr>
+			    <th width="60%">Drug Name</th>
+			    <th width="30%">Dose</th>
+			    <th width="10%">Actions</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+			    <td><input type="text" class="form-control" name="medication[]" required></td>
+			    <td><input type="text" class="form-control" name="dose[]" required></td>
+			    <td><button type="button" class="btn btn-sm btn-danger remove-medication">-</button></td>
+			  </tr>
+			</tbody>
+		      </table>
+		    </div>
 		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-medication">
 		      <i class="bi bi-plus"></i> Add Medication
 		    </button>
-
                     <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
                             <label for="steroid" class="form-label fw-bold">Prednisone/steroid medication in the past 6 months?</label>
@@ -833,47 +897,41 @@
 
 
 		<!-- Specialists Section -->
+
 		<div class="card mb-3">
-		    <div class="card-header bg-light">
-			<h5 class="mb-0">SPECIALISTS</h5>
-		        <small class="text-muted">(Please list all specialists who look after your medical conditions)</small>
+		  <div class="card-header bg-light">
+		    <h5 class="mb-0">SPECIALISTS</h5>
+		    <small class="text-muted">(Please list all specialists who look after your medical conditions)</small>
+		  </div>
+		  <div class="card-body">
+		    <div class="table-responsive">
+		      <table class="table table-bordered" id="specialists-table">
+			<thead class="thead-light">
+			  <tr>
+			    <th>Name</th>
+			    <th>Service</th>
+			    <th>Actions</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+			    <td><input type="text" class="form-control" name="specialist[]" required></td>
+			    <td><input type="text" class="form-control" name="service[]" required></td>
+			    <td><button type="button" class="btn btn-sm btn-danger remove-specialist">-</button></td>
+			  </tr>
+			</tbody>
+		      </table>
 		    </div>
-		    <div class="card-body">
+		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-specialist">
+		      <i class="bi bi-plus"></i> Add Specialist
+		    </button>
+		  </div>
+		</div>
 
-			<div class="table-responsive">
-			    <table class="table table-bordered">
-				<thead class="thead-light">
-				    <tr>
-					<th>Name</th>
-					<th>Service</th>
-				    </tr>
-				</thead>
-				<tbody>
-				    <tr>
-					<td><input type="text" class="form-control" name="specialist1" placeholder="(Please list all specialists who look after your medical conditions)"></td>
-					<td><input type="text" class="form-control" name="service1"></td>
-				    </tr>
-				    <tr>
-					<td><input type="text" class="form-control" name="spcialist2"></td>
-					<td><input type="text" class="form-control" name="service2"></td>
-				    </tr>
-				    <tr>
-					<td><input type="text" class="form-control" name="spcialist3"></td>
-					<td><input type="text" class="form-control" name="service3"></td>
-				    </tr>
-				</tbody>
-			    </table>
-			</div>
-
-
-                </div>
-             </div>
-
-
-                    <button type="submit" id="submitButton" class="btn btn-secondary my-4  d-block ms-auto">
-                        Submit
-                        <span class="spinner-border spinner-border-sm d-none"></span>
-                    </button>
+	    <button type="submit" id="submitButton" class="btn btn-secondary my-4  d-block ms-auto">
+		Submit
+		<span class="spinner-border spinner-border-sm d-none"></span>
+	    </button>
 
             </div>
         </main>
@@ -916,40 +974,6 @@
             }, 2000)
         })
 
-  // Add medication row
-  document.getElementById('add-medication').addEventListener('click', function() {
-    const tbody = document.querySelector('#medications-table tbody');
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td><input type="text" class="form-control" name="medication[]"></td>
-      <td><input type="text" class="form-control" name="dose[]"></td>
-      <td><button type="button" class="btn btn-sm btn-danger remove-row">-</button></td>
-    `;
-    tbody.appendChild(newRow);
-  });
-
-  // Add surgery row
-  document.getElementById('add-surgery').addEventListener('click', function() {
-    const tbody = document.querySelector('#surgeries-table tbody');
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td><input type="text" class="form-control" name="surgery[]"></td>
-      <td><input type="text" class="form-control" name="reason[]"></td>
-      <td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY"></td>
-      <td><button type="button" class="btn btn-sm btn-danger remove-row">-</button></td>
-    `;
-    tbody.appendChild(newRow);
-  });
-
-  // Remove row (works for both tables)
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remove-row')) {
-      const row = e.target.closest('tr');
-      if (row) {
-        row.remove();
-      }
-    }
-  });
 </script>
 
 
