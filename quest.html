@@ -28,7 +28,7 @@
 	      <tr>
 		<td><input type="text" class="form-control" name="medication[]" required></td>
 		<td><input type="text" class="form-control" name="dose[]" required></td>
-		<td><button type="button" class="btn btn-sm btn-danger remove-medication">-</button></td>
+		<td><button type="button" class="btn btn-outline-danger remove-medication"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button></td>
 	      </tr>
 	    `;
 	    $('#medications-table tbody').append(newRow);
@@ -40,7 +40,7 @@
 	      <tr>
 		<td><input type="text" class="form-control" name="specialist[]" required></td>
 		<td><input type="text" class="form-control" name="service[]" required></td>
-		<td><button type="button" class="btn btn-sm btn-danger remove-specialist">-</button></td>
+		<td><button type="button" class="btn btn-outline-danger remove-specialist"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button> 
 	      </tr>
 	    `;
 	    $('#specialists-table tbody').append(newRow);
@@ -53,7 +53,7 @@
 		<td><input type="text" class="form-control" name="surgery[]" required></td>
 		<td><input type="text" class="form-control" name="reason[]" required></td>
 		<td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY" required></td>
-		<td><button type="button" class="btn btn-sm btn-danger remove-surgery">-</button></td>
+		<td><button type="button" class="btn btn-outline-danger remove-surgery"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button></td>
 	      </tr>
 	    `;
 	    $('#surgeries-table tbody').append(newRow);
@@ -329,7 +329,10 @@
 			    <th>SURGERY</th>
 			    <th>REASON</th>
 			    <th>DATE (MONTH/YEAR)</th>
-			    <th>Actions</th>
+			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+</svg></th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -337,7 +340,11 @@
 			    <td><input type="text" class="form-control" name="surgery[]" required></td>
 			    <td><input type="text" class="form-control" name="reason[]" required></td>
 			    <td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY" required></td>
-			    <td><button type="button" class="btn btn-sm btn-danger remove-surgery">-</button></td>
+			    <td>
+				<button type="button" class="btn btn-outline-danger remove-surgery">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+				</svg> </button>
 			  </tr>
 			</tbody>
 		      </table>
@@ -489,20 +496,20 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="checkbox" id="answer-6" class="form-check-input " name="answer-2">
-                                <label for="answer-6" class="form-label">unvaccinated</label>
+                                <input type="radio" id="covid-answer-0" class="form-check-input " name="covid-answer">
+                                <label for="covid-answer-0" class="form-label">unvaccinated</label>
                             </div>
                             <div class="form-check ">
-                                <input type="checkbox" id="answer-7" class="form-check-input " name="answer-2">
-                                <label for="answer-7" class="form-label">1 dose</label>
+                                <input type="radio" id="covid-answer-1" class="form-check-input " name="covid-answer">
+                                <label for="covid-answer-1" class="form-label">1 dose</label>
                             </div>
                             <div class="form-check ">
-                                <input type="checkbox" id="answer-6" class="form-check-input " name="answer-2">
-                                <label for="answer-6" class="form-label">2 doses</label>
+                                <input type="radio" id="covid-answer-2" class="form-check-input " name="covid-answer">
+                                <label for="covid-answer-2" class="form-label">2 doses</label>
                             </div>
                             <div class="form-check ">
-                                <input type="checkbox" id="answer-7" class="form-check-input " name="answer-2">
-                                <label for="answer-7" class="form-label">3 doses</label>
+                                <input type="radio" id="covid-answer-3" class="form-check-input " name="covid-answer">
+                                <label for="covid-answer-3" class="form-label">3 doses</label>
                             </div>
 
 
@@ -516,12 +523,12 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="radio" id="answer-6" class="form-check-input " name="answer-2">
-                                <label for="answer-6" class="form-label">unvaccinated</label>
+                                <input type="radio" id="flu-answer-0" class="form-check-input " name="flu-answer">
+                                <label for="flu-answer-0" class="form-label">unvaccinated</label>
                             </div>
                             <div class="form-check ">
-                                <input type="radio" id="answer-7" class="form-check-input " name="answer-2">
-                                <label for="answer-7" class="form-label">annual</label>
+                                <input type="radio" id="flu-answer-1" class="form-check-input " name="flu-answer">
+                                <label for="flu-answer-1" class="form-label">annual</label>
                             </div>
                         </div>
                     </div>
@@ -536,8 +543,7 @@
                         </div>
 
                     </div>
-                    <button type="button" class="btn btn-outline-secondary ms-auto d-block" id="go-to-goNext-3">Continue
-                        </button>
+                    <button type="button" class="btn btn-outline-secondary ms-auto d-block" id="go-to-goNext-3">Continue</button>
                 </div>
                 <div id="goNext-3" class="tab-pane fade my-3  pt-4 ">
                     <h5 class="text-center my-2">RELEVANT MEDICAL HISTORY</h5>
@@ -816,16 +822,24 @@
 		      <table class="table table-bordered" id="medications-table">
 			<thead class="thead-light">
 			  <tr>
-			    <th width="60%">Drug Name</th>
+			    <th width="65%">Drug Name</th>
 			    <th width="30%">Dose</th>
-			    <th width="10%">Actions</th>
+			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+</svg></th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr>
 			    <td><input type="text" class="form-control" name="medication[]" required></td>
 			    <td><input type="text" class="form-control" name="dose[]" required></td>
-			    <td><button type="button" class="btn btn-sm btn-danger remove-medication">-</button></td>
+			    <td>
+				<button type="button" class="btn btn-outline-danger remove-medication">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+				</svg> </button>
+
 			  </tr>
 			</tbody>
 		      </table>
@@ -869,14 +883,21 @@
 			  <tr>
 			    <th>Name</th>
 			    <th>Service</th>
-			    <th>Actions</th>
+			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+</svg></th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr>
 			    <td><input type="text" class="form-control" name="specialist[]" required></td>
 			    <td><input type="text" class="form-control" name="service[]" required></td>
-			    <td><button type="button" class="btn btn-sm btn-danger remove-specialist">-</button></td>
+			    <td>
+				<button type="button" class="btn btn-outline-danger remove-specialist">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+				</svg> </button>
 			  </tr>
 			</tbody>
 		      </table>
