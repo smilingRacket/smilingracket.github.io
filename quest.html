@@ -253,13 +253,29 @@
                      <div class="row my-md-3">
                         <div class="col-md-6 my-3 my-md-auto">
                             <label for="job" class="form-label fw-bold">OCCUPATION/JOB TITLE:</label>
-                            <input type="text" id="job" class="form-control" placeholder=" ">
+                            <div>
+				<select  name="job" id="job" class="form-select" aria-label="SELECT YOUR JOB CATEGORY">
+				  <option selected>SELECT YOUR JOB CATEGORY</option>
+				  <option value="labor">Labor</option>
+				  <option value="physical">Physical</option>
+				  <option value="desk-work">Desk Work</option>
+				</select>
+                            </div>
                         </div>
                         <div class="col-md-6 my-3 my-md-auto">
                             <label for="marital" class="form-label fw-bold">
                                 MARITAL STATUS:
                             </label>
-                            <input type="text" id="marital" class="form-control" placeholder="">
+			     <div>
+				<select  name="marital" id="marital" class="form-select" aria-label="SELECT YOUR JOB CATEGORY">
+				  <option selected>SELECT YOUR MARITAL STATUS</option>
+				  <option value="married">Married</option>
+				  <option value="never-married">Never Married</option>
+				  <option value="widowed">Widowed</option>
+				  <option value="divorced">Divorced</option>
+				  <option value="seperated">Seperated</option>
+				</select>
+			    </div>
                         </div>
                     </div>
 
