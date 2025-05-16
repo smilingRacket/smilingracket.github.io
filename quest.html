@@ -21,7 +21,8 @@
 	  $('input[name="drug-answer"]').change(toggleSections);
 	  $('input[name="smoke-answer"]').change(toggleSections);
 	  $('input[name="alcohol-answer"]').change(toggleSections);
-	  $('input[name="extendedCoverage').change(toggleSections);
+	  $('input[name="extendedCoverage"]').change(toggleSections);
+	  $('input[name="ReactionAnaesthetics"]').change(toggleSections);
 
 	  // Medications Section - Add button
 	  $('#add-medication').off('click').on('click', function() {
@@ -82,9 +83,12 @@
 	    
 	    // Alcohol section
 	    $('#hide-drink-no').toggleClass('d-none', !$('#alcohol-answer-1').is(':checked'));
-	    
+
 	    // Coverage section
 	    $('#hide-coverage-no').toggleClass('d-none', !$('#extendedCoverageY').is(':checked'));
+		    
+	    // Reactions section
+	    $('#hide-reactions-no').toggleClass('d-none', !$('#ReactionAnaestheticsY').is(':checked'));
 	
 	  }
 	});	
@@ -408,7 +412,7 @@
 
                     <div class="row my-md-3">
                         <div class="my-3 my-md-auto">
-                            <label for="pastAnaesthetics" class="form-label fw-bold">Any Reactions/Problems with Past Anaesthetics? (e.g. Anaphylactic Reaction, Malignant Hyperthermia, Pseudocholinesterase deficiency)</label>
+                            <label for="pastAnaesthetics" class="form-label fw-bold">Any Reactions/Problems with Past Anaesthetics? </label>
                             <div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="ReactionAnaesthetics" id="ReactionAnaestheticsY" value="yes" class="form-check-input">
@@ -419,6 +423,32 @@
                                     <label for="ReacionAnaestheticsN" class="form-check-label">NO</label>
                                 </div>
                             </div>
+			    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-2 mb-2d-none " id="hide-reactions-no">
+				<div class="col">
+				    <div class="form-check">
+					<input type="checkbox" class="form-check-input" value="anaphylactic-reaction" id="anaphylactic-reaction" name="anaesthetics-reactions">
+					<label class="form-check-label" for="anaphylactic-reaction">Anaphylactic Reaction</label>
+				    </div>
+				</div>
+				<div class="col">
+				    <div class="form-check">
+					<input type="checkbox" class="form-check-input" value="malignant-hyperthermia" id="malignant-hyperthermia" name="anaesthetics-reactions">
+					<label class="form-check-label" for="malignant-hyperthermia">Malignant Hyperthermia</label>
+				    </div>
+				</div>
+				<div class="col">
+				    <div class="form-check">
+					<input type="checkbox" class="form-check-input" value="pseudocholinesterase-deficiency" id="pseudocholinesterase-deficiency" name="anaesthetics-reactions">
+					<label class="form-check-label" for="pseudocholinesterase-deficiency">Pseudocholinesterase deficiency</label>
+				    </div>
+				</div>
+				<div class="col">
+				    <div class="form-check">
+					<input type="checkbox" class="form-check-input" value="nausea" id="nausea-vomit" name="anaesthetics-reactions">
+					<label class="form-check-label" for="nausea-vomit">Nausea/Vomitting</label>
+				    </div>
+				</div>
+			    </div>
                         </div>
                     </div>
                     </div>
