@@ -172,22 +172,16 @@
                             </div>
 
                             <div class="d-none mb-2" id="hide-coverage-no">
-                                <div class="btn-group btn-group-lg w-100">
-
-				  <!--  option -->
-				  <input type="radio" class="btn-check" value="Coverage-CLife" id="Coverage-CLife" name="coverage" checked>
-				  <label class="btn btn-outline-secondary" for="Coverage-CLife">Canada Life</label>
-
-				  <input type="radio" class="btn-check" value="COverage-Gshield" id="COverage-Gshield" name="coverage">
-				  <label class="btn btn-outline-secondary" for="COverage-Gshield">Green Shield</label>
-				  <!--  option -->
-				  <input type="radio" class="btn-check" value="COverage-Manulife" id="COverage-Manulife" name="coverage">
-				  <label class="btn btn-outline-secondary" for="COverage-Manulife">Manulife</label>
-				  <input type="radio" class="btn-check" value="Coverage-Sunlife" id="Coverage-Sunlife" name="coverage">
-				  <label class="btn btn-outline-secondary" for="Coverage-Sunlife">Sunlife</label>
-				  <input type="radio" class="btn-check" value="Coverage-Other" id="Coverage-Other" name="coverage">
-				  <label class="btn btn-outline-secondary" for="Coverage-Other">Other</label>
-				</div>					
+				    <div>
+					<select  name="coverage" id="coverage" class="form-select" aria-label="Select">
+					  <option selected>SELECT</option>
+					  <option value="Canada-life">Canada Life</option>
+					  <option value="green-shield">Green Shield</option>
+					  <option value="manulife">Manulife</option>
+					  <option value="sunlife">Sunlife</option>
+					  <option value="other">Other</option>
+					</select>
+				    </div>
                             </div>
 
                         </div>
