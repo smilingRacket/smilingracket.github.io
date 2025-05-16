@@ -61,12 +61,35 @@
 	    $('#surgeries-table tbody').append(newRow);
 	  });
 
+	  //  Allergies Section - Add button
+	  $('#add-allergy').off('click').on('click', function() {
+	    const newRow = `
+	      <tr>
+		<td><input type="text" class="form-control" name="allergy[]" required></td>
+		<td><select  name="reaction[]" class="form-select" aria-label="SELECT YOUR REACTION">
+				  <option selected>SELECT YOUR REACTION</option>
+				  <option value="rash">RASH</option>
+				  <option value="intolerance">Intolerance</option>
+				  <option value="anaphalyxis">Anaphalyxis</option>
+				  <option value="hives">Hives</option>
+				</select></td>
+		<td><button type="button" class="btn btn-outline-danger remove-allergy"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button></td>
+	      </tr>
+	    `;
+	    $('#allergies-table tbody').append(newRow);
+	  });
+
+
 	  // Handle remove buttons using event delegation
 	  $(document).on('click', '.remove-medication', function() {
 	    $(this).closest('tr').remove();
 	  });
 
 	  $(document).on('click', '.remove-specialist', function() {
+	    $(this).closest('tr').remove();
+	  });
+
+	  $(document).on('click', '.remove-allergy', function() {
 	    $(this).closest('tr').remove();
 	  });
 
@@ -582,14 +605,47 @@
                     </div>
 
                     <hr>
-                    <h5 class="text-center my-2">ALLERGIES</h5>
-                    <div class="row my-3">
-                        <div class="my-3 my-md-auto">
-                            <label for="allergies" class="form-label fw-bold">Please list all allergies (including latex, medication, food) and type of reaction experienced:</label>
-                            <textarea id="allergies" class="form-control" rows="2"
-                                placeholder=""></textarea>
-                        </div>
-
+		<div class="card mb-3">
+		  <div class="card-header bg-light">
+		    <h5 class="mb-0">ALLERGIES</h5>
+		  </div>
+		  <div class="card-body">
+                    <label for="allergies" class="form-label">Please list all allergies (including latex, medication, food) and type of reaction experienced:</label>
+		    <div class="table-responsive">
+		      <table class="table table-bordered" id="allergies-table">
+			<thead class="thead-light">
+			  <tr>
+			    <th>ALLERGY</th>
+			    <th>REACTION</th>
+			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+</svg></th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+			    <td><input type="text" class="form-control" name="allergy[]" required></td>
+			    <td><select  name="reaction[]" class="form-select" aria-label="SELECT YOUR REACTION">
+				  <option selected>SELECT YOUR REACTION</option>
+				  <option value="rash">Rash</option>
+				  <option value="intolerance">Intolerance</option>
+				  <option value="anaphalyxis">Anaphalyxis</option>
+				  <option value="hives">Hives</option>
+				</select></td>
+			    <td>
+				<button type="button" class="btn btn-outline-danger remove-allergy">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+				</svg> </button>
+			  </tr>
+			</tbody>
+		      </table>
+		    </div>
+		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-allergy">
+		      <i class="bi bi-plus"></i> Add Allergy
+		    </button>
+                    </div>
                     </div>
                     <button type="button" class="btn btn-outline-secondary ms-auto d-block" id="go-to-goNext-3">Continue</button>
                 </div>
