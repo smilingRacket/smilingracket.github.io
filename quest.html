@@ -18,9 +18,10 @@
 	  toggleSections();
 	  
 	  // Set up event handlers for radio buttons
-	  $('input[name="drug-answer-2"]').change(toggleSections);
-	  $('input[name="smoke-answer-2"]').change(toggleSections);
-	  $('input[name="alcohol-answer-2"]').change(toggleSections);
+	  $('input[name="drug-answer"]').change(toggleSections);
+	  $('input[name="smoke-answer"]').change(toggleSections);
+	  $('input[name="alcohol-answer"]').change(toggleSections);
+	  $('input[name="extendedCoverage').change(toggleSections);
 
 	  // Medications Section - Add button
 	  $('#add-medication').off('click').on('click', function() {
@@ -74,13 +75,17 @@
 
 	  function toggleSections() {
 	    // Drug section
-	    $('#hide-drug-no').toggleClass('d-none', !$('#drug-answer-6').is(':checked'));
+	    $('#hide-drug-no').toggleClass('d-none', !$('#drug-answer-1').is(':checked'));
 	    
 	    // Smoke section
-	    $('#hide-smoke-no').toggleClass('d-none', !$('#smoke-answer-6').is(':checked'));
+	    $('#hide-smoke-no').toggleClass('d-none', !$('#smoke-answer-1').is(':checked'));
 	    
 	    // Alcohol section
-	    $('#hide-drink-no').toggleClass('d-none', !$('#alcohol-answer-6').is(':checked'));
+	    $('#hide-drink-no').toggleClass('d-none', !$('#alcohol-answer-1').is(':checked'));
+	    
+	    // Coverage section
+	    $('#hide-coverage-no').toggleClass('d-none', !$('#extendedCoverageY').is(':checked'));
+	
 	  }
 	});	
    </script>
@@ -141,30 +146,12 @@
                         <div class="col-md-3">
                             <label for="" class="form-label fw-bold">GENDER:</label>
                             <div>
-
-
-<select class="form-select" aria-label="Default select example">
-  <option selected>SELECT</option>
-  <option value="male">Male</option>
-  <option value="female">Female</option>
-  <option value="other">Other</option>
-</select>
-<!--
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="sex" id="sex-male" value="male" class="form-check-input">
-                                    <label for="sex-male" class="form-check-label">M</label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="sex" id="sex-female" value="female"
-                                        class="form-check-input">
-                                    <label for="sex-female" class="form-check-label">F</label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="sex" id="sex-other" value="other"
-                                        class="form-check-input">
-                                    <label for="sex-Other" class="form-check-label">OTHER</label>
-                                </div>
--->
+				<select  name="gender" id="gender" class="form-select" aria-label="Default select example">
+				  <option selected>SELECT</option>
+				  <option value="male">Male</option>
+				  <option value="female">Female</option>
+				  <option value="other">Other</option>
+				</select>
                             </div>
                         </div>
 
@@ -175,13 +162,32 @@
                             <div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="extendedCoverage" id="extendedCoverageY" value="Y" class="form-check-input">
-                                    <label for="extendedCoverageY" class="form-check-label">YES (Example: Canada Life, Green Shield, Manulife, Sunlife, etc.)</label>
+                                    <label for="extendedCoverageY" class="form-check-label">YES</label>
                                 </div>
                                 <div class="form-check-inline form-check">
                                     <input type="radio" name="extendedCoverage" id="extendedCoverageN" value="N"
-                                        class="form-check-input">
+                                        class="form-check-input" checked>
                                     <label for="extendedCoverageN" class="form-check-label" checked>NO</label>
                                 </div>
+                            </div>
+
+                            <div class="d-none mb-2" id="hide-coverage-no">
+                                <div class="btn-group btn-group-lg w-100">
+
+				  <!--  option -->
+				  <input type="radio" class="btn-check" value="Coverage-CLife" id="Coverage-CLife" name="coverage" checked>
+				  <label class="btn btn-outline-secondary" for="Coverage-CLife">Canada Life</label>
+
+				  <input type="radio" class="btn-check" value="COverage-Gshield" id="COverage-Gshield" name="coverage">
+				  <label class="btn btn-outline-secondary" for="COverage-Gshield">Green Shield</label>
+				  <!--  option -->
+				  <input type="radio" class="btn-check" value="COverage-Manulife" id="COverage-Manulife" name="coverage">
+				  <label class="btn btn-outline-secondary" for="COverage-Manulife">Manulife</label>
+				  <input type="radio" class="btn-check" value="Coverage-Sunlife" id="Coverage-Sunlife" name="coverage">
+				  <label class="btn btn-outline-secondary" for="Coverage-Sunlife">Sunlife</label>
+				  <input type="radio" class="btn-check" value="Coverage-Other" id="Coverage-Other" name="coverage">
+				  <label class="btn btn-outline-secondary" for="Coverage-Other">Other</label>
+				</div>					
                             </div>
 
                         </div>
@@ -418,12 +424,12 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="radio" id="smoke-answer-6" class="form-check-input " name="smoke-answer-2">
-                                <label for="smoke-answer-6" class="form-label">Yes</label>
+                                <input type="radio" id="smoke-answer-1" class="form-check-input " name="smoke-answer">
+                                <label for="smoke-answer-1" class="form-label">Yes</label>
                             </div>
                             <div class="form-check ">
-                                <input type="radio" id="smoke-answer-7" class="form-check-input " name="smoke-answer-2">
-                                <label for="smoke-answer-7" class="form-label">No</label>
+                                <input type="radio" id="smoke-answer-0" class="form-check-input " name="smoke-answer">
+                                <label for="smoke-answer-0" class="form-label">No</label>
                             </div>
 			<!-- Smoking section -->
 			<div id="hide-smoke-no" class="d-none">
@@ -441,12 +447,12 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="radio" id="alcohol-answer-6" class="form-check-input " name="alcohol-answer-2">
-                                <label for="alcohol-answer-6" class="form-label">Yes</label>
+                                <input type="radio" id="alcohol-answer-1" class="form-check-input " name="alcohol-answer">
+                                <label for="alcohol-answer-1" class="form-label">Yes</label>
                             </div>
                             <div class="form-check ">
-                                <input type="radio" id="alcohol-answer-7" class="form-check-input " name="alcohol-answer-2">
-                                <label for="alcohol-answer-7" class="form-label">No</label>
+                                <input type="radio" id="alcohol-answer-0" class="form-check-input " name="alcohol-answer">
+                                <label for="alcohol-answer-0" class="form-label">No</label>
                             </div>
 
 			<!-- Alcohol section -->
@@ -468,12 +474,12 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-check ">
-                                <input type="radio" id="drug-answer-6" class="form-check-input " name="drug-answer-2">
-                                <label for="drug-answer-6" class="form-label">Yes</label>
+                                <input type="radio" id="drug-answer-1" class="form-check-input " name="drug-answer">
+                                <label for="drug-answer-1" class="form-label">Yes</label>
                             </div>
                             <div class="form-check ">
-                                <input type="radio" id="drug-answer-7" class="form-check-input " name="drug-answer-2">
-                                <label for="drug-answer-7" class="form-label">No</label>
+                                <input type="radio" id="drug-answer-0" class="form-check-input " name="drug-answer">
+                                <label for="drug-answer-0" class="form-label">No</label>
                             </div>
 
 
