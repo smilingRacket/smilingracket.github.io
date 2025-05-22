@@ -1,1081 +1,1357 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PATIENT HEALTH QUESTIONNAIRE</title>
-
-    <!-- bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-	$(document).ready(function() {
-	  // Initialize sections on page load
-	  toggleSections();
-	  
-	  // Set up event handlers for radio buttons
-	  $('input[name="drug-answer"]').change(toggleSections);
-	  $('input[name="smoke-answer"]').change(toggleSections);
-	  $('input[name="alcohol-answer"]').change(toggleSections);
-	  $('input[name="extendedCoverage"]').change(toggleSections);
-	  $('input[name="ReactionAnaesthetics"]').change(toggleSections);
-
-	  // Medications Section - Add button
-	  $('#add-medication').off('click').on('click', function() {
-	    const newRow = `
-	      <tr>
-		<td><input type="text" class="form-control" name="medication[]" required></td>
-		<td><input type="text" class="form-control" name="dose[]" required></td>
-		<td><button type="button" class="btn btn-outline-danger remove-medication"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button></td>
-	      </tr>
-	    `;
-	    $('#medications-table tbody').append(newRow);
-	  });
-
-	  // Specialists Section - Add button
-	  $('#add-specialist').off('click').on('click', function() {
-	    const newRow = `
-	      <tr>
-		<td><input type="text" class="form-control" name="specialist[]" required></td>
-		<td><input type="text" class="form-control" name="service[]" required></td>
-		<td><button type="button" class="btn btn-outline-danger remove-specialist"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button> 
-	      </tr>
-	    `;
-	    $('#specialists-table tbody').append(newRow);
-	  });
-
-	  // Previous Surgeries Section - Add button
-	  $('#add-surgery').off('click').on('click', function() {
-	    const newRow = `
-	      <tr>
-		<td><input type="text" class="form-control" name="surgery[]" required></td>
-		<td><input type="text" class="form-control" name="reason[]" required></td>
-		<td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY" required></td>
-		<td><button type="button" class="btn btn-outline-danger remove-surgery"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button></td>
-	      </tr>
-	    `;
-	    $('#surgeries-table tbody').append(newRow);
-	  });
-
-	  //  Allergies Section - Add button
-	  $('#add-allergy').off('click').on('click', function() {
-	    const newRow = `
-	      <tr>
-		<td><input type="text" class="form-control" name="allergy[]" required></td>
-		<td><select  name="reaction[]" class="form-select" aria-label="SELECT YOUR REACTION">
-				  <option selected>SELECT YOUR REACTION</option>
-				  <option value="rash">RASH</option>
-				  <option value="intolerance">Intolerance</option>
-				  <option value="anaphalyxis">Anaphalyxis</option>
-				  <option value="hives">Hives</option>
-				</select></td>
-		<td><button type="button" class="btn btn-outline-danger remove-allergy"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path> </svg> </button></td>
-	      </tr>
-	    `;
-	    $('#allergies-table tbody').append(newRow);
-	  });
-
-
-	  // Handle remove buttons using event delegation
-	  $(document).on('click', '.remove-medication', function() {
-	    $(this).closest('tr').remove();
-	  });
-
-	  $(document).on('click', '.remove-specialist', function() {
-	    $(this).closest('tr').remove();
-	  });
-
-	  $(document).on('click', '.remove-allergy', function() {
-	    $(this).closest('tr').remove();
-	  });
-
-	  $(document).on('click', '.remove-surgery', function() {
-	    $(this).closest('tr').remove();
-	  });
-
-	  function toggleSections() {
-	    // Drug section
-	    $('#hide-drug-no').toggleClass('d-none', !$('#drug-answer-1').is(':checked'));
-	    
-	    // Smoke section
-	    $('#hide-smoke-no').toggleClass('d-none', !$('#smoke-answer-1').is(':checked'));
-	    
-	    // Alcohol section
-	    $('#hide-drink-no').toggleClass('d-none', !$('#alcohol-answer-1').is(':checked'));
-
-	    // Coverage section
-	    $('#hide-coverage-no').toggleClass('d-none', !$('#extendedCoverageY').is(':checked'));
-		    
-	    // Reactions section
-	    $('#hide-reactions-no').toggleClass('d-none', !$('#ReactionAnaestheticsY').is(':checked'));
-	
-	  }
-	});	
-   </script>
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-
-    <!-- font awesome 5 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"
-        integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-        </script>
-
-
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .is-invalid { border-color: #dc3545; }
+        .invalid-feedback { display: block; color: #dc3545; }
+	#loginFeedback { display: none; }
+    </style>
 </head>
+<body class="bg-light my-3">
 
-<body class="bg-light   my-3 ">
+
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body p-4">
+                        <img src="https://dbjs.health/wp-content/uploads/2020/03/DBJS-Logo-1.png" alt="avatar" 
+                            class="rounded-circle position-absolute top-0 start-50 translate-middle" style="width: 100px; height: 100px;">
+                        
+                        <form id="loginForm">
+                            <div class="pt-5 my-3 text-center">
+                                <h5></h5>
+                                <div id="loginFeedback" class="alert alert-danger mt-2"></div>
+                            </div>
+
+                            <!-- Health Card Number -->
+                            <div class="mb-3">
+                                <label for="hc_id" class="form-label">Health Card Number</label>
+                                <input type="text" id="hc_id" name="hc_id" class="form-control" required>
+                                <div class="invalid-feedback">Please enter your health card number</div>
+                            </div>
+
+                            <!-- Birth Date -->
+                            <div class="mb-4">
+                                <label for="birth_date" class="form-label">Birth Date</label>
+                                <input type="date" id="birth_date" name="birth_date" class="form-control" required>
+                                <div class="invalid-feedback">Please enter your birth date</div>
+                            </div>
+
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary w-100">
+                                Next
+                                <span class="spinner-border spinner-border-sm d-none" id="loginSpinner"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+	<!--
+	<div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+		    <div class="modal-body p-4">
+			<img src="https://dbjs.health/wp-content/uploads/2020/03/DBJS-Logo-1.png" alt="avatar" class="rounded-circle position-absolute top-0 start-50 translate-middle h-50" />
+			<form>
+			    <div>
+				<h5 class="pt-5 my-3"></h5>
+
+				<div class="form-outline mb-4">
+				    <input type="text" id="hc_id" class="form-control" />
+				    <label class="form-label" for="hc_id">Health Card Number</label>
+				</div>
+
+				<div class="form-outline mb-4">
+				    <input type="text" id="birth_date" class="form-control" />
+				    <label class="form-label" for="birth_date">Birth Date</label>
+				</div>
+
+				<button type="submit" class="btn btn-primary">Next</button>
+			    </div>
+			</form>
+		    </div>
+		</div>
+	    </div>
+	</div>	
+	-->
+
+
+
+<div id="mainContent" style="display: none;">
     <div class="container mt-3 mt-lg-5">
         <header class="mb-4">
-            <h1 class="display-3 text-center ">PATIENT HEALTH QUESTIONNAIRE</h1>
-            <h2 class=" lead text-center alert alert-primary">Make sure to hit Submit at the end</h2>
+            <h1 class="display-3 text-center">PATIENT HEALTH QUESTIONNAIRE</h1>
+            <h2 class="lead text-center alert alert-primary">Make sure to hit Submit at the end</h2>
         </header>
+
+
         <main>
-            <ul class="nav nav-tabs nav-justified">
-                <li class="nav-item  "><a href="#goNext-1" id="goNext-1-tab" data-bs-toggle="tab" class="nav-link h3 active">QUESTIONNAIRE<small
-                            class="d-none d-md-block lead">patient info</small></a></li>
-                <li class="nav-item  "><a href="#goNext-2" id="goNext-2-tab" data-bs-toggle="tab" class="nav-link h3 ">QUESTIONNAIRE<small
-                            class="d-none d-md-block lead">CONTINUED</small></a></li>
-                <li class="nav-item  "><a href="#goNext-3" id="goNext-3-tab" data-bs-toggle="tab" class="nav-link h3 ">MORE<small
-                            class="d-none d-md-block lead">CONTINUED</small></a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="goNext-1" class="tab-pane fade  show active   pt-4 ">
-                    <h5 class="text-center my-2">PATIENT DEMOGRAPHICS</h5>
-                     <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="lName" class="form-label fw-bold">
-                                LAST NAME:
-                            </label>
-                            <input type="text" id="lName" name="lName" class="form-control" placeholder="Lastname">
-                        </div>
-
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="fName" class="form-label fw-bold">FIRST NAME:</label>
-                            <input type="text" id="fName" name="fName" class="form-control" placeholder="Firstname ">
-                        </div>
-
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="dBirth" class="form-label fw-bold">DATE OF BIRTH:</label>
-                            <input type="text" id="dBirth" class="form-control" placeholder="DD/MM/YYYY">
-                        </div>
-                        <div class="col-md-3 my-3 my-md-auto">
-                            <label for="age" class="form-label fw-bold">
-                                Age:
-                            </label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="" class="form-label fw-bold">GENDER:</label>
-                            <div>
-				<select  name="gender" id="gender" class="form-select" aria-label="Select Your Gender">
-				  <option selected>SELECT YOUR GENDER</option>
-				  <option value="male">Male</option>
-				  <option value="female">Female</option>
-				  <option value="other">Other</option>
-				</select>
+            <form id="questForm" method="POST">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="nav-item"><a href="#goNext-1" id="goNext-1-tab" data-bs-toggle="tab" class="nav-link h3 active">QUESTIONNAIRE<small class="d-none d-md-block lead">patient info</small></a></li>
+                    <li class="nav-item"><a href="#goNext-2" id="goNext-2-tab" data-bs-toggle="tab" class="nav-link h3">NEXT<small class="d-none d-md-block lead">CONTINUED</small></a></li>
+                    <li class="nav-item"><a href="#goNext-3" id="goNext-3-tab" data-bs-toggle="tab" class="nav-link h3">LAST<small class="d-none d-md-block lead">CONTINUED</small></a></li>
+                </ul>
+                <div class="tab-content">
+                    <!-- Tab 1: Patient Demographics and Primary Concern -->
+                    <div id="goNext-1" class="tab-pane fade show active pt-4">
+                        <h5 class="text-center my-2">PATIENT DEMOGRAPHICS</h5>
+                        <div class="row my-md-3">
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="lName" class="form-label fw-bold">LAST NAME:</label>
+                                <input type="text" id="lName" name="lName" class="form-control" placeholder="Lastname" required>
+                            </div>
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="fName" class="form-label fw-bold">FIRST NAME:</label>
+                                <input type="text" id="fName" name="fName" class="form-control" placeholder="Firstname" required>
+                            </div>
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="dBirth" class="form-label fw-bold">DATE OF BIRTH:</label>
+                                <input type="date" id="dBirth" name="dBirth" class="form-control" placeholder="YYYY-MM-DD">
+                            </div>
+                            <div class="col-md-3 my-3 my-md-auto">
+                                <label for="age" class="form-label fw-bold">Age:</label>
+                                <input type="number" id="age" name="age" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="gender" class="form-label fw-bold">GENDER:</label>
+                                <select name="gender" id="gender" class="form-select" aria-label="Select Your Gender">
+                                    <option selected>SELECT YOUR GENDER</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row my-md-3">
-                        <div class="col-md-9 my-3 my-md-auto">
-                            <label for="extendedCoverage" class="form-label fw-bold">EXTENDED HEALTH COVERAGE:</label>
-                            <div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="extendedCoverage" id="extendedCoverageY" value="Y" class="form-check-input">
-                                    <label for="extendedCoverageY" class="form-check-label">YES</label>
+                        <div class="row my-md-3">
+                            <div class="col-md-9 my-3 my-md-auto">
+                                <label for="extendedCoverage" class="form-label fw-bold">EXTENDED HEALTH COVERAGE:</label>
+                                <div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="extendedCoverage" id="extendedCoverageY" value="Y" class="form-check-input">
+                                        <label for="extendedCoverageY" class="form-check-label">YES</label>
+                                    </div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="extendedCoverage" id="extendedCoverageN" value="N" class="form-check-input" checked>
+                                        <label for="extendedCoverageN" class="form-check-label">NO</label>
+                                    </div>
                                 </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="extendedCoverage" id="extendedCoverageN" value="N"
-                                        class="form-check-input" checked>
-                                    <label for="extendedCoverageN" class="form-check-label" checked>NO</label>
-                                </div>
-                            </div>
-
-                            <div class="d-none mb-2" id="hide-coverage-no">
-				    <div>
-					<select  name="coverage" id="coverage" class="form-select" aria-label="Select Your Coverage">
-					  <option selected>SELECT YOUR COVERAGE</option>
-					  <option value="Canada-life">Canada Life</option>
-					  <option value="green-shield">Green Shield</option>
-					  <option value="manulife">Manulife</option>
-					  <option value="sunlife">Sunlife</option>
-					  <option value="other">Other</option>
-					</select>
-				    </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="handDominance" class="form-label fw-bold">HAND DOMINANCE:</label>
-                            <div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="hand" id="hand-right" value="right" class="form-check-input" checked>
-                                    <label for="hand-right" class="form-check-label">RIGHT</label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="hand" id="hand-left" value="left"
-                                        class="form-check-input">
-                                    <label for="hand-left" class="form-check-label">LEFT</label>
-                                </div>
-
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="hand" id="AMBIDEXTROUS" value="both"
-                                        class="form-check-input">
-                                    <label for="AMBIDEXTROUS" class="form-check-label">AMBIDEXTROUS</label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                     <div class="row my-md-3">
-                        <div class="col-lg-6 ">
-                            <label for="height" class="form-label fw-bold">HEIGHT:</label>
-                            <div class="  mb-2">
-                                <div class="btn-group btn-group-lg w-100">
-
-				  <!--  imperial unit option -->
-				  <input type="radio" class="btn-check" value="ht-ft" id="ht-ft" name="ht-measure" checked>
-				  <label class="btn btn-outline-secondary" for="ht-ft">(ft.in.)</label>
-
-				  <!--  
-				  <input type="radio" class="btn-check" value="ht-in" id="ht-in" name="ht-measure">
-				  <label class="btn btn-outline-secondary" for="ht-in">(in)</label>
-				  -->
-				  <!-- metric unit option -->
-				  <input type="radio" class="btn-check" value="ht-cm" id="ht-cm" name="ht-measure">
-				  <label class="btn btn-outline-secondary" for="ht-cm">(cm)</label>
-				</div>					
-                            </div>
-                            <input class="form-control" placeholder="PUT YOUR HEIGHT HERE BASED ON YOUR CHOICE OF MEASUREMENT">
-                        </div>
-                        <div class="col-lg-6 ">
-                            <label for="weight" class="form-label fw-bold"> WEIGHT: </label>
-                            <div class="  mb-2">
-				<div class="btn-group btn-group-lg w-100">
-
-				  <!--  imperial unit option -->
-				  <input type="radio" class="btn-check" value="wt-lbs" id="wt-lbs" name="wt-measure" checked>
-				  <label class="btn btn-outline-secondary" for="wt-lbs">(lbs)</label>
-
-				  <!-- metric unit option -->
-				  <input type="radio" class="btn-check" value="wt-kg" id="wt-kg" name="wt-measure">
-				  <label class="btn btn-outline-secondary" for="wt-kg">(kg)</label>
-				</div>
-                            </div>
-                            <input class="form-control"
-                                placeholder="PUT YOUR WEIGHT HERE BASED ON YOUR CHOICE OF MEASUREMENT">
-                        </div>
-                    </div>
-
-                     <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="job" class="form-label fw-bold">OCCUPATION/JOB TITLE:</label>
-                            <div>
-				<select  name="job" id="job" class="form-select" aria-label="SELECT YOUR JOB CATEGORY">
-				  <option selected>SELECT YOUR JOB CATEGORY</option>
-				  <option value="labor">Labor</option>
-				  <option value="physical">Physical</option>
-				  <option value="desk-work">Desk Work</option>
-				</select>
-                            </div>
-                        </div>
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="marital" class="form-label fw-bold">
-                                MARITAL STATUS:
-                            </label>
-			     <div>
-				<select  name="marital" id="marital" class="form-select" aria-label="SELECT YOUR JOB CATEGORY">
-				  <option selected>SELECT YOUR MARITAL STATUS</option>
-				  <option value="married">Married</option>
-				  <option value="never-married">Never Married</option>
-				  <option value="widowed">Widowed</option>
-				  <option value="divorced">Divorced</option>
-				  <option value="seperated">Seperated</option>
-				</select>
-			    </div>
-                        </div>
-                    </div>
-
-
-                   <hr>
-                   <h5 class="text-center my-2">PRIMARY CONCERN REQUIRING ASSESSMENT</h5>
-                   <div class="row">
-                    </div>
-                    <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="detail" class="form-label fw-bold">Details:</label>
-                            <textarea class="form-control" id="concernDetail" rows="2" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="injuryResult" class="form-label fw-bold">RESULT OF AN INJURY?</label>
-                            <div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="injury" id="injuryY" value="yes" class="form-check-input">
-                                    <label for="injuryY" class="form-check-label">YES </label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="injury" id="injuryN" value="no"
-                                        class="form-check-input">
-                                    <label for="injuryN" class="form-check-label">NO</label>
+                                <div class="d-none mb-2" id="hide-coverage-no">
+                                    <select name="coverage" id="coverage" class="form-select" aria-label="Select Your Coverage">
+                                        <option selected>SELECT YOUR COVERAGE</option>
+                                        <option value="Canada-life">Canada Life</option>
+                                        <option value="green-shield">Green Shield</option>
+                                        <option value="manulife">Manulife</option>
+                                        <option value="sunlife">Sunlife</option>
+                                        <option value="other">Other</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="injuryAtWork" class="form-label fw-bold">INJURY OCCURRED AT WORK?</label>
-                            <div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="injuryAtWork" id="injuryAtWorkY" value="yes" class="form-check-input">
-                                    <label for="injuryAtWorkY" class="form-check-label">YES </label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="injuryAtWork" id="injuryAtWorkN" value="no" class="form-check-input" checked>
-                                    <label for="injuryAtWorkN" class="form-check-label">NO</label>
+                        <div class="row my-md-3">
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="handDominance" class="form-label fw-bold">HAND DOMINANCE:</label>
+                                <div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="hand" id="hand-right" value="right" class="form-check-input" checked>
+                                        <label for="hand-right" class="form-check-label">RIGHT</label>
+                                    </div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="hand" id="hand-left" value="left" class="form-check-input">
+                                        <label for="hand-left" class="form-check-label">LEFT</label>
+                                    </div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="hand" id="AMBIDEXTROUS" value="both" class="form-check-input">
+                                        <label for="AMBIDEXTROUS" class="form-check-label">AMBIDEXTROUS</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="injuryDate" class="form-label fw-bold">DATE OF INJURY:</label>
-                            <input type="text" id="dateInjury" class="form-control" placeholder="DD/MM/YYYY">
+                        <div class="row my-md-3">
+                            <div class="col-lg-6">
+                                <label for="height" class="form-label fw-bold">HEIGHT:</label>
+                                <div class="mb-2">
+                                    <div class="btn-group btn-group-lg w-100">
+                                        <input type="radio" class="btn-check" value="ht-ft" id="ht-ft" name="ht-measure" checked>
+                                        <label class="btn btn-outline-secondary" for="ht-ft">(ft.in.)</label>
+                                        <input type="radio" class="btn-check" value="ht-cm" id="ht-cm" name="ht-measure">
+                                        <label class="btn btn-outline-secondary" for="ht-cm">(cm)</label>
+                                    </div>
+                                </div>
+                                <input class="form-control" name="height" placeholder="PUT YOUR HEIGHT HERE BASED ON YOUR CHOICE OF MEASUREMENT">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="weight" class="form-label fw-bold">WEIGHT:</label>
+                                <div class="mb-2">
+                                    <div class="btn-group btn-group-lg w-100">
+                                        <input type="radio" class="btn-check" value="wt-lbs" id="wt-lbs" name="wt-measure" checked>
+                                        <label class="btn btn-outline-secondary" for="wt-lbs">(lbs)</label>
+                                        <input type="radio" class="btn-check" value="wt-kg" id="wt-kg" name="wt-measure">
+                                        <label class="btn btn-outline-secondary" for="wt-kg">(kg)</label>
+                                    </div>
+                                </div>
+                                <input class="form-control" name="weight" placeholder="PUT YOUR WEIGHT HERE BASED ON YOUR CHOICE OF MEASUREMENT">
+                            </div>
                         </div>
+                        <div class="row my-md-3">
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="job" class="form-label fw-bold">OCCUPATION/JOB TITLE:</label>
+                                <select name="job" id="job" class="form-select" aria-label="SELECT YOUR JOB CATEGORY">
+                                    <option selected>SELECT YOUR JOB CATEGORY</option>
+                                    <option value="labor">Labor</option>
+                                    <option value="physical">Physical</option>
+                                    <option value="desk-work">Desk Work</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="marital" class="form-label fw-bold">MARITAL STATUS:</label>
+                                <select name="marital" id="marital" class="form-select" aria-label="SELECT YOUR MARITAL STATUS">
+                                    <option selected>SELECT YOUR MARITAL STATUS</option>
+                                    <option value="married">Married</option>
+                                    <option value="never-married">Never Married</option>
+                                    <option value="widowed">Widowed</option>
+                                    <option value="divorced">Divorced</option>
+                                    <option value="separated">Separated</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <h5 class="text-center my-2">PRIMARY CONCERN REQUIRING ASSESSMENT</h5>
+                        <div class="row my-md-3">
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="detail" class="form-label fw-bold">Details:</label>
+                                <textarea class="form-control" id="concernDetail" name="concernDetail" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="row my-md-3">
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="injuryResult" class="form-label fw-bold">RESULT OF AN INJURY?</label>
+                                <div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="injury" id="injuryY" value="yes" class="form-check-input">
+                                        <label for="injuryY" class="form-check-label">YES</label>
+                                    </div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="injury" id="injuryN" value="no" class="form-check-input">
+                                        <label for="injuryN" class="form-check-label">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-md-3">
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="injuryAtWork" class="form-label fw-bold">INJURY OCCURRED AT WORK?</label>
+                                <div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="injuryAtWork" id="injuryAtWorkY" value="yes" class="form-check-input">
+                                        <label for="injuryAtWorkY" class="form-check-label">YES</label>
+                                    </div>
+                                    <div class="form-check-inline form-check">
+                                        <input type="radio" name="injuryAtWork" id="injuryAtWorkN" value="no" class="form-check-input" checked>
+                                        <label for="injuryAtWorkN" class="form-check-label">NO</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-md-3">
+                            <div class="col-md-6 my-3 my-md-auto">
+                                <label for="injuryDate" class="form-label fw-bold">DATE OF INJURY:</label>
+                                <input type="date" id="dateInjury" name="dateInjury" class="form-control" placeholder="YYYY-MM-DD">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary d-block ms-auto" id="go-to-goNext-2">Continue</button>
                     </div>
-		    
-                    <button type="button" class="btn btn-outline-secondary d-block ms-auto" id="go-to-goNext-2">Continue
-                    </button>
+                    <!-- Tab 2: Previous Surgeries, Social History, Vaccine History, Allergies -->
+                    <div id="goNext-2" class="tab-pane fade pt-4">
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">PREVIOUS SURGERIES</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="surgeries-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>SURGERY</th>
+                                                <th>REASON</th>
+                                                <th>DATE (MONTH/YEAR)</th>
+                                                <th width="5%">&nbsp; </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="surgery[]" required></td>
+                                                <td><input type="text" class="form-control" name="reason[]" required></td>
+                                                <td><input type="date" class="form-control" name="surgery_date[]" placeholder="YYYY-MM-DD" required></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-danger remove-surgery">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+                                                    </svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-success mt-2" id="add-surgery">
+                                    <i class="bi bi-plus"></i> Add Surgery
+                                </button>
+                                <div class="row my-md-3">
+                                    <div class="col-md-6 my-3 my-md-auto">
+                                        <label for="surgeryAnesthesia" class="form-label fw-bold">Surgery Required Anesthesia (check all that apply):</label>
+                                        <div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="checkbox" name="SurgeryAnaesthetics[]" id="AnaestheticsG" value="general" class="form-check-input">
+                                                <label for="AnaestheticsG" class="form-check-label">General Anaesthetic</label>
+                                            </div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="checkbox" name="SurgeryAnaesthetics[]" id="AnaestheticsE" value="epidural" class="form-check-input">
+                                                <label for="AnaestheticsE" class="form-check-label">Epidural</label>
+                                            </div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="checkbox" name="SurgeryAnaesthetics[]" id="AnaestheticsS" value="spinal" class="form-check-input">
+                                                <label for="AnaestheticsS" class="form-check-label">Spinal</label>
+                                            </div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="checkbox" name="SurgeryAnaesthetics[]" id="AnaestheticsL" value="local" class="form-check-input">
+                                                <label for="AnaestheticsL" class="form-check-label">Local</label>
+                                            </div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="checkbox" name="SurgeryAnaesthetics[]" id="AnaestheticsNone" value="none" class="form-check-input">
+                                                <label for="AnaestheticsNone" class="form-check-label">None</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-md-3">
+                                    <div class="my-3 my-md-auto">
+                                        <label for="pastAnaesthetics" class="form-label fw-bold">Any Reactions/Problems with Past Anaesthetics?</label>
+                                        <div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="radio" name="ReactionAnaesthetics" id="ReactionAnaestheticsY" value="yes" class="form-check-input">
+                                                <label for="ReactionAnaestheticsY" class="form-check-label">YES</label>
+                                            </div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="radio" name="ReactionAnaesthetics" id="ReactionAnaestheticsN" value="no" class="form-check-input" checked>
+                                                <label for="ReactionAnaestheticsN" class="form-check-label">NO</label>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-2 mb-2 d-none" id="hide-reactions-no">
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" value="anaphylactic-reaction" id="anaphylactic-reaction" name="anaesthetics-reactions[]">
+                                                    <label class="form-check-label" for="anaphylactic-reaction">Anaphylactic Reaction</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" value="malignant-hyperthermia" id="malignant-hyperthermia" name="anaesthetics-reactions[]">
+                                                    <label class="form-check-label" for="malignant-hyperthermia">Malignant Hyperthermia</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" value="pseudocholinesterase-deficiency" id="pseudocholinesterase-deficiency" name="anaesthetics-reactions[]">
+                                                    <label class="form-check-label" for="pseudocholinesterase-deficiency">Pseudocholinesterase deficiency</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" value="nausea" id="nausea-vomit" name="anaesthetics-reactions[]">
+                                                    <label class="form-check-label" for="nausea-vomit">Nausea/Vomitting</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h5 class="text-center my-2">SOCIAL HISTORY</h5>
+                        <div class="row my-3">
+                            <div class="col-lg-6">
+                                <figure class="figure">
+                                    <figcaption class="figure-caption">SMOKING?</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-check">
+                                    <input type="radio" id="smoke-answer-1" class="form-check-input" name="smoke-answer" value="yes">
+                                    <label for="smoke-answer-1" class="form-label">Yes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="smoke-answer-0" class="form-check-input" name="smoke-answer" value="no">
+                                    <label for="smoke-answer-0" class="form-label">No</label>
+                                </div>
+                                <div id="hide-smoke-no" class="d-none">
+                                    <p class="text-muted small mt-1">if yes, how many cigarettes a day?</p>
+                                    <input type="text" class="form-control form-control-sm" name="smoke-frequency" size="30">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-lg-6">
+                                <figure class="figure">
+                                    <figcaption class="figure-caption">ALCOHOL?</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-check">
+                                    <input type="radio" id="alcohol-answer-1" class="form-check-input" name="alcohol-answer" value="yes">
+                                    <label for="alcohol-answer-1" class="form-label">Yes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="alcohol-answer-0" class="form-check-input" name="alcohol-answer" value="no">
+                                    <label for="alcohol-answer-0" class="form-label">No</label>
+                                </div>
+                                <div id="hide-drink-no" class="d-none">
+                                    <p class="text-muted small mt-1">if yes, how many drinks in a week?</p>
+                                    <input type="text" class="form-control form-control-sm" name="alcohol-frequency" size="30">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-lg-6">
+                                <figure class="figure">
+                                    <figcaption class="figure-caption">RECREATIONAL DRUGS?</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-check">
+                                    <input type="radio" id="drug-answer-1" class="form-check-input" name="drug-answer" value="yes">
+                                    <label for="drug-answer-1" class="form-label">Yes</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="drug-answer-0" class="form-check-input" name="drug-answer" value="no">
+                                    <label for="drug-answer-0" class="form-label">No</label>
+                                </div>
+                                <div id="hide-drug-no" class="d-none">
+                                    <p class="text-muted small mt-1">if yes, please specify type and frequency?</p>
+                                    <input type="text" class="form-control form-control-sm" name="drug-frequency" size="30">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h5 class="text-center my-2">VACCINE HISTORY</h5>
+                        <div class="row my-3">
+                            <div class="col-lg-6">
+                                <figure class="figure">
+                                    <figcaption class="figure-caption">COVID</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-check">
+                                    <input type="radio" id="covid-answer-0" class="form-check-input" name="covid-answer" value="unvaccinated">
+                                    <label for="covid-answer-0" class="form-label">unvaccinated</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="covid-answer-1" class="form-check-input" name="covid-answer" value="1 dose">
+                                    <label for="covid-answer-1" class="form-label">1 dose</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="covid-answer-2" class="form-check-input" name="covid-answer" value="2 doses">
+                                    <label for="covid-answer-2" class="form-label">2 doses</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="covid-answer-3" class="form-check-input" name="covid-answer" value="3 doses">
+                                    <label for="covid-answer-3" class="form-label">3 doses</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-lg-6">
+                                <figure class="figure">
+                                    <figcaption class="figure-caption">FLU</figcaption>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-check">
+                                    <input type="radio" id="flu-answer-0" class="form-check-input" name="flu-answer" value="unvaccinated">
+                                    <label for="flu-answer-0" class="form-label">unvaccinated</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" id="flu-answer-1" class="form-check-input" name="flu-answer" value="annual">
+                                    <label for="flu-answer-1" class="form-label">annual</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">ALLERGIES</h5>
+                            </div>
+                            <div class="card-body">
+                                <label for="allergies" class="form-label">Please list all allergies (including latex, medication, food) and type of reaction experienced:</label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="allergies-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>ALLERGY</th>
+                                                <th>REACTION</th>
+                                                <th width="5%">
 
-
-
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="allergy[]" required></td>
+                                                <td>
+                                                    <select name="reaction[]" class="form-select" aria-label="SELECT YOUR REACTION">
+                                                        <option selected>SELECT YOUR REACTION</option>
+                                                        <option value="rash">Rash</option>
+                                                        <option value="intolerance">Intolerance</option>
+                                                        <option value="anaphalyxis">Anaphalyxis</option>
+                                                        <option value="hives">Hives</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-danger remove-allergy">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+                                                    </svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-success mt-2" id="add-allergy">
+                                    <i class="bi bi-plus"></i> Add Allergy
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary ms-auto d-block" id="go-to-goNext-3">Continue</button>
+                    </div>
+                    <!-- Tab 3: Medical History, Medications, Specialists -->
+                    <div id="goNext-3" class="tab-pane fade my-3 pt-4">
+                        <div class="container-fluid">
+                            <h5 class="text-center my-2">RELEVANT MEDICAL HISTORY</h5>
+                            <p class="small">Please check all that apply:</p>
+                            <!-- Pulmonary Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Pulmonary</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="asthma" id="pulmonary-asthma" name="pulmonary-conditions[]">
+                                            <label class="form-check-label" for="pulmonary-asthma">Asthma</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="copd" id="pulmonary-copd" name="pulmonary-conditions[]">
+                                            <label class="form-check-label" for="pulmonary-copd">COPD</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="sleep-apnea" id="pulmonary-sleep-apnea" name="pulmonary-conditions[]">
+                                            <label class="form-check-label" for="pulmonary-sleep-apnea">Sleep Apnea</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Cardiac Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Cardiac</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row row-cols-2 row-cols-lg-5 g-2 mb-2">
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="fainting" id="cardiac-fainting" name="cardiac-conditions[]">
+                                                <label class="form-check-label" for="cardiac-fainting">Fainting</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="heart-attack" id="cardiac-heart-attack" name="cardiac-conditions[]">
+                                                <label class="form-check-label" for="cardiac-heart-attack">Heart Attack</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="irregular-beat" id="cardiac-irregular-beat" name="cardiac-conditions[]">
+                                                <label class="form-check-label" for="cardiac-irregular-beat">Irregular Beat</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="high-blood-pressure" id="cardiac-high-blood-pressure" name="cardiac-conditions[]">
+                                                <label class="form-check-label" for="cardiac-high-blood-pressure">High Blood Pressure</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="a-fib" id="cardiac-a-fib" name="cardiac-conditions[]">
+                                                <label class="form-check-label" for="cardiac-a-fib">A-Fib</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- GI Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">GI</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="gerd" id="gi-gerd" name="gi-conditions[]">
+                                            <label class="form-check-label" for="gi-gerd">GERD (Reflux)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="cholecystitis" id="gi-cholecystitis" name="gi-conditions[]">
+                                            <label class="form-check-label" for="gi-cholecystitis">Cholecystitis</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="appendicitis" id="gi-appendicitis" name="gi-conditions[]">
+                                            <label class="form-check-label" for="gi-appendicitis">Appendicitis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Endocrine Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Endocrine</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="diabetes" id="endocrine-diabetes" name="endocrine-conditions[]">
+                                            <label class="form-check-label" for="endocrine-diabetes">Diabetes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="hypothyroidism" id="endocrine-hypothyroidism" name="endocrine-conditions[]">
+                                            <label class="form-check-label" for="endocrine-hypothyroidism">Hypothyroidism</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="hyperthyroidism" id="endocrine-hyperthyroidism" name="endocrine-conditions[]">
+                                            <label class="form-check-label" for="endocrine-hyperthyroidism">Hyperthyroidism</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Hepatic Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Hepatic</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="hepatitis" id="hepatic-hepatitis" name="hepatic-conditions[]">
+                                            <label class="form-check-label" for="hepatic-hepatitis">Hepatitis</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="fatty-liver" id="hepatic-fatty-liver" name="hepatic-conditions[]">
+                                            <label class="form-check-label" for="hepatic-fatty-liver">Fatty Liver</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Haematological Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Haematological</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="dvt" id="haematological-dvt" name="haematological-conditions[]">
+                                            <label class="form-check-label" for="haematological-dvt">DVT</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="coagulopathy" id="haematological-coagulopathy" name="haematological-conditions[]">
+                                            <label class="form-check-label" for="haematological-coagulopathy">Coagulopathy</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="blood-transfusions" id="haematological-blood-transfusions" name="haematological-conditions[]">
+                                            <label class="form-check-label" for="haematological-blood-transfusions">Blood Transfusions</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Pain Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Pain</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="fibromyalgia" id="pain-fibromyalgia" name="pain-conditions[]">
+                                            <label class="form-check-label" for="pain-fibromyalgia">Fibromyalgia</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="chronic-regional-pain" id="pain-chronic-regional-pain" name="pain-conditions[]">
+                                            <label class="form-check-label" for="pain-chronic-regional-pain">Chronic Regional Pain</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Cancer Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Cancer</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-2 mb-2">
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="multiple-myeloma" id="cancer-multiple-myeloma" name="cancer-conditions[]">
+                                                <label class="form-check-label" for="cancer-multiple-myeloma">Multiple Myeloma</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="lung" id="cancer-lung" name="cancer-conditions[]">
+                                                <label class="form-check-label" for="cancer-lung">Lung</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="prostate" id="cancer-prostate" name="cancer-conditions[]">
+                                                <label class="form-check-label" for="cancer-prostate">Prostate</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="colon" id="cancer-colon" name="cancer-conditions[]">
+                                                <label class="form-check-label" for="cancer-colon">Colon</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="breast" id="cancer-breast" name="cancer-conditions[]">
+                                                <label class="form-check-label" for="cancer-breast">Breast</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" value="gynaecological" id="cancer-gynaecological" name="cancer-conditions[]">
+                                                <label class="form-check-label" for="cancer-gynaecological">Gynaecological</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Mental Health Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Mental Health</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="depression" id="mental-health-depression" name="mental-health-conditions[]">
+                                            <label class="form-check-label" for="mental-health-depression">Depression</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="anxiety" id="mental-health-anxiety" name="mental-health-conditions[]">
+                                            <label class="form-check-label" for="mental-health-anxiety">Anxiety</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="ptsd" id="mental-health-ptsd" name="mental-health-conditions[]">
+                                            <label class="form-check-label" for="mental-health-ptsd">PTSD</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                            </div>
+                            <!-- Neurological Conditions -->
+                            <div class="row my-2">
+                                <div class="col-lg-6">
+                                    <h2 class="h5">Neurological</h2>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="seizures" id="neurological-seizures" name="neurological-conditions[]">
+                                            <label class="form-check-label" for="neurological-seizures">Seizures</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="stroke" id="neurological-stroke" name="neurological-conditions[]">
+                                            <label class="form-check-label" for="neurological-stroke">Stroke</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" value="vertigo" id="neurological-vertigo" name="neurological-conditions[]">
+                                            <label class="form-check-label" for="neurological-vertigo">Vertigo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <!-- Medications Section -->
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">MEDICATIONS</h5>
+                                <small class="text-muted">(Includes over-the-counter drugs, inhalers and herbal supplements)</small>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="medications-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th width="65%">Drug Name</th>
+                                                <th width="30%">Dose</th>
+                                                <th width="5%"> &nbsp;
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="medication[]" required></td>
+                                                <td><input type="text" class="form-control" name="dose[]" required></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-danger remove-medication">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+                                                    </svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-success mt-2" id="add-medication">
+                                    <i class="bi bi-plus"></i> Add Medication
+                                </button>
+                                <div class="row my-md-3">
+                                    <div class="col-md-6 my-3 my-md-auto">
+                                        <label for="steroid" class="form-label fw-bold">Prednisone/steroid medication in the past 6 months?</label>
+                                        <div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="radio" name="steroid" id="steroidY" value="yes" class="form-check-input">
+                                                <label for="steroidY" class="form-check-label">YES</label>
+                                            </div>
+                                            <div class="form-check-inline form-check">
+                                                <input type="radio" name="steroid" id="steroidN" value="no" class="form-check-input" checked>
+                                                <label for="steroidN" class="form-check-label">NO</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Specialists Section -->
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">SPECIALISTS</h5>
+                                <small class="text-muted">(Please list all specialists who look after your medical conditions)</small>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="specialists-table">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Service</th>
+                                                <th width="5%">&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" name="specialist[]" required></td>
+                                                <td><input type="text" class="form-control" name="service[]" required></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-danger remove-specialist">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+                                                    </svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-success mt-2" id="add-specialist">
+                                    <i class="bi bi-plus"></i> Add Specialist
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" id="submitButton" class="btn btn-secondary my-4 d-block ms-auto">
+                            Submit
+                            <span class="spinner-border spinner-border-sm d-none"></span>
+                        </button>
+                    </div>
                 </div>
-		<!-- Previous Surgeries Section -->
-		<div id="goNext-2" class="tab-pane fade  pt-4 ">
-		<div class="card mb-3">
-		  <div class="card-header bg-light">
-		    <h5 class="mb-0">PREVIOUS SURGERIES</h5>
-		  </div>
-		  <div class="card-body">
-		    <div class="table-responsive">
-		      <table class="table table-bordered" id="surgeries-table">
-			<thead class="thead-light">
-			  <tr>
-			    <th>SURGERY</th>
-			    <th>REASON</th>
-			    <th>DATE (MONTH/YEAR)</th>
-			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
-</svg></th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr>
-			    <td><input type="text" class="form-control" name="surgery[]" required></td>
-			    <td><input type="text" class="form-control" name="reason[]" required></td>
-			    <td><input type="text" class="form-control" name="surgery_date[]" placeholder="MM/YYYY" required></td>
-			    <td>
-				<button type="button" class="btn btn-outline-danger remove-surgery">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
-				</svg> </button>
-			  </tr>
-			</tbody>
-		      </table>
-		    </div>
-		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-surgery">
-		      <i class="bi bi-plus"></i> Add Surgery
-		    </button>
-
-                    <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="surgeryAnesthesia" class="form-label fw-bold">Surgery Required Anesthesia (check all that apply):</label>
-                            <div>
-                                <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsG" value="general" class="form-check-input">
-                                    <label for="SurgeryAnaesthetics" class="form-check-label">General Anaesthetic </label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsE" value="epidural"
-                                        class="form-check-input">
-                                    <label for="Anaesthetics" class="form-check-label">Epidural</label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsS" value="spinal"
-                                        class="form-check-input">
-                                    <label for="Anaesthetics" class="form-check-label">Spinal</label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsL" value="local"
-                                        class="form-check-input">
-                                    <label for="Anaesthetics" class="form-check-label">Local</label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="checkbox" name="SurgeryAnaesthetics" id="AnaestheticsNone" value="none"
-                                        class="form-check-input">
-                                    <label for="Anaesthetics" class="form-check-label">None</label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row my-md-3">
-                        <div class="my-3 my-md-auto">
-                            <label for="pastAnaesthetics" class="form-label fw-bold">Any Reactions/Problems with Past Anaesthetics? </label>
-                            <div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="ReactionAnaesthetics" id="ReactionAnaestheticsY" value="yes" class="form-check-input">
-                                    <label for="ReactionAnaestheticsY" class="form-check-label">YES </label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="ReactionAnaesthetics" id="ReacionAnaestheticsN" value="no" class="form-check-input" checked>
-                                    <label for="ReacionAnaestheticsN" class="form-check-label">NO</label>
-                                </div>
-                            </div>
-			    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-2 mb-2d-none " id="hide-reactions-no">
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="anaphylactic-reaction" id="anaphylactic-reaction" name="anaesthetics-reactions">
-					<label class="form-check-label" for="anaphylactic-reaction">Anaphylactic Reaction</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="malignant-hyperthermia" id="malignant-hyperthermia" name="anaesthetics-reactions">
-					<label class="form-check-label" for="malignant-hyperthermia">Malignant Hyperthermia</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="pseudocholinesterase-deficiency" id="pseudocholinesterase-deficiency" name="anaesthetics-reactions">
-					<label class="form-check-label" for="pseudocholinesterase-deficiency">Pseudocholinesterase deficiency</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="nausea" id="nausea-vomit" name="anaesthetics-reactions">
-					<label class="form-check-label" for="nausea-vomit">Nausea/Vomitting</label>
-				    </div>
-				</div>
-			    </div>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-
-                    <hr>
-                    <h5 class="text-center my-2">SOCIAL HISTORY</h5>
-                    <div class="row my-3">
-                        <div class="col-lg-6">
-                            <figure class="figure">
-                                <figcaptiin class="figure-caption">SMOKING?</figcaptiin>
-                            </figure>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-check ">
-                                <input type="radio" id="smoke-answer-1" class="form-check-input " name="smoke-answer">
-                                <label for="smoke-answer-1" class="form-label">Yes</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="radio" id="smoke-answer-0" class="form-check-input " name="smoke-answer">
-                                <label for="smoke-answer-0" class="form-label">No</label>
-                            </div>
-			<!-- Smoking section -->
-			<div id="hide-smoke-no" class="d-none">
-			  <p class="text-muted small mt-1">if yes, how many cigarettes a day?</p>
-			  <input type="text" class="form-control form-control-sm" size="30">
-			</div>
-
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-lg-6">
-                            <figure class="figure">
-                                <figcaptiin class="figure-caption">ALCOHOL?</figcaptiin>
-                            </figure>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-check ">
-                                <input type="radio" id="alcohol-answer-1" class="form-check-input " name="alcohol-answer">
-                                <label for="alcohol-answer-1" class="form-label">Yes</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="radio" id="alcohol-answer-0" class="form-check-input " name="alcohol-answer">
-                                <label for="alcohol-answer-0" class="form-label">No</label>
-                            </div>
-
-			<!-- Alcohol section -->
-			<div id="hide-drink-no" class="d-none">
-			  <p class="text-muted small mt-1">if yes, how many drinks in a week?</p>
-			  <label for="alcohol-answer-10" class="form-label">
-			    <input type="text" class="form-control form-control-sm" size="30">
-			  </label>
-			</div>
-
-
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-lg-6">
-                            <figure class="figure">
-                                <figcaptiin class="figure-caption">RECREATIONAL DRUGS?</figcaptiin>
-                            </figure>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-check ">
-                                <input type="radio" id="drug-answer-1" class="form-check-input " name="drug-answer">
-                                <label for="drug-answer-1" class="form-label">Yes</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="radio" id="drug-answer-0" class="form-check-input " name="drug-answer">
-                                <label for="drug-answer-0" class="form-label">No</label>
-                            </div>
-
-
-			<!-- Drugs section -->
-			<div id="hide-drug-no" class="d-none">
-			  <p class="text-muted small mt-1">if yes, please specify type and frequency?</p>
-			  <label for="drug-answer-10" class="form-label">
-			    <input type="text" class="form-control form-control-sm" size="30">
-			  </label>
-			</div>
-
-                        </div>
-                    </div>
-
-                    <hr>
-                    <h5 class="text-center my-2">VACCINE HISTORY</h5>
-                    <div class="row my-3">
-                        <div class="col-lg-6">
-                            <figure class="figure">
-                                <figcaptiin class="figure-caption">COVID</figcaptiin>
-                            </figure>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-check ">
-                                <input type="radio" id="covid-answer-0" class="form-check-input " name="covid-answer">
-                                <label for="covid-answer-0" class="form-label">unvaccinated</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="radio" id="covid-answer-1" class="form-check-input " name="covid-answer">
-                                <label for="covid-answer-1" class="form-label">1 dose</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="radio" id="covid-answer-2" class="form-check-input " name="covid-answer">
-                                <label for="covid-answer-2" class="form-label">2 doses</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="radio" id="covid-answer-3" class="form-check-input " name="covid-answer">
-                                <label for="covid-answer-3" class="form-label">3 doses</label>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-lg-6">
-                            <figure class="figure">
-                                <figcaptiin class="figure-caption">FLU</figcaptiin>
-                            </figure>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-check ">
-                                <input type="radio" id="flu-answer-0" class="form-check-input " name="flu-answer">
-                                <label for="flu-answer-0" class="form-label">unvaccinated</label>
-                            </div>
-                            <div class="form-check ">
-                                <input type="radio" id="flu-answer-1" class="form-check-input " name="flu-answer">
-                                <label for="flu-answer-1" class="form-label">annual</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-		<div class="card mb-3">
-		  <div class="card-header bg-light">
-		    <h5 class="mb-0">ALLERGIES</h5>
-		  </div>
-		  <div class="card-body">
-                    <label for="allergies" class="form-label">Please list all allergies (including latex, medication, food) and type of reaction experienced:</label>
-		    <div class="table-responsive">
-		      <table class="table table-bordered" id="allergies-table">
-			<thead class="thead-light">
-			  <tr>
-			    <th>ALLERGY</th>
-			    <th>REACTION</th>
-			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
-</svg></th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr>
-			    <td><input type="text" class="form-control" name="allergy[]" required></td>
-			    <td><select  name="reaction[]" class="form-select" aria-label="SELECT YOUR REACTION">
-				  <option selected>SELECT YOUR REACTION</option>
-				  <option value="rash">Rash</option>
-				  <option value="intolerance">Intolerance</option>
-				  <option value="anaphalyxis">Anaphalyxis</option>
-				  <option value="hives">Hives</option>
-				</select></td>
-			    <td>
-				<button type="button" class="btn btn-outline-danger remove-allergy">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
-				</svg> </button>
-			  </tr>
-			</tbody>
-		      </table>
-		    </div>
-		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-allergy">
-		      <i class="bi bi-plus"></i> Add Allergy
-		    </button>
-                    </div>
-                    </div>
-                    <button type="button" class="btn btn-outline-secondary ms-auto d-block" id="go-to-goNext-3">Continue</button>
-                </div>
-
-                <div id="goNext-3" class="tab-pane fade my-3  pt-4 ">
-		<div class="container-fluid">
-		    <h5 class="text-center my-2">RELEVANT MEDICAL HISTORY</h5>
-		    <p class="small">Please check all that apply:</p>
-
-		    <!-- Pulmonary Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Pulmonary</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="asthma" id="pulmonary-asthma" name="pulmonary-conditions">
-				    <label class="form-check-label" for="pulmonary-asthma">Asthma</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="copd" id="pulmonary-copd" name="pulmonary-conditions">
-				    <label class="form-check-label" for="pulmonary-copd">COPD</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="sleep-apnea" id="pulmonary-sleep-apnea" name="pulmonary-conditions">
-				    <label class="form-check-label" for="pulmonary-sleep-apnea">Sleep Apnea</label>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Cardiac Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Cardiac</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="row row-cols-2 row-cols-lg-5 g-2 mb-2">
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="fainting" id="cardiac-fainting" name="cardiac-conditions">
-					<label class="form-check-label" for="cardiac-fainting">Fainting</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="heart-attack" id="cardiac-heart-attack" name="cardiac-conditions">
-					<label class="form-check-label" for="cardiac-heart-attack">Heart Attack</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="irregular-beat" id="cardiac-irregular-beat" name="cardiac-conditions">
-					<label class="form-check-label" for="cardiac-irregular-beat">Irregular Beat</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="high-blood-pressure" id="cardiac-high-blood-pressure" name="cardiac-conditions">
-					<label class="form-check-label" for="cardiac-high-blood-pressure">High Blood Pressure</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="a-fib" id="cardiac-a-fib" name="cardiac-conditions">
-					<label class="form-check-label" for="cardiac-a-fib">A-Fib</label>
-				    </div>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- GI Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">GI</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="gerd" id="gi-gerd" name="gi-conditions">
-				    <label class="form-check-label" for="gi-gerd">GERD (Reflux)</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="cholecystitis" id="gi-cholecystitis" name="gi-conditions">
-				    <label class="form-check-label" for="gi-cholecystitis">Cholecystitis</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="appendicitis" id="gi-appendicitis" name="gi-conditions">
-				    <label class="form-check-label" for="gi-appendicitis">Appendicitis</label>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Endocrine Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Endocrine</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="diabetes" id="endocrine-diabetes" name="endocrine-conditions">
-				    <label class="form-check-label" for="endocrine-diabetes">Diabetes</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="hypothyroidism" id="endocrine-hypothyroidism" name="endocrine-conditions">
-				    <label class="form-check-label" for="endocrine-hypothyroidism">Hypothyroidism</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="hyperthyroidism" id="endocrine-hyperthyroidism" name="endocrine-conditions">
-				    <label class="form-check-label" for="endocrine-hyperthyroidism">Hyperthyroidism</label>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Hepatic Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Hepatic</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="hepatitis" id="hepatic-hepatitis" name="hepatic-conditions">
-				    <label class="form-check-label" for="hepatic-hepatitis">Hepatitis</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="fatty-liver" id="hepatic-fatty-liver" name="hepatic-conditions">
-				    <label class="form-check-label" for="hepatic-fatty-liver">Fatty Liver</label>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Haematological Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Haematological</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="dvt" id="haematological-dvt" name="haematological-conditions">
-				    <label class="form-check-label" for="haematological-dvt">DVT</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="coagulopathy" id="haematological-coagulopathy" name="haematological-conditions">
-				    <label class="form-check-label" for="haematological-coagulopathy">Coagulopathy</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="blood-transfusions" id="haematological-blood-transfusions" name="haematological-conditions">
-				    <label class="form-check-label" for="haematological-blood-transfusions">Blood Transfusions</label>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Pain Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Pain</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="fibromyalgia" id="pain-fibromyalgia" name="pain-conditions">
-				    <label class="form-check-label" for="pain-fibromyalgia">Fibromyalgia</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="chronic-regional-pain" id="pain-chronic-regional-pain" name="pain-conditions">
-				    <label class="form-check-label" for="pain-chronic-regional-pain">Chronic Regional Pain</label>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Cancer Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Cancer</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-2 mb-2">
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="multiple-myeloma" id="cancer-multiple-myeloma" name="cancer-conditions">
-					<label class="form-check-label" for="cancer-multiple-myeloma">Multiple Myeloma</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="lung" id="cancer-lung" name="cancer-conditions">
-					<label class="form-check-label" for="cancer-lung">Lung</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="prostate" id="cancer-prostate" name="cancer-conditions">
-					<label class="form-check-label" for="cancer-prostate">Prostate</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="colon" id="cancer-colon" name="cancer-conditions">
-					<label class="form-check-label" for="cancer-colon">Colon</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="breast" id="cancer-breast" name="cancer-conditions">
-					<label class="form-check-label" for="cancer-breast">Breast</label>
-				    </div>
-				</div>
-				<div class="col">
-				    <div class="form-check">
-					<input type="checkbox" class="form-check-input" value="gynaecological" id="cancer-gynaecological" name="cancer-conditions">
-					<label class="form-check-label" for="cancer-gynaecological">Gynaecological</label>
-				    </div>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Mental Health Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Mental Health</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="depression" id="mental-health-depression" name="mental-health-conditions">
-				    <label class="form-check-label" for="mental-health-depression">Depression</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="anxiety" id="mental-health-anxiety" name="mental-health-conditions">
-				    <label class="form-check-label" for="mental-health-anxiety">Anxiety</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="ptsd" id="mental-health-ptsd" name="mental-health-conditions">
-				    <label class="form-check-label" for="mental-health-ptsd">PTSD</label>
-				</div>
-			    </div>
-			</div>
-			<hr class="mt-4">
-		    </div>
-
-		    <!-- Neurological Conditions -->
-		    <div class="row my-2">
-			<div class="col-lg-6">
-			    <h2 class="h5">Neurological</h2>
-			</div>
-			<div class="col-lg-6">
-			    <div class="d-flex justify-content-between mb-2">
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="seizures" id="neurological-seizures" name="neurological-conditions">
-				    <label class="form-check-label" for="neurological-seizures">Seizures</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="stroke" id="neurological-stroke" name="neurological-conditions">
-				    <label class="form-check-label" for="neurological-stroke">Stroke</label>
-				</div>
-				<div class="form-check">
-				    <input type="checkbox" class="form-check-input" value="vertigo" id="neurological-vertigo" name="neurological-conditions">
-				    <label class="form-check-label" for="neurological-vertigo">Vertigo</label>
-				</div>
-			    </div>
-			</div>
-		    </div>
-		    <hr>
-		</div>
-
-		<!-- Medications Section -->
-
-		<div class="card mb-3">
-		  <div class="card-header bg-light">
-		    <h5 class="mb-0">MEDICATIONS</h5>
-		    <small class="text-muted">(Includes over-the-counter drugs, inhalers and herbal supplements)</small>
-		  </div>
-		  <div class="card-body">
-		    <div class="table-responsive">
-		      <table class="table table-bordered" id="medications-table">
-			<thead class="thead-light">
-			  <tr>
-			    <th width="65%">Drug Name</th>
-			    <th width="30%">Dose</th>
-			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
-</svg></th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr>
-			    <td><input type="text" class="form-control" name="medication[]" required></td>
-			    <td><input type="text" class="form-control" name="dose[]" required></td>
-			    <td>
-				<button type="button" class="btn btn-outline-danger remove-medication">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
-				</svg> </button>
-
-			  </tr>
-			</tbody>
-		      </table>
-		    </div>
-		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-medication">
-		      <i class="bi bi-plus"></i> Add Medication
-		    </button>
-                    <div class="row my-md-3">
-                        <div class="col-md-6 my-3 my-md-auto">
-                            <label for="steroid" class="form-label fw-bold">Prednisone/steroid medication in the past 6 months?</label>
-                            <div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="steroid" id="steroidY" value="yes" class="form-check-input">
-                                    <label for="steroidY" class="form-check-label">YES </label>
-                                </div>
-                                <div class="form-check-inline form-check">
-                                    <input type="radio" name="steroid" id="steroidN" value="no" class="form-check-input" checked>
-                                    <label for="steroidN" class="form-check-label">NO</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-		    </div>
-		</div>
-
-
-
-		<!-- Specialists Section -->
-
-		<div class="card mb-3">
-		  <div class="card-header bg-light">
-		    <h5 class="mb-0">SPECIALISTS</h5>
-		    <small class="text-muted">(Please list all specialists who look after your medical conditions)</small>
-		  </div>
-		  <div class="card-body">
-		    <div class="table-responsive">
-		      <table class="table table-bordered" id="specialists-table">
-			<thead class="thead-light">
-			  <tr>
-			    <th>Name</th>
-			    <th>Service</th>
-			    <th width="5%"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
-</svg></th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr>
-			    <td><input type="text" class="form-control" name="specialist[]" required></td>
-			    <td><input type="text" class="form-control" name="service[]" required></td>
-			    <td>
-				<button type="button" class="btn btn-outline-danger remove-specialist">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
-				  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
-				</svg> </button>
-			  </tr>
-			</tbody>
-		      </table>
-		    </div>
-		    <button type="button" class="btn btn-sm btn-success mt-2" id="add-specialist">
-		      <i class="bi bi-plus"></i> Add Specialist
-		    </button>
-		  </div>
-		</div>
-
-	    <button type="submit" id="submitButton" class="btn btn-secondary my-4  d-block ms-auto">
-		Submit
-		<span class="spinner-border spinner-border-sm d-none"></span>
-	    </button>
-
-            </div>
+	        <input type="hidden" id="hc_num" class="form-control" name="hc_num">
+            </form>
+            <!-- Alert for feedback -->
+            <div id="formFeedback" class="alert d-none mt-3" role="alert"></div>
         </main>
     </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        var goToNext2Trigger = document.querySelector('#go-to-goNext-2');
-        goToNext2Trigger.addEventListener('click', function () {
-            scrollToTop();
-            setTimeout(function () {
-                var goNext2TabElement = document.querySelector('#goNext-2-tab');
-                var goNext2Tab = new bootstrap.Tab(goNext2TabElement);
-                goNext2Tab.show();
-            }, 1000)
-        })
+        $(document).ready(function() {
 
-        var goToStep3Trigger = document.querySelector('#go-to-goNext-3');
-        goToStep3Trigger.addEventListener('click', function () {
-            scrollToTop();
-            setTimeout(function () {
-                var goNext3TabElement = document.querySelector('#goNext-3-tab');
-                var goNext3Tab = new bootstrap.Tab(goNext3TabElement);
-                goNext3Tab.show();
-            }, 1000)
-        })
-
-        function scrollToTop() {
-            scroll({
-                top: 0,
-                behavior: "smooth"
+            // Initialize and show modal on page load
+            const loginModal = new bootstrap.Modal('#loginModal', {
+                backdrop: 'static',
+                keyboard: false
             });
-        }
+            loginModal.show();
 
-        var submitButton = document.querySelector('#submitButton');
-        submitButton.addEventListener('click', function () {
-            submitButton.disabled = true;
-            submitButton.querySelector('.spinner-border').classList.remove('d-none');
-            setTimeout(function () {
-                window.location.href = 'index.php';
-            }, 2000)
-        })
+            // Handle login form submission
+            $('#loginForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                const hcId = $('#hc_id').val();
+                const birthDate = $('#birth_date').val();
+                let isValid = true;
+                
+                if (!hcId) {
+                    $('#hc_id').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#hc_id').removeClass('is-invalid');
+                }
+                
+                if (!birthDate) {
+                    $('#birth_date').addClass('is-invalid');
+                    isValid = false;
+                } else {
+                    $('#birth_date').removeClass('is-invalid');
+                }
+                
+                if (!isValid) return;
+                
+                // Show loading spinner
+                $('#loginSpinner').removeClass('d-none');
+                $('#loginFeedback').hide();
+                
+                // Prepare form data
+                const formData = {
+                    hc_id: hcId,
+                    birth_date: birthDate
+                };
+                
+                // Send AJAX request
+                $.ajax({
+                    url: 'process_firstStep.php',
+                    type: 'POST',
+                    data: JSON.stringify(formData),
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // Hide modal and show main content
+                            loginModal.hide();
+                            $('#mainContent').show();
+			    $('#dBirth').val(birthDate); 	
+			    $('#hc_num').val(hcId); 	
+                        } else {
+                            // Show error message
+                            $('#loginFeedback').text(response.message || 'Login failed').show();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('#loginFeedback').text('Error: ' + error).show();
+                    },
+                    complete: function() {
+                        $('#loginSpinner').addClass('d-none');
+                    }
+                });
+            });
+/*
+	   // Show the modal on page load
+            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop5'), {
+                backdrop: 'static', // Prevent closing when clicking outside
+                keyboard: false     // Prevent closing with ESC key
+            });
+            myModal.show();
+*/
+	function restructureFormData(jsonString) {
+	    const dataArray = JSON.parse(jsonString);
+	    const result = {};
+	    const arrayFields = {};
 
-</script>
+	    // First pass: collect all fields
+	    dataArray.forEach(item => {
+		const fieldName = item.name;
+		const isArrayField = fieldName.endsWith('[]');
+		const baseName = isArrayField ? fieldName.slice(0, -2) : fieldName;
+
+		if (isArrayField) {
+		    if (!arrayFields[baseName]) {
+			arrayFields[baseName] = [];
+		    }
+		    arrayFields[baseName].push(item.value);
+		} else {
+		    if (result[fieldName] === undefined) {
+			result[fieldName] = item.value;
+		    }
+		}
+	    });
+
+	    // Process allergy/reaction pairs
+	    if (arrayFields.allergy || arrayFields.reaction) {
+		result.allergies = [];
+		const maxAllergyPairs = Math.max(
+		    arrayFields.allergy?.length || 0,
+		    arrayFields.reaction?.length || 0
+		);
+		
+		for (let i = 0; i < maxAllergyPairs; i++) {
+		    result.allergies.push({
+			allergy: arrayFields.allergy?.[i] || null,
+			reaction: arrayFields.reaction?.[i] || null
+		    });
+		}
+		delete arrayFields.allergy;
+		delete arrayFields.reaction;
+	    }
 
 
+	    // Process medication/dose pairs
+	    if (arrayFields.medication || arrayFields.dose) {
+		result.medications = [];
+		const maxAllergyPairs = Math.max(
+		    arrayFields.medication?.length || 0,
+		    arrayFields.dose?.length || 0
+		);
+		
+		for (let i = 0; i < maxAllergyPairs; i++) {
+		    result.medications.push({
+			medication: arrayFields.medication?.[i] || null,
+			dose: arrayFields.dose?.[i] || null
+		    });
+		}
+		delete arrayFields.medication;
+		delete arrayFields.dose;
+	    }
+
+	    // Process specialist/service pairs
+	    if (arrayFields.specialist || arrayFields.service) {
+		result.specialists = [];
+		const maxAllergyPairs = Math.max(
+		    arrayFields.specialist?.length || 0,
+		    arrayFields.service?.length || 0
+		);
+		
+		for (let i = 0; i < maxAllergyPairs; i++) {
+		    result.specialists.push({
+			specialist: arrayFields.specialist?.[i] || null,
+			service: arrayFields.service?.[i] || null
+		    });
+		}
+		delete arrayFields.specialist;
+		delete arrayFields.service;
+	    }
+
+	    // Process surgery information
+	    if (arrayFields.surgery || arrayFields.reason || arrayFields.surgery_date) {
+		result.surgeries = [];
+		const maxSurgeries = Math.max(
+		    arrayFields.surgery?.length || 0,
+		    arrayFields.reason?.length || 0,
+		    arrayFields.surgery_date?.length || 0
+		);
+		
+		for (let i = 0; i < maxSurgeries; i++) {
+		    result.surgeries.push({
+			type: arrayFields.surgery?.[i] || null,
+			reason: arrayFields.reason?.[i] || null,
+			date: arrayFields.surgery_date?.[i] || null
+		    });
+		}
+		delete arrayFields.surgery;
+		delete arrayFields.reason;
+		delete arrayFields.surgery_date;
+	    }
+
+	    // Process SurgeryAnaesthetics separately
+	    if (arrayFields.SurgeryAnaesthetics) {
+		result.SurgeryAnaesthetics = arrayFields.SurgeryAnaesthetics;
+		delete arrayFields.SurgeryAnaesthetics;
+	    }
+
+	    // Process anaesthetics-reactions
+	    if (arrayFields['anaesthetics-reactions']) {
+		result.anaestheticsReactions = arrayFields['anaesthetics-reactions'];
+		delete arrayFields['anaesthetics-reactions'];
+	    }
+
+	    // Add remaining array fields
+	    Object.keys(arrayFields).forEach(key => {
+		result[key] = arrayFields[key];
+	    });
+
+	    return result;
+	}
+
+            // Toggle conditional sections
+            function toggleSections() {
+                $('#hide-drug-no').toggleClass('d-none', !$('#drug-answer-1').is(':checked'));
+                $('#hide-smoke-no').toggleClass('d-none', !$('#smoke-answer-1').is(':checked'));
+                $('#hide-drink-no').toggleClass('d-none', !$('#alcohol-answer-1').is(':checked'));
+                $('#hide-coverage-no').toggleClass('d-none', !$('#extendedCoverageY').is(':checked'));
+                $('#hide-reactions-no').toggleClass('d-none', !$('#ReactionAnaestheticsY').is(':checked'));
+            }
+
+            // Initialize toggle sections
+            toggleSections();
+            $('input[name="drug-answer"], input[name="smoke-answer"], input[name="alcohol-answer"], input[name="extendedCoverage"], input[name="ReactionAnaesthetics"]').change(toggleSections);
+
+            // Add rows dynamically
+            $('#add-allergy').on('click', function() {
+                const newRow = `
+                    <tr>
+                        <td><input type="text" class="form-control" name="allergy[]" required></td>
+                        <td><select name="reaction[]" class="form-select" aria-label="SELECT YOUR REACTION">
+                            <option selected>SELECT YOUR REACTION</option>
+                            <option value="rash">Rash</option>
+                            <option value="intolerance">Intolerance</option>
+                            <option value="anaphalyxis">Anaphalyxis</option>
+                            <option value="hives">Hives</option>
+                        </select></td>
+                        <td><button type="button" class="btn btn-outline-danger remove-allergy">
+			    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+				<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+				<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+			    </svg><button> </td>
+                    </tr>`;
+                $('#allergies-table tbody').append(newRow);
+            });
+
+            $('#add-surgery').on('click', function() {
+                const newRow = `
+                    <tr>
+                        <td><input type="text" class="form-control" name="surgery[]" required></td>
+                        <td><input type="text" class="form-control" name="reason[]" required></td>
+                        <td><input type="date" class="form-control" name="surgery_date[]" placeholder="YYYY-MM-DD" required></td>
+                        <td><button type="button" class="btn btn-outline-danger remove-surgery">
+			    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+				<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+				<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+			    </svg></button></td>
+                    </tr>`;
+                $('#surgeries-table tbody').append(newRow);
+            });
+
+            $('#add-medication').on('click', function() {
+                const newRow = `
+                    <tr>
+                        <td><input type="text" class="form-control" name="medication[]" required></td>
+                        <td><input type="text" class="form-control" name="dose[]" required></td>
+                        <td><button type="button" class="btn btn-outline-danger remove-medication">
+			    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+				<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+				<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+			    </svg></button></td>
+                    </tr>`;
+                $('#medications-table tbody').append(newRow);
+            });
+
+            $('#add-specialist').on('click', function() {
+                const newRow = `
+                    <tr>
+                        <td><input type="text" class="form-control" name="specialist[]" required></td>
+                        <td><input type="text" class="form-control" name="service[]" required></td>
+                        <td><button type="button" class="btn btn-outline-danger remove-specialist">
+			    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+				<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+				<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+			    </svg></button></td>
+                    </tr>`;
+                $('#specialists-table tbody').append(newRow);
+            });
+
+            // Remove rows
+            $(document).on('click', '.remove-allergy', function() {
+                $(this).closest('tr').remove();
+            });
+            $(document).on('click', '.remove-surgery', function() {
+                $(this).closest('tr').remove();
+            });
+            $(document).on('click', '.remove-medication', function() {
+                $(this).closest('tr').remove();
+            });
+            $(document).on('click', '.remove-specialist', function() {
+                $(this).closest('tr').remove();
+            });
+
+            // Tab navigation
+            $('#go-to-goNext-2').on('click', function() {
+                window.scroll({ top: 0, behavior: "smooth" });
+                setTimeout(function() {
+                    bootstrap.Tab.getOrCreateInstance($('#goNext-2-tab')[0]).show();
+                }, 1000);
+            });
+
+            $('#go-to-goNext-3').on('click', function() {
+                window.scroll({ top: 0, behavior: "smooth" });
+                setTimeout(function() {
+                    bootstrap.Tab.getOrCreateInstance($('#goNext-3-tab')[0]).show();
+                }, 1000);
+            });
+
+            // Form submission via AJAX
+            $('#questForm').on('submit', function(e) {
+                e.preventDefault();
+                const submitButton = $('#submitButton');
+                const feedbackAlert = $('#formFeedback');
+
+                // Disable button and show spinner
+                submitButton.prop('disabled', true);
+                submitButton.find('.spinner-border').removeClass('d-none');
+
+                // Validate required fields
+                let isValid = true;
+                const requiredFields = ['lName', 'fName'];
+                requiredFields.forEach(field => {
+                    const input = $(`input[name="${field}"]`);
+                    if (!input.val()) {
+                        isValid = false;
+                        input.addClass('is-invalid');
+                    } else {
+                        input.removeClass('is-invalid');
+                    }
+                });
+
+                let hasAllergy = false;
+                $('#allergies-table tbody tr').each(function() {
+                    const allergy = $(this).find('input[name="allergy[]"]').val();
+                    const reaction = $(this).find('select[name="reaction[]"]').val();
+                    if (allergy && reaction !== "SELECT YOUR REACTION") {
+                        hasAllergy = true;
+                    }
+                    if (!allergy || reaction === "SELECT YOUR REACTION") {
+                        isValid = false;
+                        $(this).find('input[name="allergy[]"]').addClass('is-invalid');
+                        $(this).find('select[name="reaction[]"]').addClass('is-invalid');
+                    } else {
+                        $(this).find('input[name="allergy[]"]').removeClass('is-invalid');
+                        $(this).find('select[name="reaction[]"]').removeClass('is-invalid');
+                    }
+                });
+
+                let hasSurgery = false;
+                $('#surgeries-table tbody tr').each(function() {
+                    const surgery = $(this).find('input[name="surgery[]"]').val();
+                    const reason = $(this).find('input[name="reason[]"]').val();
+                    const surgery_date = $(this).find('input[name="surgery_date[]"]').val();
+                    if (surgery && reason && surgery_date) {
+                        hasSurgery = true;
+                    }
+                    if (!surgery || !reason || !surgery_date) {
+                        isValid = false;
+                        $(this).find('input[name="surgery[]"]').addClass('is-invalid');
+                        $(this).find('input[name="reason[]"]').addClass('is-invalid');
+                        $(this).find('input[name="surgery_date[]"]').addClass('is-invalid');
+                    } else {
+                        $(this).find('input[name="surgery[]"]').removeClass('is-invalid');
+                        $(this).find('input[name="reason[]"]').removeClass('is-invalid');
+                        $(this).find('input[name="surgery_date[]"]').removeClass('is-invalid');
+                    }
+                });
+
+                $('#medications-table tbody tr').each(function() {
+                    const medication = $(this).find('input[name="medication[]"]').val();
+                    const dose = $(this).find('input[name="dose[]"]').val();
+                    if (!medication || !dose) {
+                        isValid = false;
+                        $(this).find('input[name="medication[]"]').addClass('is-invalid');
+                        $(this).find('input[name="dose[]"]').addClass('is-invalid');
+                    } else {
+                        $(this).find('input[name="medication[]"]').removeClass('is-invalid');
+                        $(this).find('input[name="dose[]"]').removeClass('is-invalid');
+                    }
+                });
+
+                $('#specialists-table tbody tr').each(function() {
+                    const specialist = $(this).find('input[name="specialist[]"]').val();
+                    const service = $(this).find('input[name="service[]"]').val();
+                    if (!specialist || !service) {
+                        isValid = false;
+                        $(this).find('input[name="specialist[]"]').addClass('is-invalid');
+                        $(this).find('input[name="service[]"]').addClass('is-invalid');
+                    } else {
+                        $(this).find('input[name="specialist[]"]').removeClass('is-invalid');
+                        $(this).find('input[name="service[]"]').removeClass('is-invalid');
+                    }
+                });
+
+                if (!hasAllergy || !hasSurgery) {
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    feedbackAlert.removeClass('d-none alert-success alert-danger').addClass('alert-danger').text('Please fill all required fields correctly.');
+                    submitButton.prop('disabled', false);
+                    submitButton.find('.spinner-border').addClass('d-none');
+                    return;
+                }
+
+                // Serialize form data
+                const formData = $(this).serializeArray();
+		
+
+		const myObject = {};
+		myObject[formData[0].name] = formData[0].value;
+		myObject[formData[1].name] = formData[1].value;
+		myObject[formData[2].name] = formData[2].value;
+
+		const inputJsonString = JSON.stringify(formData); 
+		const restructuredData = restructureFormData(inputJsonString);
+		//console.log(JSON.stringify(restructuredData, null, 2)); 
+
+                // Send AJAX request
+                $.ajax({
+                    url: 'process_new.php',
+                    type: 'POST',
+                    data: JSON.stringify(restructuredData),
+                    success: function(response) {
+                        try {
+                            const res = response;//JSON.parse(response);
+                            feedbackAlert.removeClass('d-none alert-danger').addClass('alert-success').text(res.message || 'Form submitted successfully!');
+                            $('#questForm')[0].reset();
+                            $('#allergies-table tbody, #surgeries-table tbody, #medications-table tbody, #specialists-table tbody').empty();
+                            $('#add-allergy, #add-surgery, #add-medication, #add-specialist').trigger('click');
+                            toggleSections();
+                        } catch (e) {
+                            feedbackAlert.removeClass('d-none alert-success').addClass('alert-danger').text('Error processing response: ' + e.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        feedbackAlert.removeClass('d-none alert-success').addClass('alert-danger').text('Error submitting form: ' + error);
+                    },
+                    complete: function() {
+                        submitButton.prop('disabled', false);
+                        submitButton.find('.spinner-border').addClass('d-none');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
